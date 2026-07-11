@@ -20,6 +20,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
         rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display:ital@0;1&display=swap"
+        rel="stylesheet" />
     <style>
         * {
             box-sizing: border-box;
@@ -32,19 +35,22 @@
             --bg-cream-dark: #F5F3EB;
             --bg-cream-border: #E8E0D2;
             --grid-blue: #7597a7;
-            --grid-blue-light: #9EB5C0;
+            --grid-blue-light: #c8d5dc;
             --terracotta: #E2BBAA;
             --terracotta-light: #F5EAE4;
             --sage: #8AADA7;
-            --sage-light: #E4EDE5;
+            --sage-light: #e4eded;
             --olive: #CFCBA9;
+            --olive-light: #f3f0e7;
             --sand: #F9E5C6;
-            --sand-light: #FAF0DC;
+            --sand-light: #f7f4ed;
             --steel: #5E747F;
             --text: #111111;
             --muted: #7A6E65;
             --hint: #A89D95;
-            --max-width: 720px;
+            --clay: #cfbea9;
+            --clay-light: #f5eee6;
+            --max-width: 840px;
             --font-body: 'Space Mono', monospace;
             --font-heading: 'Gochi Hand', cursive;
         }
@@ -231,7 +237,7 @@
         .callout-journal {
             background: #FFFFFF;
             border: 1px solid var(--bg-cream-border);
-            border-left: 4px solid var(--grid-blue);
+            border-left: 15px solid var(--grid-blue);
             position: relative;
         }
 
@@ -254,7 +260,7 @@
         .callout-insight {
             background: var(--sand-light);
             border: 1px solid var(--bg-cream-border);
-            border-left: 4px solid var(--sage);
+            border-left: 15px solid var(--grid-blue);
         }
 
         .callout-label {
@@ -305,7 +311,7 @@
         .driver-pill {
             font-size: 12px;
             padding: 6px 14px;
-            border-radius: 20px;
+            border-radius: 10px;
             border: 1px solid var(--bg-cream-border);
             background: var(--bg-cream-dark);
             color: var(--muted);
@@ -315,33 +321,33 @@
         }
 
         .driver-pill.t {
-            background: var(--terracotta-light);
+            background: #F5F3EB;
             border-color: var(--terracotta);
-            color: #8A5A4A;
+            color: #111111;
         }
 
         .driver-pill.s {
-            background: var(--sage-light);
+            background: #F5F3EB;
             border-color: var(--sage);
-            color: #5A7A6A;
+            color: #111111;
         }
 
         .driver-pill.o {
-            background: var(--sand-light);
+            background: #F5F3EB;
             border-color: var(--olive);
-            color: #7A6A3A;
+            color: #111111;
         }
 
         .driver-pill.b {
-            background: var(--grid-blue-light);
+            background: #F5F3EB;
             border-color: var(--grid-blue);
-            color: #5A7A8A;
+            color: #111111;
         }
 
         .driver-pill.c {
-            background: var(--bg-cream);
+            background: #F5F3EB;
             border-color: var(--clay);
-            color: #8A7A6A;
+            color: #111111;
         }
 
         /* FRAMEWORK VISUAL */
@@ -522,7 +528,8 @@
             margin-top: 12px;
         }
 
-        /* RELATED ARTICLES */
+
+        /* RELATED ARTICLES 
         .related {
             border-top: 1px solid var(--bg-cream-border);
             padding-top: 40px;
@@ -570,6 +577,111 @@
             color: var(--text);
             line-height: 1.3;
         }
+            */
+
+
+
+        .read-next {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+            margin-bottom: 56px;
+        }
+
+        .blog-card {
+            background: #FFFFFF;
+            border: 1px solid var(--bg-cream-border);
+            border-radius: 14px;
+            padding: 24px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .blog-card:hover {
+            border-color: var(--grid-blue);
+            transform: translateY(-2px);
+        }
+
+        .blog-card-type {
+            font-size: 10px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            width: fit-content;
+            padding: 4px 10px;
+            border-radius: 10px;
+        }
+
+        .type-explainer {
+            background: var(--grid-blue-light);
+            color: #2A4858;
+        }
+
+        .type-listicle {
+            background: var(--terracotta-light);
+            color: #8A5A4A;
+        }
+
+        .type-narrative {
+            background: var(--sage-light);
+            color: #3A6A5A;
+        }
+
+        .type-guide {
+            background: var(--sand-light);
+            color: #8A6A30;
+        }
+
+        .type-intersection {
+            background: var(--bg-cream-dark);
+            color: var(--muted);
+            border: 1px solid var(--bg-cream-border);
+        }
+
+        .blog-card-title {
+            font-family: var(--font-heading);
+            font-size: 19px;
+            color: var(--text);
+            line-height: 1.25;
+            margin-bottom: 10px;
+        }
+
+        .blog-card-desc {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.65;
+            margin-bottom: 16px;
+            flex: 1;
+        }
+
+        .blog-card-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 10.5px;
+            color: var(--hint);
+            padding-top: 14px;
+            border-top: 1px solid var(--bg-cream-border);
+        }
+
+        .blog-card-read {
+            color: var(--grid-blue);
+            font-weight: 500;
+        }
+
 
         /* TABLE OF CONTENTS */
         .toc {
@@ -700,32 +812,30 @@
 </head>
 
 
-<script async data-uid="b1e556a7d7" src="https://lumila.kit.com/b1e556a7d7/index.js"></script>
 
 <body>
 
     <nav>
-        <a href="/" class="nav-logo">future sanctuary<span>.</span></a>
+        <a href="../index.html" class="nav-logo">futuresanctuary<span>.</span></a>
         <div class="nav-links">
-            <a href="/blog">blog</a>
-            <a href="/#apps">apps</a>
-            <a href="/#get-pause" class="nav-cta">coming soon</a>
+            <a href="blog-index.html">blog</a>
+            <a href="../pause-waitlist.html" class="nav-cta">coming soon</a>
         </div>
     </nav>
     <article>
 
         <header class="article-header">
             <div class="breadcrumb">
-                <a href="/">home</a>
+                <a href="../index.html">home</a>
                 <span>/</span>
-                <a href="/blog">blog</a>
+                <a href="blog-index.html">blog</a>
                 <span>/</span>
                 <span>why you keep impulse buying</span>
             </div>
 
             <div class="article-label">spending psychology</div>
 
-            <h1 class="article-title">Why You Keep Impulse Buying<br>(And What's Actually Going On)</h1>
+            <h1 class="article-title">Why You Keep Impulse Buying<br>(and what's actually going on)</h1>
 
             <div class="article-meta">
                 <span>📅 5 min read</span>
@@ -761,9 +871,9 @@
                 to work with.</p>
 
             <div class="washi-divider">
-                <div class="washi-strip" style="background:var(--blue)"></div>
+                <div class="washi-strip" style="background:var(--grid-blue-light)"></div>
                 <div class="washi-dot"></div>
-                <div class="washi-strip" style="background:var(--sand-border)"></div>
+                <div class="washi-strip" style="background:var(--hint)"></div>
             </div>
 
             <h2 id="not-willpower">It's not a willpower problem</h2>
@@ -843,7 +953,7 @@
                 — changed.</p>
 
             <div class="washi-divider">
-                <div class="washi-strip" style="background:var(--sand-border)"></div>
+                <div class="washi-strip" style="background:var(--hint)"></div>
                 <div class="washi-dot"></div>
                 <div class="washi-strip" style="background:var(--terracotta);opacity:0.3"></div>
             </div>
@@ -855,7 +965,7 @@
                     was bored. I just wanted it.</em> These aren't wrong — but they're not specific enough to be useful.
             </p>
 
-            <p>Here are the 10 most common impulse spending triggers, named precisely enough to actually recognise them:
+            <p>Here are the 12 most common impulse spending triggers, named precisely enough to actually recognise them:
             </p>
 
             <div class="trigger-grid">
@@ -919,6 +1029,16 @@
                         vulnerability of
                         after-10pm decisions</div>
                 </div>
+                <div class="trigger-card">
+                    <div class="trigger-name">celebration</div>
+                    <div class="trigger-desc">something good happened and you feel like you deserve a treat — except
+                        it's unplanned and happens automatically</div>
+                </div>
+                <div class="trigger-card">
+                    <div class="trigger-name">low mood</div>
+                    <div class="trigger-desc">feeling down or flat and trying to lift it with buying something new — but
+                        the lift is temporary and the guilt comes back</div>
+                </div>
             </div>
 
             <p>Most people find they have <strong>2–3 dominant triggers</strong> that repeat across most of their
@@ -941,7 +1061,7 @@
             <div class="washi-divider">
                 <div class="washi-strip" style="background:var(--sage);opacity:0.4"></div>
                 <div class="washi-dot"></div>
-                <div class="washi-strip" style="background:var(--sand-border)"></div>
+                <div class="washi-strip" style="background:var(--olive)"></div>
             </div>
 
             <h2 id="core-drivers">What are you actually buying?</h2>
@@ -950,19 +1070,21 @@
                 meet.
                 This is the second layer of the framework, and it's the more important one.</p>
 
-            <p>Here are the 10 most common core drivers:</p>
+            <p>Here are the 12 most common core drivers:</p>
 
             <div class="driver-list">
-                <div class="driver-pill t">relief</div>
-                <div class="driver-pill s">reward</div>
-                <div class="driver-pill o">escape</div>
-                <div class="driver-pill b">comfort</div>
-                <div class="driver-pill c">validation</div>
-                <div class="driver-pill t">excitement</div>
-                <div class="driver-pill s">connection</div>
-                <div class="driver-pill o">control</div>
-                <div class="driver-pill b">identity</div>
-                <div class="driver-pill c">FOMO</div>
+                <div class="driver-pill t">😮‍💨 relief</div>
+                <div class="driver-pill s">🎁 reward</div>
+                <div class="driver-pill o">🏃 escape</div>
+                <div class="driver-pill b">🛋️ comfort</div>
+                <div class="driver-pill c">👍 validation</div>
+                <div class="driver-pill t">⚡ excitement</div>
+                <div class="driver-pill s">🤝 connection</div>
+                <div class="driver-pill o">🎛️ control</div>
+                <div class="driver-pill b">🪪 identity</div>
+                <div class="driver-pill c">👀 FOMO</div>
+                <div class="driver-pill c">🧠 numbing</div>
+                <div class="driver-pill c">🌤️ hope</div>
             </div>
 
             <p>Let's be clear: <strong>none of these needs are wrong</strong>. Every single one of them is a legitimate
@@ -1050,6 +1172,18 @@
                         much
                         wanting the thing, as not wanting to be the one who didn't get it when everyone else did.</div>
                 </li>
+                <li>
+                    <div class="step-num">12</div>
+                    <div class="step-content"><strong>Numbing </strong> — an attempt to dull or numb an emotional
+                        experience. Sometimes this is a deliberate choice, and sometimes it happens automatically
+                        without you even realising it.</div>
+                </li>
+                <li>
+                    <div class="step-num">13</div>
+                    <div class="step-content"><strong>Hope </strong> — buying to create hope. It might be the hope of
+                        change, or the hope of a better future. The purchase becomes a symbol of what might be, rather
+                        than what is.</div>
+                </li>
             </ul>
 
             <div class="pull-quote">
@@ -1058,6 +1192,7 @@
                     driver was escape. I wasn't shopping. I was avoiding something."</div>
                 <div class="pull-quote-attr">— the kind of clarity the decode process creates</div>
             </div>
+
 
             <p>The same trigger can activate very different core drivers depending on the person and the moment. A sale
                 email
@@ -1068,9 +1203,9 @@
                 what the trigger is meeting.</p>
 
             <div class="washi-divider">
-                <div class="washi-strip" style="background:var(--sand-border)"></div>
+                <div class="washi-strip" style="background:var(--olive)"></div>
                 <div class="washi-dot"></div>
-                <div class="washi-strip" style="background:var(--ochre);opacity:0.4"></div>
+                <div class="washi-strip" style="background:var(--hint);opacity:0.4"></div>
             </div>
 
             <h2 id="what-to-do">What you can do about it</h2>
@@ -1122,62 +1257,59 @@
 
             <div class="cta-box">
                 <div class="cta-label">free workbook</div>
-                <div class="cta-box-title">The 6 Spending Triggers Workbook</div>
+                <div class="cta-box-title">10 exercises to understand your impulse spending</div>
                 <div class="cta-box-sub">
-                    A 2-page printable PDF: a visual guide to all six triggers, plus a journaling template
-                    to decode any impulse moment. Identify your triggers, then break the pattern — starting today.
+                    A 12-page interactive workbook built around the Pause framework. Decode your triggers, map your core
+                    drivers, and write your first if-then plan — all in one session.
                 </div>
 
-                <a class="cta-btn" data-formkit-toggle="b1e556a7d7">
-                    Get the free 2-page workbook
+                <a class="cta-btn" data-formkit-toggle="77b1bb09e6">
+                    Get the free workbook
                 </a>
-                <div class="cta-note">2-page PDF · print or fill digitally · sent instantly</div>
-                <div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--sand-border);">
-                    <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">
-                        Want to track your triggers automatically over time?
-                    </p>
-                    <a href="/#get-pause"
-                        style="font-size:12px;color:var(--terracotta);text-decoration:none;font-weight:500;">
-                        Try Pause free — a browser-based impulse decoder →
-                    </a>
-                </div>
+
+                <div class="cta-note">12-page PDF · print or fill digitally · sent instantly</div>
+
             </div>
 
-            <div class="related">
-                <div class="related-title">read next</div>
-                <div class="related-grid">
-                    <a href="/blog/impulse-spending-triggers" class="related-card">
-                        <div class="related-card-label">listicle</div>
-                        <div class="related-card-title">The 10 Impulse Spending Triggers (And How to Spot Yours)</div>
-                    </a>
-                    <a href="/blog/triggers-vs-core-drivers" class="related-card">
-                        <div class="related-card-label">deep dive</div>
-                        <div class="related-card-title">Triggers vs Core Drivers: The Two-Layer System Behind Every
-                            Impulse Purchase
-                        </div>
-                    </a>
-                    <a href="/blog/no-buy-challenge-guide" class="related-card">
-                        <div class="related-card-label">beginner's guide</div>
-                        <div class="related-card-title">What Is a No-Buy Challenge? A Gentle Beginner's Guide</div>
-                    </a>
-                </div>
-            </div>
+            <br>
+            <div class="read-next">read next</div>
 
-        </div>
+            <div class="blog-grid">
+                <a href="the-12-impulse-triggers.html" class="blog-card">
+                    <h3 class="blog-card-title">The 12 Impulse Spending Triggers (And How to Spot Yours)</h3>
+                    <p class="blog-card-desc">Most impulse spending advice tell you to "make a budget." They skip the
+                        part that
+                        matters: what sets the urge off in the first place. Here are the 12 most common triggers, with a
+                        question to help you spot which are yours. </p>
+                    <div class="blog-card-foot">
+                        <span class="blog-card-type type-listicle">listicle</span>
+                        <span class="blog-card-read">read →</span>
+                    </div>
+                </a>
+
+                <a href="triggers-versus-core-drivers.html" class="blog-card">
+                    <h3 class="blog-card-title">Triggers vs Core Drivers: The Two-Layer System Behind Every Impulse
+                        Purchase</h3>
+                    <p class="blog-card-desc">The trigger is just the match. The fire is something else entirely. A
+                        closer look at the emotional needs - relief, escape, reward, identity - that purchases are
+                        really trying to
+                        meet.</p>
+                    <div class="blog-card-foot">
+                        <span class="blog-card-type type-explainer">explainer</span>
+                        <span class="blog-card-read">read →</span>
+                    </div>
+                </a>
+
+            </div>
     </article>
 
     <footer>
-        <a href="/" class="footer-logo">futuresanctuary<span>.</span></a>
-        <div class="footer-links">
-            <a href="/blog">blog</a>
-            <a href="/#apps">apps</a>
-            <a href="/privacy">privacy</a>
-            <a href="/contact">contact</a>
-        </div>
+        <a href="../index.html" class="footer-logo">futuresanctuary<span>.</span></a>
+
         <div class="footer-note">© 2026 Future Sanctuary · one small step</div>
     </footer>
 
-
+    <script async data-uid="77b1bb09e6" src="https://lumila.kit.com/77b1bb09e6/index.js"></script>
 
 </body>
 

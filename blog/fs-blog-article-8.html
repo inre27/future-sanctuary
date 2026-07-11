@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Slow Living and Money: What Intentional Spending Actually Looks Like — Future Sanctuary</title>
+<meta name="description"
+  content="The slow living movement talks about pace and presence — but rarely about money. Here's what intentional spending actually means in practice, and why values alone aren't enough to close the gap." />
+<meta name="keywords"
+  content="slow living spending, intentional spending, mindful money slow living, conscious consumer habits, buy less live more" />
+<meta property="og:title"
+  content="Slow Living and Money: What Intentional Spending Actually Looks Like" />
+<meta property="og:description"
+  content="You can hold a value of 'buy less' and still spend impulsively. Here's why — and what bridges the gap." />
+<meta property="og:type" content="article" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="style"
+  href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+  rel="stylesheet" />
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-cream: #FBFAF5;
+  --bg-cream-dark: #F5F3EB;
+  --bg-cream-border: #E8E0D2;
+  --grid-blue: #7597a7;
+  --grid-blue-light: #9EB5C0;
+  --grid-blue-pale: #EDF2F5;
+  --terracotta: #E2BBAA;
+  --terracotta-light: #F5EAE4;
+  --terracotta-mid: #D9A98A;
+  --sage: #8AADA7;
+  --sage-light: #E4EDE5;
+  --olive: #CFCBA9;
+  --sand: #F9E5C6;
+  --sand-light: #FAF0DC;
+  --text: #111111;
+  --muted: #7A6E65;
+  --hint: #A89D95;
+  --max-width: 720px;
+  --font-body: 'JetBrains Mono', monospace;
+  --font-heading: 'Gochi Hand', cursive;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-cream);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 15px;
+}
+
+/* ── NAV ── */
+nav {
+  background: var(--bg-cream-dark);
+  border-bottom: 1px solid var(--bg-cream-border);
+  padding: 14px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.nav-logo span { color: var(--grid-blue); }
+
+.nav-links a {
+  font-size: 12px;
+  color: var(--hint);
+  margin-left: 16px;
+  text-decoration: none;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+/* ── ARTICLE HEADER ── */
+.article-header {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 56px 5% 0;
+}
+
+.breadcrumb {
+  font-size: 11px;
+  color: var(--hint);
+  margin-bottom: 24px;
+}
+
+.article-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grid-blue);
+  margin-bottom: 14px;
+}
+
+.article-title {
+  font-family: var(--font-heading);
+  font-size: clamp(30px, 5vw, 50px);
+  margin-bottom: 20px;
+  line-height: 1.15;
+}
+
+.article-meta {
+  font-size: 11px;
+  color: var(--hint);
+  border-bottom: 1px solid var(--bg-cream-border);
+  padding-bottom: 24px;
+  margin-bottom: 40px;
+}
+
+/* ── ARTICLE BODY ── */
+.article-body {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 5% 80px;
+}
+
+.article-body p {
+  margin-bottom: 20px;
+}
+
+.article-body h2 {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  margin: 48px 0 14px;
+  line-height: 1.2;
+}
+
+.article-body h3 {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  margin: 32px 0 10px;
+  color: var(--muted);
+}
+
+/* ── CALLOUT VARIANTS ── */
+.callout {
+  border-radius: 12px;
+  padding: 20px 22px;
+  margin: 28px 0;
+  border: 1px solid var(--bg-cream-border);
+  background: #fff;
+}
+
+.callout-blue {
+  border-left: 4px solid var(--grid-blue);
+  background: var(--grid-blue-pale);
+}
+
+.callout-insight {
+  border-left: 4px solid var(--sage);
+  background: var(--sage-light);
+}
+
+.callout-warm {
+  border-left: 4px solid var(--terracotta);
+  background: var(--terracotta-light);
+}
+
+.callout-sand {
+  border-left: 4px solid var(--olive);
+  background: var(--sand-light);
+}
+
+.callout-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--hint);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.callout-label-blue { color: var(--grid-blue); }
+.callout-label-sage { color: #3A6A65; }
+.callout-label-warm { color: #9A6E58; }
+.callout-label-sand { color: #8A7040; }
+
+/* ── CONTRAST PAIR (two-column comparison) ── */
+.contrast-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 28px 0;
+}
+
+@media (max-width: 560px) {
+  .contrast-pair { grid-template-columns: 1fr; }
+}
+
+.contrast-card {
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 12px;
+  padding: 20px;
+  background: #fff;
+}
+
+.contrast-card-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.contrast-card-label-blue { color: var(--grid-blue); }
+.contrast-card-label-muted { color: var(--hint); }
+
+.contrast-card p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 0;
+}
+
+/* ── PRACTICE CARDS (the 3 practices section) ── */
+.practice-stack {
+  margin: 28px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.practice-card {
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+}
+
+.practice-number {
+  width: 52px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  color: #fff;
+  background: var(--grid-blue);
+}
+
+.practice-content {
+  padding: 18px 20px;
+  flex: 1;
+}
+
+.practice-title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.practice-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 10px;
+}
+
+.practice-how {
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.7;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  border-top: 1px solid var(--bg-cream-border);
+  padding-top: 10px;
+  margin-top: 2px;
+}
+
+.practice-how-icon {
+  color: var(--sage);
+  flex-shrink: 0;
+}
+
+/* ── VALUES vs BEHAVIOUR BOX ── */
+.gap-box {
+  background: var(--bg-cream-dark);
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 28px 0;
+}
+
+.gap-box-title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+
+.gap-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.gap-row:last-child { margin-bottom: 0; }
+
+.gap-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.gap-text {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.gap-text strong { color: var(--text); }
+
+/* ── PULL QUOTE ── */
+.pull-quote {
+  border-top: 2px solid var(--grid-blue);
+  border-bottom: 1px solid var(--bg-cream-border);
+  padding: 22px 0 20px;
+  margin: 40px 0;
+}
+
+.pull-quote p {
+  font-family: var(--font-heading);
+  font-size: clamp(18px, 2.5vw, 24px);
+  line-height: 1.4;
+  color: var(--text);
+  margin-bottom: 0;
+}
+
+/* ── CLOSING REFLECTION ── */
+.reflection-box {
+  background: var(--grid-blue-pale);
+  border: 1px solid var(--grid-blue-light);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 28px 0;
+}
+
+.reflection-box p {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.8;
+  margin-bottom: 14px;
+}
+
+.reflection-box p:last-child { margin-bottom: 0; }
+
+/* ── INTERNAL LINK ── */
+.internal-link {
+  color: var(--grid-blue);
+  text-decoration: none;
+  border-bottom: 1px solid var(--grid-blue);
+  font-size: 13px;
+}
+
+.internal-link:hover { opacity: 0.75; }
+
+/* ── CTA BOX ── */
+.cta-box {
+  background: var(--bg-cream-dark);
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 14px;
+  padding: 32px;
+  text-align: center;
+  margin: 52px 0 20px;
+}
+
+.cta-title {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.cta-body {
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto 20px;
+  line-height: 1.75;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: var(--grid-blue);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 13px;
+  transition: opacity 0.2s;
+}
+
+.cta-btn:hover { opacity: 0.85; }
+
+/* ── RELATED ARTICLES ── */
+.related-section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 5% 64px;
+  border-top: 1px solid var(--bg-cream-border);
+}
+
+.related-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--hint);
+  margin: 32px 0 16px;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.related-card {
+  background: var(--bg-cream-dark);
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 10px;
+  padding: 16px;
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+  transition: border-color 0.2s;
+}
+
+.related-card:hover { border-color: var(--grid-blue); }
+
+.related-card-label {
+  font-size: 10px;
+  color: var(--hint);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 6px;
+}
+
+.related-card-title {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg-cream-dark);
+  padding: 28px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--bg-cream-border);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-logo {
+  font-family: var(--font-heading);
+  text-decoration: none;
+  color: var(--text);
+  font-size: 20px;
+}
+
+.footer-logo span { color: var(--grid-blue); }
+
+.footer-links {
+  font-size: 12px;
+  color: var(--hint);
+}
+
+.footer-links a {
+  color: var(--hint);
+  text-decoration: none;
+  margin-left: 16px;
+}
+
+.footer-links a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">future sanctuary<span>.</span></a>
+  <div class="nav-links">
+    <a href="/blog">blog</a>
+    <a href="/#apps">apps</a>
+  </div>
+</nav>
+
+<article>
+
+  <header class="article-header">
+    <div class="breadcrumb">home / blog / slow living + money</div>
+    <div class="article-label">intersection piece · slow living</div>
+    <h1 class="article-title">Slow Living and Money: What Intentional Spending Actually Looks Like</h1>
+    <div class="article-meta">
+      📅 7 min read &nbsp;·&nbsp; slow living spending &nbsp;·&nbsp; intentional spending &nbsp;·&nbsp; mindful money
+    </div>
+  </header>
+
+  <div class="article-body">
+
+    <p>The slow living movement talks a great deal about pace.</p>
+
+    <p>About stepping back from the relentless accumulation of experiences, obligations, stimulation. About doing fewer things more fully. About presence over productivity, quality over quantity, the long view over the immediate one. If you've spent any time in this space — the books, the aesthetics, the particular quietness of a carefully tended life — you'll recognise the values immediately. Less. Slower. More considered. More deliberate.</p>
+
+    <p>But here's the thing that rarely gets said directly: the slow living conversation almost never talks about money with the same honesty it applies to everything else. It talks about capsule wardrobes and secondhand finds and growing your own food. It doesn't often talk about what happens at 10pm on a Wednesday when you're tired and your phone is in your hand and you've added three things to a basket before you've consciously decided to.</p>
+
+    <p>That gap — between the values you hold and the spending behaviour that runs underneath them — is what this piece is about.</p>
+
+    <h2>The gap between values and behaviour</h2>
+
+    <p>Most people who identify with slow living, intentional living, or minimalism already know what they value. They could articulate it clearly. Buy less. Choose well. Make it last. Spend in ways that reflect what actually matters to you. These aren't vague aspirations — they're genuinely held convictions.</p>
+
+    <p>And yet.</p>
+
+    <p>The wardrobe still has things with tags on. The basket still gets abandoned at 1am. The sale email still lands on a stressful Thursday and converts. Not because the values aren't real. But because impulse spending doesn't operate at the level of values. It operates at the level of the nervous system — and the nervous system doesn't pause to consult your aesthetic principles before reaching for relief.</p>
+
+    <div class="gap-box">
+      <div class="gap-box-title">Why the gap exists</div>
+      <div class="gap-row">
+        <div class="gap-icon">◎</div>
+        <div class="gap-text"><strong>Values live in the thinking mind.</strong> They're articulated, considered, consciously held. You can name them. You can write them down. You genuinely believe them.</div>
+      </div>
+      <div class="gap-row">
+        <div class="gap-icon">◎</div>
+        <div class="gap-text"><strong>Impulse spending lives in the automatic mind.</strong> It's triggered by stress, boredom, late nights, payday, a scroll that became a browse that became a checkout. It happens before the thinking mind has a chance to weigh in.</div>
+      </div>
+      <div class="gap-row">
+        <div class="gap-icon">◎</div>
+        <div class="gap-text"><strong>The gap between them isn't a values failure.</strong> It's a timing problem. The values arrive after the fact — as guilt, as resolution, as a fresh commitment to do better next time. What's needed is something that operates at the same speed as the impulse itself.</div>
+      </div>
+    </div>
+
+    <p>This is important to name clearly, because a lot of the slow living conversation implicitly treats the gap as a moral failing. You just need to want the right things more sincerely. You just need to be more committed to your values. But someone who impulse spends while holding slow living values isn't a hypocrite. They're a person whose automatic patterns haven't caught up with their conscious ones. That's a very human condition, and a much more solvable problem.</p>
+
+    <div class="pull-quote">
+      <p>"You can hold a value of 'buy less' and still spend impulsively. Not because the value isn't real — but because impulse spending runs underneath values, in a layer the thinking mind can't easily reach."</p>
+    </div>
+
+    <h2>What intentional spending is — and isn't</h2>
+
+    <p>Before we talk about practices, it's worth being precise about what intentional spending actually means. Because the phrase gets used in ways that can make it feel more restrictive, more aesthetic, or more effortful than it needs to be.</p>
+
+    <div class="contrast-pair">
+      <div class="contrast-card">
+        <span class="contrast-card-label contrast-card-label-blue">intentional spending is ✓</span>
+        <p>Spending that happens with genuine awareness of the why behind it. It can still be spontaneous. It can be on something pleasurable, non-essential, even indulgent. What makes it intentional is that it's made with knowledge of the need it's meeting — and a real sense that this is the right way to meet it.</p>
+      </div>
+      <div class="contrast-card" style="background: var(--bg-cream-dark);">
+        <span class="contrast-card-label contrast-card-label-muted">intentional spending isn't ✗</span>
+        <p>A capsule wardrobe, a no-buy year, a particular aesthetic, or any specific rule system. It's not defined by what you buy or how much. It's not about spending less — though that often follows naturally. It's about the quality of attention brought to the decision.</p>
+      </div>
+    </div>
+
+    <p>The distinction matters because "intentional spending" is often read as a form of self-denial dressed in nicer language. It isn't. A deliberate, considered purchase of something expensive and entirely non-essential is intentional spending. An automatic, unexamined purchase of something cheap is not. The price, the category, the aesthetics — none of that is the point. The awareness is the point.</p>
+
+    <p>Similarly, intentional spending isn't a permanent state you either achieve or fail to achieve. It's a practice — meaning it has better days and worse days, and the goal is a gradual shift in the ratio rather than a clean before-and-after.</p>
+
+    <h2>Three practices that actually bridge the gap</h2>
+
+    <p>What follows aren't rules. They're habits — small, repeatable actions that bring the slow living values you already hold into contact with the spending behaviour that runs alongside them. Each one operates at the level of the automatic, which is where the gap actually lives.</p>
+
+    <div class="practice-stack">
+
+      <div class="practice-card">
+        <div class="practice-number">1</div>
+        <div class="practice-content">
+          <div class="practice-title">The decode habit</div>
+          <div class="practice-desc">Naming the trigger and core driver of a purchase — before it happens if possible, or honestly afterwards if not. This is the most direct way to bring the thinking mind into contact with the automatic pattern. It doesn't prevent spending. It makes spending visible, which is a different and arguably more useful thing.</div>
+          <div class="practice-how">
+            <span class="practice-how-icon">→</span>
+            After any purchase that happened automatically — without real consideration — ask two questions. What set off the urge? And what was I actually reaching for? Write both down, even briefly. Over time the pattern becomes clear, and clear patterns are far harder to act on automatically.
+          </div>
+        </div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-number">2</div>
+        <div class="practice-content">
+          <div class="practice-title">The wishlist practice</div>
+          <div class="practice-desc">Separating the moment of wanting from the moment of buying by writing things down and returning in 30 days. This isn't a willpower exercise — it's a structural intervention that preserves the genuine wants while filtering out the ones that were really just the urge to do something in a restless moment.</div>
+          <div class="practice-how">
+            <span class="practice-how-icon">→</span>
+            Keep one running list — a Notes file, a physical notebook, anywhere consistent. Add anything you seriously consider buying along with the date. Revisit the list at the end of each month. Anything still there after 30 days is a real want. Most entries won't make it that far — and their absence tells you something.
+          </div>
+        </div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-number">3</div>
+        <div class="practice-content">
+          <div class="practice-title">The weekly reflection</div>
+          <div class="practice-desc">One question asked consistently at the end of each week: did my spending this week reflect what I actually care about? Not as a verdict, not as a performance, but as genuine curiosity. The question doesn't require a good answer. It just requires an honest one. And honest self-reflection, over time, is how the gap between values and behaviour gradually closes.</div>
+          <div class="practice-how">
+            <span class="practice-how-icon">→</span>
+            Make it brief. You don't need to account for every transaction. You need a 5-minute honest look at the week's spending — what happened automatically that you'd have chosen differently with a moment's thought, and what happened intentionally that you'd choose again.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p>None of these practices require a particular aesthetic, income level, or amount of available time. They don't ask you to change what you value. They ask you to bring more attention to how those values translate — or fail to translate — into your actual daily behaviour around money.</p>
+
+    <h2>The quiet power of noticing</h2>
+
+    <p>There's a temptation, when talking about intentional spending, to make it about outcomes. Fewer purchases. Lower numbers. A cleaner wardrobe. These can follow — and often do. But they're not the practice. They're the side effect of it.</p>
+
+    <p>The practice is noticing. Catching the moment between the urge and the action. Naming what's happening. Creating — even briefly, even imperfectly — a pause between the automatic and the chosen.</p>
+
+    <p>That pause is where slow living actually lives. Not in the aesthetic, not in the rules, not in the commitment to some particular way of consuming. In the gap between the impulse and the response. In the question: is this what I actually want, or is this what my nervous system reached for when it needed something and I happened to have my phone in my hand?</p>
+
+    <div class="callout callout-insight">
+      <span class="callout-label callout-label-sage">what changes when you practise noticing</span>
+      The purchases don't stop entirely — and you wouldn't want them to. What changes is the texture of them. Fewer hollow ones. More that you actually remember choosing. The wanting doesn't go away; it becomes more legible. And legible wants are ones you can actually meet — with spending when that's genuinely right, and with something else when it isn't.
+    </div>
+
+    <p>The slow living movement gets this right about everything except money. It understands that presence and pace and awareness can transform a meal, a morning, a relationship with physical objects and time. It's just slower to apply that same understanding to the financial layer of daily life — possibly because money feels more fraught, more shameful, harder to hold with curiosity rather than judgement.</p>
+
+    <p>But spending responds to the same thing that everything else in slow living responds to: honest attention. Not restriction. Not a better rule system. Not a more sincere commitment to your values.</p>
+
+    <p>Just the willingness to look — clearly, regularly, without flinching — at what's actually happening.</p>
+
+    <div class="pull-quote">
+      <p>"The slow living question isn't 'how do I buy less?' It's 'how do I bring the same quality of attention to spending that I'm trying to bring to everything else?'"</p>
+    </div>
+
+    <div class="reflection-box">
+      <p>A single question worth asking at the end of this week, and every week after:</p>
+      <p style="font-family: var(--font-heading); font-size: 20px; color: var(--text); line-height: 1.4; margin-bottom: 14px;">"Did my spending this week reflect what I actually care about?"</p>
+      <p>Not to produce guilt. Not to produce a resolution. Just to look — honestly, and without making more of it than it is.</p>
+    </div>
+
+    <p style="font-size: 13px; color: var(--hint); margin-top: 8px;">
+      → <a href="/blog/why-you-keep-impulse-buying" class="internal-link">Why You Keep Impulse Buying (And What's Actually Going On)</a><br/>
+      → <a href="/blog/10-things-to-do-instead" class="internal-link">10 Things to Do Instead of Impulse Buying (That Actually Work)</a>
+    </p>
+
+    <div class="cta-box">
+      <div class="cta-title">a tool built for noticing</div>
+      <p class="cta-body">Pause is a gentle, browser-based impulse spending tracker built around the decode habit, the wishlist practice, and the weekly reflection — all three. It's not a budget app. It's a self-awareness tool. Free to start, no login, no download.</p>
+      <a class="cta-btn" href="/#email-capture">get the free starter kit →</a>
+    </div>
+
+  </div>
+  <!-- /article-body -->
+
+</article>
+
+<!-- RELATED ARTICLES -->
+<section class="related-section">
+  <div class="related-label">read next</div>
+  <div class="related-grid">
+    <a class="related-card" href="/blog/why-you-keep-impulse-buying">
+      <div class="related-card-label">educational explainer</div>
+      <div class="related-card-title">Why You Keep Impulse Buying (And What's Actually Going On)</div>
+    </a>
+    <a class="related-card" href="/blog/10-things-to-do-instead">
+      <div class="related-card-label">listicle</div>
+      <div class="related-card-title">10 Things to Do Instead of Impulse Buying</div>
+    </a>
+    <a class="related-card" href="/blog/triggers-vs-core-drivers">
+      <div class="related-card-label">educational explainer</div>
+      <div class="related-card-title">Triggers vs Core Drivers: The Two-Layer System</div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <a href="/" class="footer-logo">future sanctuary<span>.</span></a>
+  <div class="footer-links">
+    <a href="/blog">blog</a>
+    <a href="/#apps">apps</a>
+    <a href="/privacy">privacy</a>
+  </div>
+</footer>
+
+</body>
+</html>

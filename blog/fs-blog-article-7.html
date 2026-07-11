@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>I Decoded 30 Impulse Purchases — Here's What My Data Showed — Future Sanctuary</title>
+<meta name="description"
+  content="What happens when you stop asking what you bought and start asking why? After decoding 30 impulse purchases over four weeks, the same patterns kept appearing. Here's what the data actually showed." />
+<meta name="keywords"
+  content="decode impulse purchases, impulse buying patterns data, understanding spending triggers, spending habit analysis" />
+<meta property="og:title"
+  content="I Decoded 30 Impulse Purchases — Here's What My Data Showed" />
+<meta property="og:description"
+  content="The most useful thing I've ever done with a month of spending data — and it had nothing to do with the amounts." />
+<meta property="og:type" content="article" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="style"
+  href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+  rel="stylesheet" />
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-cream: #FBFAF5;
+  --bg-cream-dark: #F5F3EB;
+  --bg-cream-border: #E8E0D2;
+  --grid-blue: #7597a7;
+  --grid-blue-light: #9EB5C0;
+  --grid-blue-pale: #EDF2F5;
+  --terracotta: #E2BBAA;
+  --terracotta-light: #F5EAE4;
+  --terracotta-mid: #D9A98A;
+  --sage: #8AADA7;
+  --sage-light: #E4EDE5;
+  --olive: #CFCBA9;
+  --sand: #F9E5C6;
+  --sand-light: #FAF0DC;
+  --text: #111111;
+  --muted: #7A6E65;
+  --hint: #A89D95;
+  --max-width: 720px;
+  --font-body: 'JetBrains Mono', monospace;
+  --font-heading: 'Gochi Hand', cursive;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-cream);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 15px;
+}
+
+/* ── NAV ── */
+nav {
+  background: var(--bg-cream-dark);
+  border-bottom: 1px solid var(--bg-cream-border);
+  padding: 14px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.nav-logo span { color: var(--grid-blue); }
+
+.nav-links a {
+  font-size: 12px;
+  color: var(--hint);
+  margin-left: 16px;
+  text-decoration: none;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+/* ── ARTICLE HEADER ── */
+.article-header {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 56px 5% 0;
+}
+
+.breadcrumb {
+  font-size: 11px;
+  color: var(--hint);
+  margin-bottom: 24px;
+}
+
+.article-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grid-blue);
+  margin-bottom: 14px;
+}
+
+.article-title {
+  font-family: var(--font-heading);
+  font-size: clamp(30px, 5vw, 50px);
+  margin-bottom: 20px;
+  line-height: 1.15;
+}
+
+.article-meta {
+  font-size: 11px;
+  color: var(--hint);
+  border-bottom: 1px solid var(--bg-cream-border);
+  padding-bottom: 24px;
+  margin-bottom: 40px;
+}
+
+/* ── ARTICLE BODY ── */
+.article-body {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 5% 80px;
+}
+
+.article-body p {
+  margin-bottom: 20px;
+}
+
+.article-body h2 {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  margin: 48px 0 14px;
+  line-height: 1.2;
+}
+
+.article-body h3 {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  margin: 32px 0 10px;
+  color: var(--muted);
+}
+
+/* ── CALLOUT VARIANTS ── */
+.callout {
+  border-radius: 12px;
+  padding: 20px 22px;
+  margin: 28px 0;
+  border: 1px solid var(--bg-cream-border);
+  background: #fff;
+}
+
+.callout-blue {
+  border-left: 4px solid var(--grid-blue);
+  background: var(--grid-blue-pale);
+}
+
+.callout-insight {
+  border-left: 4px solid var(--sage);
+  background: var(--sage-light);
+}
+
+.callout-warm {
+  border-left: 4px solid var(--terracotta);
+  background: var(--terracotta-light);
+}
+
+.callout-sand {
+  border-left: 4px solid var(--olive);
+  background: var(--sand-light);
+}
+
+.callout-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--hint);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.callout-label-blue { color: var(--grid-blue); }
+.callout-label-sage { color: #3A6A65; }
+.callout-label-warm { color: #9A6E58; }
+
+/* ── STATS GRID ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+  margin: 28px 0;
+}
+
+.stat-card {
+  background: #fff;
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 10px;
+  padding: 16px 14px;
+  text-align: center;
+}
+
+.stat-val {
+  font-family: var(--font-heading);
+  font-size: 34px;
+  color: var(--grid-blue);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* ── TRIGGER BREAKDOWN ── */
+.breakdown-panel {
+  background: #fff;
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 12px;
+  padding: 22px 24px;
+  margin: 28px 0;
+}
+
+.breakdown-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--hint);
+  margin-bottom: 18px;
+}
+
+.breakdown-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.breakdown-row:last-child { margin-bottom: 0; }
+
+.breakdown-label {
+  font-size: 12px;
+  color: var(--text);
+  width: 160px;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+.bar-outer {
+  flex: 1;
+  height: 8px;
+  background: var(--bg-cream-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar-inner {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--grid-blue);
+}
+
+.bar-inner-sage {
+  background: var(--sage);
+}
+
+.bar-inner-terracotta {
+  background: var(--terracotta-mid);
+}
+
+.bar-count {
+  font-size: 11px;
+  color: var(--hint);
+  width: 56px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── DECODED ITEM BLOCK ── */
+.decoded-item {
+  background: var(--bg-cream-dark);
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 12px;
+  padding: 20px 22px;
+  margin: 24px 0;
+}
+
+.decoded-item-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--hint);
+  margin-bottom: 10px;
+}
+
+.decoded-item-name {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.decoded-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+
+.dtag {
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--bg-cream-border);
+  background: #fff;
+  color: var(--muted);
+}
+
+.dtag-blue {
+  background: var(--grid-blue-pale);
+  border-color: var(--grid-blue-light);
+  color: var(--grid-blue);
+}
+
+.dtag-sage {
+  background: var(--sage-light);
+  border-color: var(--sage);
+  color: #3A6A65;
+}
+
+.dtag-warm {
+  background: var(--terracotta-light);
+  border-color: var(--terracotta-mid);
+  color: #9A6E58;
+}
+
+.decoded-insight {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-style: italic;
+  border-top: 1px solid var(--bg-cream-border);
+  padding-top: 10px;
+}
+
+/* ── COMBINATION SPOTLIGHT ── */
+.combo-card {
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+  margin: 28px 0;
+}
+
+.combo-header {
+  background: var(--bg-cream-dark);
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--bg-cream-border);
+}
+
+.combo-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--hint);
+}
+
+.combo-tags {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.combo-plus {
+  font-size: 14px;
+  color: var(--hint);
+}
+
+.combo-body {
+  padding: 18px 22px;
+}
+
+.combo-body p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 10px;
+}
+
+.combo-body p:last-child { margin-bottom: 0; }
+
+.combo-count {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  color: var(--grid-blue);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.combo-count-label {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ── IF-THEN PLAN ── */
+.plan-card {
+  background: var(--terracotta-light);
+  border: 1px solid var(--terracotta-mid);
+  border-radius: 12px;
+  padding: 22px 24px;
+  margin: 28px 0;
+}
+
+.plan-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #9A6E58;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.plan-text {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+/* ── PATTERN TABLE ── */
+.pattern-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 12px;
+}
+
+.pattern-table th {
+  text-align: left;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--hint);
+  border-bottom: 1px solid var(--bg-cream-border);
+  padding: 8px 12px;
+  font-weight: normal;
+  background: var(--bg-cream-dark);
+}
+
+.pattern-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--bg-cream-border);
+  color: var(--text);
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.pattern-table tr:last-child td { border-bottom: none; }
+
+.pattern-table td:first-child { color: var(--grid-blue); font-size: 11px; }
+
+/* ── PULL QUOTE ── */
+.pull-quote {
+  border-top: 2px solid var(--grid-blue);
+  border-bottom: 1px solid var(--bg-cream-border);
+  padding: 22px 0 20px;
+  margin: 40px 0;
+}
+
+.pull-quote p {
+  font-family: var(--font-heading);
+  font-size: clamp(18px, 2.5vw, 24px);
+  line-height: 1.4;
+  color: var(--text);
+  margin-bottom: 0;
+}
+
+/* ── INTERNAL LINK ── */
+.internal-link {
+  color: var(--grid-blue);
+  text-decoration: none;
+  border-bottom: 1px solid var(--grid-blue);
+  font-size: 13px;
+}
+
+.internal-link:hover { opacity: 0.75; }
+
+/* ── CTA BOX ── */
+.cta-box {
+  background: var(--bg-cream-dark);
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 14px;
+  padding: 32px;
+  text-align: center;
+  margin: 52px 0 20px;
+}
+
+.cta-title {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.cta-body {
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto 20px;
+  line-height: 1.75;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: var(--grid-blue);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 13px;
+  transition: opacity 0.2s;
+}
+
+.cta-btn:hover { opacity: 0.85; }
+
+/* ── RELATED ARTICLES ── */
+.related-section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 5% 64px;
+  border-top: 1px solid var(--bg-cream-border);
+}
+
+.related-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--hint);
+  margin: 32px 0 16px;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.related-card {
+  background: var(--bg-cream-dark);
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 10px;
+  padding: 16px;
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+  transition: border-color 0.2s;
+}
+
+.related-card:hover { border-color: var(--grid-blue); }
+
+.related-card-label {
+  font-size: 10px;
+  color: var(--hint);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 6px;
+}
+
+.related-card-title {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg-cream-dark);
+  padding: 28px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--bg-cream-border);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-logo {
+  font-family: var(--font-heading);
+  text-decoration: none;
+  color: var(--text);
+  font-size: 20px;
+}
+
+.footer-logo span { color: var(--grid-blue); }
+
+.footer-links {
+  font-size: 12px;
+  color: var(--hint);
+}
+
+.footer-links a {
+  color: var(--hint);
+  text-decoration: none;
+  margin-left: 16px;
+}
+
+.footer-links a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">future sanctuary<span>.</span></a>
+  <div class="nav-links">
+    <a href="/blog">blog</a>
+    <a href="/#apps">apps</a>
+  </div>
+</nav>
+
+<article>
+
+  <header class="article-header">
+    <div class="breadcrumb">home / blog / impulse spending data</div>
+    <div class="article-label">narrative · data story</div>
+    <h1 class="article-title">I Decoded 30 Impulse Purchases — Here's What My Data Showed</h1>
+    <div class="article-meta">
+      📅 7 min read &nbsp;·&nbsp; decode impulse purchases &nbsp;·&nbsp; impulse buying patterns data
+    </div>
+  </header>
+
+  <div class="article-body">
+
+    <p>There's a question that budgeting apps never ask.</p>
+
+    <p>They ask what you spent. They ask when. They ask how much. Some ask what category it fell into. But not one of them asks <em>why</em> — not in any meaningful sense. Why did that purchase happen? What were you reaching for? What was the feeling that preceded the click?</p>
+
+    <p>I spent four weeks asking only that question. Not "what did I buy?" but "why did I want to buy it?" — for every impulse purchase, bought or resisted, across 30 entries. What came back wasn't what I expected. It wasn't a list of bad habits or a catalogue of weakness. It was something more useful: a pattern with a name.</p>
+
+    <p>This is what the data actually showed.</p>
+
+    <div class="callout callout-blue">
+      <span class="callout-label callout-label-blue">how this works</span>
+      Each decoded entry uses the two-layer system built into <a href="/pause" style="color: var(--grid-blue); text-decoration: none; border-bottom: 1px solid var(--grid-blue);">Pause</a>: a <strong>trigger</strong> (the external or internal event that set off the urge) and a <strong>core driver</strong> (the emotional need the purchase was attempting to meet). Over 30 entries, these combinations form a pattern map — your personal spending fingerprint. If you're new to the framework, <a href="/blog/triggers-vs-core-drivers" style="color: var(--grid-blue); text-decoration: none; border-bottom: 1px solid var(--grid-blue);">this article explains the full system</a>.
+    </div>
+
+    <h2>The raw numbers</h2>
+
+    <p>First, the basics. Over four weeks, I logged 30 decoded impulse entries — a mix of things I bought and things I resisted. The split was roughly even, which was itself a surprise. I'd assumed I bought most things I seriously considered. I didn't.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-val">30</div>
+        <div class="stat-label">total decoded entries</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">14</div>
+        <div class="stat-label">purchased</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">16</div>
+        <div class="stat-label">resisted</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">7</div>
+        <div class="stat-label">distinct triggers identified</div>
+      </div>
+    </div>
+
+    <p>Seven distinct triggers across 30 entries. That already told me something. I hadn't used all ten. My spending had a narrower range of causes than the full trigger list — which meant it also had a narrower range of solutions.</p>
+
+    <h3>Trigger frequency breakdown</h3>
+
+    <div class="breakdown-panel">
+      <div class="breakdown-title">how often each trigger appeared across 30 decoded entries</div>
+      <div class="breakdown-row">
+        <div class="breakdown-label">browsing / scrolling</div>
+        <div class="bar-outer"><div class="bar-inner" style="width:87%;"></div></div>
+        <div class="bar-count">26 of 30</div>
+      </div>
+      <div class="breakdown-row">
+        <div class="breakdown-label">late night</div>
+        <div class="bar-outer"><div class="bar-inner" style="width:70%;"></div></div>
+        <div class="bar-count">21 of 30</div>
+      </div>
+      <div class="breakdown-row">
+        <div class="breakdown-label">stress</div>
+        <div class="bar-outer"><div class="bar-inner" style="width:53%;"></div></div>
+        <div class="bar-count">16 of 30</div>
+      </div>
+      <div class="breakdown-row">
+        <div class="breakdown-label">sale / discount</div>
+        <div class="bar-outer"><div class="bar-inner" style="width:33%;"></div></div>
+        <div class="bar-count">10 of 30</div>
+      </div>
+      <div class="breakdown-row">
+        <div class="breakdown-label">email promotion</div>
+        <div class="bar-outer"><div class="bar-inner" style="width:23%;"></div></div>
+        <div class="bar-count">7 of 30</div>
+      </div>
+      <div class="breakdown-row">
+        <div class="breakdown-label">boredom</div>
+        <div class="bar-outer"><div class="bar-inner" style="width:17%;"></div></div>
+        <div class="bar-count">5 of 30</div>
+      </div>
+      <div class="breakdown-row">
+        <div class="breakdown-label">payday</div>
+        <div class="bar-outer"><div class="bar-inner" style="width:10%;"></div></div>
+        <div class="bar-count">3 of 30</div>
+      </div>
+    </div>
+
+    <p>Browsing and scrolling appeared in 26 out of 30 entries. That number landed differently than I expected. It's not that I was spending because of adverts or sales or payday — I was spending because I was passively scrolling and happened across things. The trigger wasn't scarcity or persuasion. It was proximity. I kept putting myself near the thing.</p>
+
+    <h3>Core driver breakdown</h3>
+
+    <div class="breakdown-panel">
+      <div class="breakdown-title">how often each core driver appeared across 30 decoded entries</div>
+      <div class="breakdown-row">
+        <div class="breakdown-label">escape</div>
+        <div class="bar-outer"><div class="bar-inner bar-inner-sage" style="width:73%;"></div></div>
+        <div class="bar-count">22 of 30</div>
+      </div>
+      <div class="breakdown-row">
+        <div class="breakdown-label">reward</div>
+        <div class="bar-outer"><div class="bar-inner bar-inner-sage" style="width:50%;"></div></div>
+        <div class="bar-count">15 of 30</div>
+      </div>
+      <div class="breakdown-row">
+        <div class="breakdown-label">comfort</div>
+        <div class="bar-outer"><div class="bar-inner bar-inner-sage" style="width:37%;"></div></div>
+        <div class="bar-count">11 of 30</div>
+      </div>
+      <div class="breakdown-row">
+        <div class="breakdown-label">boredom / excitement</div>
+        <div class="bar-outer"><div class="bar-inner bar-inner-sage" style="width:20%;"></div></div>
+        <div class="bar-count">6 of 30</div>
+      </div>
+      <div class="breakdown-row">
+        <div class="breakdown-label">identity</div>
+        <div class="bar-outer"><div class="bar-inner bar-inner-sage" style="width:13%;"></div></div>
+        <div class="bar-count">4 of 30</div>
+      </div>
+    </div>
+
+    <p>Escape dominated. In 22 of 30 decoded entries, what I was reaching for through spending was a way out of something — a feeling, a task, a situation, a version of an evening I didn't want to stay in. That number stopped me. I wasn't shopping for things. I was shopping <em>away</em> from feelings. The two are so different in terms of what would actually help.</p>
+
+    <h2>The pattern I didn't expect</h2>
+
+    <p>The individual trigger and driver frequencies told one story. But the combination data told a different, sharper one.</p>
+
+    <p>Looking at which trigger and driver appeared <em>together</em> in the same entry — the actual pairings — one combination appeared far more often than any other.</p>
+
+    <div class="combo-card">
+      <div class="combo-header">
+        <div class="combo-label">most frequent combination</div>
+        <div class="combo-tags">
+          <span class="dtag dtag-blue">late night</span>
+          <span class="combo-plus">+</span>
+          <span class="dtag dtag-sage">escape</span>
+        </div>
+      </div>
+      <div class="combo-body">
+        <div class="combo-count">17</div>
+        <div class="combo-count-label" style="margin-bottom: 14px;">entries out of 30 — more than half</div>
+        <p>Late night scrolling combined with a need to escape appeared in 17 of the 30 decoded entries. Not occasionally. Not as a pattern among several. As the dominant pattern, more than half of all entries.</p>
+        <p>Of those 17 entries, 12 were purchases I went through with. Five were resisted — and in four of those five, I'd noticed the combination consciously in the moment and done something else instead. The one time awareness alone wasn't enough was the night I was genuinely exhausted and had no alternative ready.</p>
+      </div>
+    </div>
+
+    <p>Once I could see this combination clearly, the month's data reorganised itself around it. The sale emails that worked on me were the ones that arrived at 10pm. The things I added to baskets and deleted in the morning were almost always late-night escape entries. Even the payday purchases — technically a different trigger — were often happening on Friday evenings, late, after a depleting week. The underlying combination was the same.</p>
+
+    <div class="pull-quote">
+      <p>"I wasn't a person with an impulse spending problem. I was a person with a late-night escape pattern that sometimes expressed itself as spending. That's a much more specific — and solvable — thing."</p>
+    </div>
+
+    <h2>Three specific entries that clarified everything</h2>
+
+    <p>Aggregate data shows you the shape. Individual entries show you the texture. Three decoded entries in particular shifted how I understood what was actually happening.</p>
+
+    <div class="decoded-item">
+      <div class="decoded-item-label">decoded entry · week 1 · purchased</div>
+      <div class="decoded-item-name">Linen shirt — £38 — kept, barely worn</div>
+      <div class="decoded-tags">
+        <span class="dtag dtag-blue">late night</span>
+        <span class="dtag dtag-blue">browsing / scrolling</span>
+        <span class="dtag dtag-sage">escape</span>
+        <span class="dtag dtag-sage">identity</span>
+      </div>
+      <div class="decoded-insight">I was 40 minutes into aimless scrolling at 11pm after a week I'd found harder than I admitted to anyone. The shirt felt like a version of myself I wanted to inhabit — calmer, more put-together, somewhere quieter. I wasn't buying a shirt. I was buying a feeling about who I'd be when things were easier.</div>
+    </div>
+
+    <div class="decoded-item">
+      <div class="decoded-item-label">decoded entry · week 2 · resisted</div>
+      <div class="decoded-item-name">Ceramic mug — £22 — added to wishlist instead</div>
+      <div class="decoded-tags">
+        <span class="dtag dtag-blue">browsing / scrolling</span>
+        <span class="dtag dtag-sage">comfort</span>
+      </div>
+      <div class="decoded-insight">This one was quieter. I genuinely wanted something warm and grounding — it had been a flat, grey Tuesday and I wanted comfort. I put the mug on a wishlist and made a cup of tea instead. It addressed the same need. The mug is still on the list. I look at it occasionally and still want it, but less urgently.</div>
+    </div>
+
+    <div class="decoded-item">
+      <div class="decoded-item-label">decoded entry · week 3 · purchased</div>
+      <div class="decoded-item-name">Three books — £41 — all read within a month</div>
+      <div class="decoded-tags">
+        <span class="dtag dtag-warm">payday</span>
+        <span class="dtag dtag-sage">reward</span>
+      </div>
+      <div class="decoded-insight">This is the one I don't regret. Payday arrived after a genuinely difficult month and buying three books I'd been wanting felt like the right kind of reward — something I'd use, something aligned with how I want to spend time. The trigger was payday, the driver was reward, and the purchase matched both. Not every impulse is a problem impulse.</div>
+    </div>
+
+    <p>That third entry was important. It showed up in the data as a payday + reward combination — and it was a purchase I genuinely valued. Not every impulse buy is wrong. Some of them are accurate. The decoding process doesn't tell you not to spend; it tells you whether the spending is actually meeting the need it claims to be meeting.</p>
+
+    <h2>What changed after seeing it</h2>
+
+    <p>The data generated an if-then plan. It was specific enough to feel like it had been written about me rather than for a general case, because it had been — it was built from my actual pattern, not a generic template.</p>
+
+    <div class="plan-card">
+      <span class="plan-label">auto-generated if-then plan · based on 30 decoded entries</span>
+      <div class="plan-text">"When late-night browsing meets the urge to escape, I will close all shopping apps, make a drink, and spend 10 minutes writing or reading before deciding whether I still want anything."</div>
+    </div>
+
+    <p>The plan worked more often than it didn't. But the more significant shift was subtler: I started recognising the combination in real time. Not every time. Not with perfect reliability. But often enough that the pattern stopped being invisible. Once a pattern has a name, it becomes harder to act on automatically. You have to actively choose it rather than just fall into it.</p>
+
+    <p>In the two weeks after the analysis, the late-night + escape purchases dropped from an average of four per week to one. Not because I tried harder. Because I could see what I was doing before I did it.</p>
+
+    <div class="callout callout-insight">
+      <span class="callout-label callout-label-sage">the most useful thing I learned</span>
+      Decoding isn't about judging individual purchases. It's about accumulating enough honest data to see the shape underneath them. Thirty entries is enough. You don't need a year of tracking. You need four weeks of genuine attention — and then you'll know more about your spending than any budget spreadsheet has ever told you.
+    </div>
+
+    <h2>What the data can't tell you</h2>
+
+    <p>There's one thing worth saying plainly: decoded data shows you the pattern. It doesn't automatically resolve the underlying need.</p>
+
+    <p>Knowing that late-night + escape is my dominant combination doesn't tell me what the escape is from, or what would genuinely address it. That part requires something other than an app — reflection, probably, and in some cases more than that. The data points you toward the right question. It doesn't answer it for you.</p>
+
+    <p>What it does do is stop you asking the wrong question. "Why do I spend so much?" is the wrong question. It's too broad, too self-critical, and it has no useful answer. "What is the combination that fires most reliably in my spending, and what is it actually reaching for?" — that question has a very specific answer. And a specific answer is something you can work with.</p>
+
+    <div class="pull-quote">
+      <p>"Thirty entries. Four weeks. One pattern that explained more than two years of trying to budget my way out of a behaviour that had nothing to do with money."</p>
+    </div>
+
+    <p style="font-size: 13px; color: var(--hint); margin-top: 8px;">
+      → <a href="/blog/triggers-vs-core-drivers" class="internal-link">Triggers vs Core Drivers: The Two-Layer System Behind Every Impulse Purchase</a><br/>
+      → <a href="/blog/impulse-spending-tracker-30-days" class="internal-link">I Tracked My Impulse Spending for 30 Days — Here's What I Found</a>
+    </p>
+
+    <div class="cta-box">
+      <div class="cta-title">the insights panel in Pause</div>
+      <p class="cta-body">The Insights panel generates this exact breakdown automatically — trigger frequency, core driver breakdown, combination analysis, and your personalised if-then plan — from your decoded entries. It updates every time you add a new one. Start with the free version; the Insights panel is available in the full version when you're ready.</p>
+      <a class="cta-btn" href="https://www.etsy.com" target="_blank">find Pause on Etsy →</a>
+    </div>
+
+  </div>
+  <!-- /article-body -->
+
+</article>
+
+<!-- RELATED ARTICLES -->
+<section class="related-section">
+  <div class="related-label">read next</div>
+  <div class="related-grid">
+    <a class="related-card" href="/blog/triggers-vs-core-drivers">
+      <div class="related-card-label">educational explainer</div>
+      <div class="related-card-title">Triggers vs Core Drivers: The Two-Layer System</div>
+    </a>
+    <a class="related-card" href="/blog/impulse-spending-tracker-30-days">
+      <div class="related-card-label">narrative · case study</div>
+      <div class="related-card-title">I Tracked My Impulse Spending for 30 Days</div>
+    </a>
+    <a class="related-card" href="/blog/10-things-to-do-instead">
+      <div class="related-card-label">listicle</div>
+      <div class="related-card-title">10 Things to Do Instead of Impulse Buying</div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <a href="/" class="footer-logo">future sanctuary<span>.</span></a>
+  <div class="footer-links">
+    <a href="/blog">blog</a>
+    <a href="/#apps">apps</a>
+    <a href="/privacy">privacy</a>
+  </div>
+</footer>
+
+</body>
+</html>

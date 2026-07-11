@@ -1,0 +1,747 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:wght@300;400;500&display=swap');
+:root {
+  --sand: #F2EDE4; --sand-dark: #E8E0D2; --sand-border: #D9CEBB;
+  --terracotta: #C47B5A; --terracotta-light: #F0E0D6;
+  --sage: #8FAF8A; --sage-light: #E6EFE5;
+  --clay: #B5896E; --clay-light: #F5EAE3;
+  --ochre: #C9A96E; --ochre-light: #FAF0DC;
+  --rose: #C4889A; --rose-light: #F5E6EB;
+  --text-main: #3A3530; --text-muted: #7A6E65; --text-hint: #A89D95;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body, .app-wrap { font-family: 'JetBrains Mono', monospace; background: var(--sand); color: var(--text-main); min-height: 100vh; font-size: 13px; }
+.app-header { background: var(--sand-dark); border-bottom: 1px solid var(--sand-border); padding: 14px 34px; display: flex; align-items: center; justify-content: space-between; }
+.app-logo { font-family: 'Gochi Hand', cursive; font-size: 28px; color: var(--text-main); line-height: 1; }
+.app-logo span { color: var(--terracotta); }
+.header-right { display: flex; align-items: center; gap: 10px; }
+.nav-tabs { display: flex; gap: 4px; background: var(--sand); border-bottom: 1px solid var(--sand-border); padding: 0 24px; overflow-x: auto; }
+.nav-tab { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 11px 14px; border: none; background: none; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: color 0.15s; letter-spacing: 0.3px; }
+.nav-tab:hover { color: var(--text-main); }
+.nav-tab.active { color: var(--terracotta); border-bottom-color: var(--terracotta); font-weight: 500; }
+.app-content { padding: 20px; }
+.section-title { font-family: 'Gochi Hand', cursive; font-size: 28px; color: var(--text-main); margin-bottom: 18px; line-height: 1.2; }
+.card { background: #FDFAF7; border: 1px solid var(--sand-border); border-radius: 12px; padding: 20px; margin-bottom: 14px; }
+.card-title { font-family: 'Gochi Hand', cursive; font-size: 19px; color: var(--text-main); margin-bottom: 12px; line-height: 1.2; }
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 18px; }
+.metric-card { background: var(--sand-dark); border-radius: 10px; padding: 12px 14px; border: 1px solid var(--sand-border); }
+.metric-label { font-size: 10px; color: var(--text-muted); margin-bottom: 5px; letter-spacing: 0.8px; text-transform: uppercase; }
+.metric-value { font-family: 'Gochi Hand', cursive; font-size: 26px; color: var(--text-main); line-height: 1; }
+.metric-sub { font-size: 10px; color: var(--text-hint); margin-top: 3px; }
+.streak-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--ochre-light); border: 1px solid var(--ochre); border-radius: 20px; padding: 5px 12px; font-size: 11px; color: var(--clay); font-family: 'JetBrains Mono', monospace; }
+.level-section { background: var(--sage-light); border: 1px solid var(--sage); border-radius: 10px; padding: 12px 16px; margin-bottom: 14px; }
+.level-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.level-name { font-family: 'Gochi Hand', cursive; font-size: 17px; color: var(--text-main); line-height: 1; }
+.level-days { font-size: 11px; color: var(--text-muted); }
+.progress-bar-bg { background: var(--sand-border); border-radius: 4px; height: 5px; }
+.progress-bar-fill { background: var(--sage); border-radius: 4px; height: 5px; transition: width 0.4s; }
+.btn { font-family: 'JetBrains Mono', monospace; font-size: 11px; border-radius: 8px; padding: 7px 14px; cursor: pointer; border: 1px solid var(--sand-border); background: #FDFAF7; color: var(--text-main); transition: background 0.15s; letter-spacing: 0.3px; }
+.btn:hover { background: var(--sand-dark); }
+.btn-primary { background: var(--terracotta); color: #fff; border-color: var(--terracotta); }
+.btn-primary:hover { background: #B36D4C; }
+.btn-sage { background: var(--sage); color: #fff; border-color: var(--sage); }
+.btn-sage:hover { background: #78A073; }
+.btn-danger { background: #f5eaea; color: #a33; border-color: #e0b0b0; }
+.btn-danger:hover { background: #f0d0d0; }
+.btn-sm { font-size: 10px; padding: 5px 10px; }
+.form-row { margin-bottom: 14px; }
+.form-label { font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 5px; letter-spacing: 0.3px; }
+.form-input { width: 100%; font-family: 'JetBrains Mono', monospace; font-size: 12px; border: 1px solid var(--sand-border); background: var(--sand); border-radius: 8px; padding: 8px 11px; color: var(--text-main); outline: none; }
+.form-input:focus { border-color: var(--terracotta); }
+.form-select { width: 100%; font-family: 'JetBrains Mono', monospace; font-size: 12px; border: 1px solid var(--sand-border); background: var(--sand); border-radius: 8px; padding: 8px 11px; color: var(--text-main); outline: none; appearance: none; cursor: pointer; }
+.tag-group { display: flex; flex-wrap: wrap; gap: 7px; }
+.tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 5px 11px; border-radius: 20px; border: 1px solid var(--sand-border); background: var(--sand-dark); color: var(--text-muted); cursor: pointer; transition: all 0.15s; user-select: none; }
+.tag.selected { background: var(--terracotta-light); border-color: var(--terracotta); color: var(--terracotta); }
+.star-row { display: flex; gap: 5px; }
+.star-btn { font-size: 20px; background: none; border: none; cursor: pointer; color: var(--sand-border); transition: color 0.1s; line-height: 1; }
+.star-btn.lit { color: var(--ochre); }
+.item-form { background: var(--sand); border: 1px solid var(--sand-border); border-radius: 10px; padding: 11px 13px; margin-bottom: 7px; }
+.item-form-fields { display: flex; gap: 7px; align-items: center; margin-bottom: 7px; flex-wrap: wrap; }
+.item-form-fields input[data-field="name"] { flex: 1; min-width: 110px; }
+.item-form-fields input[data-field="cost"] { width: 80px; }
+.item-toggle-row { display: flex; gap: 6px; }
+.item-toggle { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 12px; border-radius: 20px; border: 1px solid var(--sand-border); background: var(--sand-dark); color: var(--text-muted); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+.item-toggle.bought { background: var(--clay-light); border-color: var(--clay); color: var(--clay); font-weight: 500; }
+.item-toggle.resisted { background: var(--sage-light); border-color: var(--sage); color: #3A6A35; font-weight: 500; }
+.day-entry { background: #FDFAF7; border: 1px solid var(--sand-border); border-radius: 10px; padding: 12px 14px; margin-bottom: 9px; }
+.day-entry-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
+.day-entry-date { font-family: 'Gochi Hand', cursive; font-size: 16px; color: var(--text-main); }
+.day-entry-meta { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-bottom: 3px; }
+.day-items { margin-top: 7px; border-top: 1px solid var(--sand-border); padding-top: 7px; }
+.day-item-row { display: flex; align-items: center; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--sand-border); font-size: 12px; gap: 7px; }
+.day-item-row:last-child { border-bottom: none; }
+.day-item-left { display: flex; align-items: center; gap: 7px; flex: 1; flex-wrap: wrap; }
+.badge { font-size: 10px; padding: 2px 7px; border-radius: 10px; white-space: nowrap; font-family: 'JetBrains Mono', monospace; }
+.badge-green { background: var(--sage-light); color: #3A6A35; }
+.badge-clay { background: var(--clay-light); color: var(--clay); }
+.badge-ochre { background: var(--ochre-light); color: #8A6030; }
+.badge-sand { background: var(--sand-dark); color: var(--text-muted); }
+.badge-warn { background: #FFF3CD; color: #856404; }
+.decode-btn { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 9px; border-radius: 12px; border: 1px solid var(--sand-border); background: var(--sand-dark); color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: all 0.15s; }
+.decode-btn:hover { background: var(--terracotta-light); border-color: var(--terracotta); color: var(--terracotta); }
+.decode-btn.decoded { background: var(--sage-light); border-color: var(--sage); color: #3A6A35; }
+.decoder-row { display: flex; align-items: flex-start; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid var(--sand-border); gap: 10px; }
+.decoder-row:last-child { border-bottom: none; }
+.decoder-row-left { flex: 1; }
+.decoder-row-date { font-size: 10px; color: var(--text-hint); margin-bottom: 2px; }
+.decoder-row-name { color: var(--text-main); font-weight: 500; font-size: 12px; }
+.decoder-row-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.decoder-decode-info { font-size: 10px; color: var(--text-hint); margin-top: 3px; }
+.chart-bars { display: flex; align-items: flex-end; gap: 5px; height: 90px; padding: 0 4px; }
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.bar-fill { width: 100%; border-radius: 3px 3px 0 0; transition: height 0.3s; min-height: 3px; }
+.bar-label { font-size: 9px; color: var(--text-hint); }
+.modal-bg { display: none; position: fixed; inset: 0; background: rgba(58,53,48,0.5); z-index: 100; align-items: center; justify-content: center; padding: 14px; }
+.modal-bg.open { display: flex; }
+.modal { background: #FDFAF7; border-radius: 14px; padding: 24px; width: 460px; max-width: 100%; border: 1px solid var(--sand-border); max-height: 90vh; overflow-y: auto; }
+.modal-title { font-family: 'Gochi Hand', cursive; font-size: 22px; margin-bottom: 5px; line-height: 1.2; }
+.modal-subtitle { font-size: 11px; color: var(--text-hint); margin-bottom: 16px; line-height: 1.5; }
+.modal-body { font-size: 12px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.7; }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin-top: 18px; }
+.modal-section { margin-bottom: 16px; }
+.modal-section-label { font-size: 11px; color: var(--text-muted); margin-bottom: 7px; display: block; font-weight: 500; letter-spacing: 0.3px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media(max-width:600px){.grid-2{grid-template-columns:1fr;}}
+.ifthen-box { background: var(--terracotta-light); border: 1px solid #D9B8AD; border-radius: 10px; padding: 14px 16px; font-size: 12px; line-height: 1.8; }
+.ifthen-box strong { color: var(--terracotta); }
+.reflection-q { margin-bottom: 16px; }
+.reflection-q .q-num { font-family: 'Gochi Hand', cursive; font-size: 17px; color: var(--terracotta); margin-bottom: 3px; line-height: 1; }
+.reflection-q .q-text { font-size: 11px; color: var(--text-muted); margin-bottom: 7px; line-height: 1.5; }
+.reflection-saved { font-size: 10px; color: var(--sage); margin-top: 2px; height: 13px; }
+.empty-state { text-align: center; padding: 36px 18px; color: var(--text-hint); font-size: 12px; line-height: 1.8; }
+.data-toolbar { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 18px; }
+.toast { position: fixed; bottom: 20px; right: 20px; background: var(--text-main); color: var(--sand); font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 9px 16px; border-radius: 8px; z-index: 200; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.toast.show { opacity: 1; }
+.setting-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--sand-border); font-size: 12px; }
+.setting-row:last-child { border-bottom: none; }
+.setting-sub { font-size: 10px; color: var(--text-hint); margin-top: 2px; }
+.switch-group { display: flex; gap: 5px; }
+.switch-opt { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--sand-border); background: var(--sand-dark); color: var(--text-muted); cursor: pointer; }
+.switch-opt.active { background: var(--terracotta); color: #fff; border-color: var(--terracotta); }
+.edit-btn { font-size: 12px; color: var(--text-hint); background: none; border: none; cursor: pointer; padding: 2px 5px; border-radius: 4px; }
+.edit-btn:hover { color: var(--terracotta); background: var(--terracotta-light); }
+.delete-btn { font-size: 12px; color: var(--text-hint); background: none; border: none; cursor: pointer; padding: 2px 5px; border-radius: 4px; }
+.delete-btn:hover { color: #a33; background: #fdecea; }
+.insight-card { border-radius: 10px; padding: 13px 15px; margin-bottom: 10px; font-size: 12px; line-height: 1.6; }
+.divider { border: none; border-top: 1px solid var(--sand-border); margin: 18px 0; }
+.instruction-box { background: var(--ochre-light); border: 1px solid #D4B87A; border-radius: 10px; padding: 11px 14px; font-size: 11px; color: #6A4A20; line-height: 1.6; margin-bottom: 16px; }
+.storage-bar-bg { background: var(--sand-border); border-radius: 4px; height: 6px; margin-top: 8px; }
+.storage-bar-fill { border-radius: 4px; height: 6px; transition: width 0.4s; }
+.history-entry { background: var(--sand); border: 1px solid var(--sand-border); border-radius: 10px; padding: 14px; margin-bottom: 10px; }
+.history-date { font-family: 'Gochi Hand', cursive; font-size: 15px; color: var(--terracotta); margin-bottom: 8px; }
+.history-qa { margin-bottom: 7px; }
+.history-q { color: var(--text-muted); font-size: 11px; margin-bottom: 2px; }
+.history-a { color: var(--text-main); font-size: 12px; line-height: 1.5; }
+.history-toggle { background: none; border: none; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-hint); cursor: pointer; padding: 0; margin-top: 5px; }
+.history-toggle:hover { color: var(--terracotta); }
+</style>
+
+<div class="app-wrap">
+<div class="app-header">
+  <div class="app-logo">pause<span>.</span></div>
+  <div class="header-right">
+    <span id="header-streak" class="streak-badge">🔥 0 day streak</span>
+    <button class="btn btn-sm" onclick="openModal('data-modal')">export</button>
+  </div>
+</div>
+<nav class="nav-tabs">
+  <button class="nav-tab active" onclick="showTab('dashboard',this)">dashboard</button>
+  <button class="nav-tab" onclick="showTab('log',this)">daily log</button>
+  <button class="nav-tab" onclick="showTab('decoder',this)">impulse decoder</button>
+  <button class="nav-tab" onclick="showTab('reflection',this)">weekly reflection</button>
+  <button class="nav-tab" onclick="showTab('insights',this)">insights</button>
+  <button class="nav-tab" onclick="showTab('settings',this)">settings</button>
+</nav>
+
+<div class="app-content">
+
+<!-- DASHBOARD -->
+<div id="tab-dashboard">
+  <div class="section-title">your week at a glance</div>
+  <div class="level-section">
+    <div class="level-header">
+      <span class="level-name" id="level-name-display">Level 1 — Seedling 🌱</span>
+      <span class="level-days" id="level-days-display">0 / 7 days to next level</span>
+    </div>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="level-progress-bar" style="width:0%"></div></div>
+  </div>
+  <div class="metric-grid">
+    <div class="metric-card"><div class="metric-label">no-spend days</div><div class="metric-value" id="dash-nospend">0</div><div class="metric-sub">logged so far</div></div>
+    <div class="metric-card"><div class="metric-label">items logged</div><div class="metric-value" id="dash-items">0</div><div class="metric-sub">bought + resisted</div></div>
+    <div class="metric-card"><div class="metric-label">impulses resisted</div><div class="metric-value" id="dash-resisted">0</div><div class="metric-sub">didn't buy</div></div>
+    <div class="metric-card"><div class="metric-label">est. money saved</div><div class="metric-value" id="dash-saved">£0</div><div class="metric-sub">from resisted items</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">weekly difficulty</div>
+    <div class="chart-bars" id="difficulty-chart"><div style="font-size:11px;color:var(--text-hint);align-self:center;padding:8px">no check-ins yet</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">top trigger this week</div>
+    <div id="dash-top-trigger" style="font-size:12px;color:var(--text-muted)">decode some impulses to see patterns here.</div>
+  </div>
+  <div style="margin-top:14px"><button class="btn btn-primary" onclick="showTab('log',document.querySelectorAll('.nav-tab')[1])">+ log today</button></div>
+</div>
+
+<!-- DAILY LOG -->
+<div id="tab-log" style="display:none">
+  <div class="section-title">daily log</div>
+  <div class="instruction-box">you can simply log your day as a whole, or log individual items that you bought or resisted for decoding and deeper reflection on what triggered it.</div>
+  <div class="card">
+    <div class="card-title" id="log-form-title">log a day</div>
+    <div class="form-row"><label class="form-label">date</label><input type="date" class="form-input" id="log-date"/></div>
+    <div class="form-row">
+      <label class="form-label">how difficult was it to resist today? <span id="star-label" style="color:var(--terracotta)">—</span></label>
+      <div class="star-row" id="star-row"><button class="star-btn" onclick="setStar(1)">★</button><button class="star-btn" onclick="setStar(2)">★</button><button class="star-btn" onclick="setStar(3)">★</button><button class="star-btn" onclick="setStar(4)">★</button><button class="star-btn" onclick="setStar(5)">★</button></div>
+    </div>
+    <div class="form-row"><label class="form-label">note (optional)</label><textarea class="form-input" id="log-note" rows="2" placeholder="anything worth remembering..."></textarea></div>
+    <div class="form-row">
+      <label class="form-label">items bought or considered (optional)</label>
+      <div id="item-entries"></div>
+      <button class="btn btn-sm" style="margin-top:7px" onclick="addItemRow()">+ add item</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:4px;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="initiateLogSave()">save check-in</button>
+      <button class="btn" id="cancel-edit-btn" style="display:none" onclick="resetLogForm()">cancel edit</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">check-in history</div>
+    <div id="log-history"><div class="empty-state">no check-ins yet.</div></div>
+  </div>
+</div>
+
+<!-- IMPULSE DECODER -->
+<div id="tab-decoder" style="display:none">
+  <div class="section-title">impulse decoder</div>
+  <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px;line-height:1.6">all logged items appear below. tap <strong>decode</strong> on any item to reflect on what triggered it.</div>
+  <div class="card"><div id="decoder-list"><div class="empty-state">no items logged yet.</div></div></div>
+</div>
+
+<!-- WEEKLY REFLECTION -->
+<div id="tab-reflection" style="display:none">
+  <div class="section-title">weekly reflection</div>
+  <div class="card">
+    <div class="card-title">your if-then plan</div>
+    <div class="ifthen-box" id="ifthen-output">decode some impulses first — your personalised plan will appear here.</div>
+    <div style="margin-top:10px;font-size:10px;color:var(--text-hint)">regenerates based on your most frequent trigger × need from decoded items.</div>
+    <button class="btn btn-sm" style="margin-top:9px" onclick="generateIfThen()">↻ regenerate plan</button>
+  </div>
+  <div class="card">
+    <div class="card-title">8 reflection prompts</div>
+    <div style="font-size:10px;color:var(--text-hint);margin-bottom:14px">answers save automatically as you type. click "save this week's reflection" when done.</div>
+    <div class="reflection-q"><div class="q-num">01</div><div class="q-text">What was the hardest moment this week — and what was really going on underneath it?</div><textarea class="form-input" rows="2" data-rkey="r1" oninput="saveReflection(this)" placeholder="write freely..."></textarea><div class="reflection-saved" id="saved-r1"></div></div>
+    <div class="reflection-q"><div class="q-num">02</div><div class="q-text">Which impulse moment are you most proud of resisting? What made it possible?</div><textarea class="form-input" rows="2" data-rkey="r2" oninput="saveReflection(this)" placeholder="write freely..."></textarea><div class="reflection-saved" id="saved-r2"></div></div>
+    <div class="reflection-q"><div class="q-num">03</div><div class="q-text">What does the thing you wanted to buy say about what you actually needed in that moment?</div><textarea class="form-input" rows="2" data-rkey="r3" oninput="saveReflection(this)" placeholder="write freely..."></textarea><div class="reflection-saved" id="saved-r3"></div></div>
+    <div class="reflection-q"><div class="q-num">04</div><div class="q-text">Which time of day or emotional state appeared most often before an impulse hit?</div><textarea class="form-input" rows="2" data-rkey="r4" oninput="saveReflection(this)" placeholder="write freely..."></textarea><div class="reflection-saved" id="saved-r4"></div></div>
+    <div class="reflection-q"><div class="q-num">05</div><div class="q-text">If a friend described your spending pattern from this week, what would they say?</div><textarea class="form-input" rows="2" data-rkey="r5" oninput="saveReflection(this)" placeholder="write freely..."></textarea><div class="reflection-saved" id="saved-r5"></div></div>
+    <div class="reflection-q"><div class="q-num">06</div><div class="q-text">What strategy or alternative actually worked for you this week? What felt forced?</div><textarea class="form-input" rows="2" data-rkey="r6" oninput="saveReflection(this)" placeholder="write freely..."></textarea><div class="reflection-saved" id="saved-r6"></div></div>
+    <div class="reflection-q"><div class="q-num">07</div><div class="q-text">Is there something you bought — or nearly bought — that you'd like to understand better?</div><textarea class="form-input" rows="2" data-rkey="r7" oninput="saveReflection(this)" placeholder="write freely..."></textarea><div class="reflection-saved" id="saved-r7"></div></div>
+    <div class="reflection-q"><div class="q-num">08</div><div class="q-text">What one small thing do you want to try differently next week?</div><textarea class="form-input" rows="2" data-rkey="r8" oninput="saveReflection(this)" placeholder="write freely..."></textarea><div class="reflection-saved" id="saved-r8"></div></div>
+    <div style="margin-top:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="archiveReflection()">save this week's reflection</button>
+      <span id="archive-confirm" style="font-size:11px;color:var(--sage)"></span>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">reflection history</div>
+    <div id="reflection-history-list"><div class="empty-state">no archived reflections yet.</div></div>
+  </div>
+</div>
+
+<!-- INSIGHTS -->
+<div id="tab-insights" style="display:none">
+  <div class="section-title">your pattern</div>
+  <div id="insights-summary" class="insight-card" style="background:var(--terracotta-light);border:1px solid #D9B8AD">log and decode some impulses to unlock your pattern summary.</div>
+  <div class="grid-2" style="margin-top:14px">
+    <div class="card"><div class="card-title">trigger breakdown</div><div id="trigger-breakdown"></div></div>
+    <div class="card"><div class="card-title">impulse outcome</div><div id="outcome-breakdown"></div></div>
+  </div>
+  <div class="card"><div class="card-title">core drivers</div><div id="needs-breakdown"></div></div>
+</div>
+
+<!-- SETTINGS -->
+<div id="tab-settings" style="display:none">
+  <div class="section-title">settings</div>
+  <div class="card">
+    <div class="card-title">profile</div>
+    <div class="form-row"><label class="form-label">your name (optional)</label><input type="text" class="form-input" id="setting-name" placeholder="how should we address you?" oninput="saveSetting('name',this.value)"/></div>
+    <div class="form-row"><label class="form-label">estimated average impulse spend per item (£)</label><input type="number" class="form-input" id="setting-avgspend" placeholder="e.g. 25" oninput="saveSetting('avgSpend',this.value)"/></div>
+    <div class="form-row"><label class="form-label">main spending trigger</label>
+      <select class="form-select" id="setting-trigger" onchange="saveSetting('mainTrigger',this.value)">
+        <option value="">select your main trigger</option>
+        <option>social</option><option>advertising</option><option>email promotion</option><option>sale</option><option>browsing / scrolling</option><option>stress</option><option>bored</option><option>payday</option><option>habit</option><option>late night</option>
+      </select>
+    </div>
+    <div class="form-row"><label class="form-label">hardest time of day</label>
+      <select class="form-select" id="setting-time" onchange="saveSetting('hardestTime',this.value)">
+        <option value="">select a time</option><option>morning</option><option>afternoon</option><option>evening</option><option>late night</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- STORAGE MONITOR -->
+  <div class="card">
+    <div class="card-title">data storage</div>
+    <div style="font-size:11px;color:var(--text-muted);line-height:1.7;margin-bottom:10px">your data lives in your browser's local storage. browsers allow up to ~5MB. export regularly to keep a safe backup.</div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px">
+      <span>storage used</span>
+      <span id="storage-used-label">calculating...</span>
+    </div>
+    <div class="storage-bar-bg"><div class="storage-bar-fill" id="storage-bar" style="width:0%;background:var(--sage)"></div></div>
+    <div id="storage-warning" style="font-size:11px;color:#856404;margin-top:8px;display:none">⚠ storage is over 80% full — export a backup now.</div>
+    <div style="font-size:10px;color:var(--text-hint);margin-top:6px" id="storage-entries-label"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">export reminders</div>
+    <div class="setting-row">
+      <div><div style="color:var(--text-main)">remind me to export data</div><div class="setting-sub">a pop-up prompt to back up your data</div></div>
+      <div class="switch-group">
+        <button class="switch-opt" id="remind-daily" onclick="setReminder('daily')">daily</button>
+        <button class="switch-opt" id="remind-weekly" onclick="setReminder('weekly')">weekly</button>
+        <button class="switch-opt" id="remind-off" onclick="setReminder('off')">off</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">data management</div>
+    <div class="data-toolbar">
+      <button class="btn" onclick="exportJSON()">export JSON</button>
+      <button class="btn" onclick="exportCSV()">export CSV</button>
+      <label class="btn" style="cursor:pointer">import JSON<input type="file" accept=".json" style="display:none" onchange="importJSON(event)"/></label>
+    </div>
+    <div style="font-size:11px;color:var(--text-hint);line-height:1.8;margin-bottom:18px">JSON export includes all data and is fully re-importable. CSV is for spreadsheet analysis. exports are versioned so future imports will always be compatible.</div>
+    <hr class="divider">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+      <div><div style="font-size:12px;color:var(--text-main);font-weight:500">reset all data</div><div class="setting-sub">permanently deletes everything. cannot be undone.</div></div>
+      <button class="btn btn-danger btn-sm" onclick="openModal('reset-modal')">reset</button>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- DECODE MODAL -->
+<div class="modal-bg" id="decode-modal">
+  <div class="modal">
+    <div class="modal-title">decode this impulse</div>
+    <div class="modal-subtitle" id="decode-item-label">—</div>
+    <div class="modal-section"><span class="modal-section-label">what triggered it?</span>
+      <div class="tag-group" id="decode-trigger-tags">
+        <span class="tag" onclick="toggleDecodeTag(this,'trigger')">social</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'trigger')">advertising</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'trigger')">email promotion</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'trigger')">sale</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'trigger')">browsing / scrolling</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'trigger')">stress</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'trigger')">bored</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'trigger')">payday</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'trigger')">habit</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'trigger')">late night</span>
+      </div>
+    </div>
+    <div class="modal-section"><span class="modal-section-label">core driver / underlying need</span>
+      <div class="tag-group" id="decode-need-tags">
+        <span class="tag" onclick="toggleDecodeTag(this,'need')">relief</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'need')">reward</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'need')">escape</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'need')">comfort</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'need')">validation</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'need')">excitement</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'need')">connection</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'need')">control</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'need')">identity</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'need')">FOMO</span>
+      </div>
+    </div>
+    <div class="modal-section"><span class="modal-section-label">what did you do instead?</span>
+      <div class="tag-group" id="decode-instead-tags">
+        <span class="tag" onclick="toggleDecodeTag(this,'instead')">waited 30 mins</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'instead')">went for a walk</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'instead')">texted a friend</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'instead')">made a drink</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'instead')">wrote it down</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'instead')">bought it</span>
+        <span class="tag" onclick="toggleDecodeTag(this,'instead')">other</span>
+      </div>
+    </div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal('decode-modal')">cancel</button><button class="btn btn-primary" onclick="saveDecode()">save decode</button></div>
+  </div>
+</div>
+
+<!-- NO-SPEND PROMPT -->
+<div class="modal-bg" id="spend-prompt-modal"><div class="modal">
+  <div class="modal-title">how did today go?</div>
+  <div class="modal-body">you haven't logged any items. was it a spend day or a no-spend day?</div>
+  <div class="modal-actions"><button class="btn" onclick="closeModal('spend-prompt-modal')">cancel</button><button class="btn btn-sage" onclick="finalSaveLog(false)">✓ no spend</button><button class="btn btn-primary" onclick="finalSaveLog(true)">✗ i spent</button></div>
+</div></div>
+
+<!-- DUPLICATE DATE MODAL -->
+<div class="modal-bg" id="duplicate-modal"><div class="modal">
+  <div class="modal-title">entry already exists for this date</div>
+  <div class="modal-body" id="duplicate-modal-body"></div>
+  <div class="modal-actions"><button class="btn" onclick="closeModal('duplicate-modal')">cancel</button><button class="btn btn-primary" onclick="mergeWithExisting()">yes, update it</button></div>
+</div></div>
+
+<!-- DATA MODAL -->
+<div class="modal-bg" id="data-modal"><div class="modal">
+  <div class="modal-title">back up your data</div>
+  <div class="modal-body">your pause data lives in your browser. export a backup so you don't lose your progress.</div>
+  <div class="modal-actions"><button class="btn" onclick="closeModal('data-modal')">remind me later</button><button class="btn" onclick="exportCSV();closeModal('data-modal')">CSV</button><button class="btn btn-primary" onclick="exportJSON();closeModal('data-modal')">export JSON</button></div>
+</div></div>
+
+<!-- REMINDER MODAL -->
+<div class="modal-bg" id="reminder-modal"><div class="modal">
+  <div class="modal-title">time to save your data ✦</div>
+  <div class="modal-body">you set a reminder to export your pause data. it only takes a moment — your progress is worth keeping.</div>
+  <div class="modal-actions"><button class="btn" onclick="closeModal('reminder-modal')">dismiss</button><button class="btn btn-primary" onclick="exportJSON();closeModal('reminder-modal')">export now</button></div>
+</div></div>
+
+<!-- RESET MODAL -->
+<div class="modal-bg" id="reset-modal"><div class="modal">
+  <div class="modal-title">reset all data?</div>
+  <div class="modal-body">this will permanently delete all your check-ins and reflections. settings will be kept. this cannot be undone.</div>
+  <div class="modal-actions"><button class="btn" onclick="closeModal('reset-modal')">cancel</button><button class="btn btn-danger" onclick="resetAllData()">yes, reset everything</button></div>
+</div></div>
+
+<!-- STORAGE WARNING MODAL -->
+<div class="modal-bg" id="storage-warn-modal"><div class="modal">
+  <div class="modal-title">storage is getting full ⚠</div>
+  <div class="modal-body" id="storage-warn-body">your browser storage is over 80% full. export a JSON backup now to make sure you don't lose any data.</div>
+  <div class="modal-actions"><button class="btn" onclick="closeModal('storage-warn-modal')">dismiss</button><button class="btn btn-primary" onclick="exportJSON();closeModal('storage-warn-modal')">export JSON now</button></div>
+</div></div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var APP_VERSION = '3';
+var STORAGE_KEY = 'pause_app_v3';
+var STORAGE_MAX_BYTES = 5 * 1024 * 1024; // 5MB
+
+var QUESTIONS=['What was the hardest moment this week — and what was really going on underneath it?','Which impulse moment are you most proud of resisting? What made it possible?','What does the thing you wanted to buy say about what you actually needed in that moment?','Which time of day or emotional state appeared most often before an impulse hit?','If a friend described your spending pattern from this week, what would they say?','What strategy or alternative actually worked for you this week? What felt forced?','Is there something you bought — or nearly bought — that you\'d like to understand better?','What one small thing do you want to try differently next week?'];
+
+var PLANS={social:{FOMO:'When I see something on social media and FOMO kicks in, I will close the app and wait 24 hours before revisiting the item.',validation:'When social media makes me want to buy to feel seen, I will remind myself: my worth is not in what I own or post.',identity:'When I want to buy something to signal who I am, I will ask: does this reflect me, or who I think others want to see?',excitement:'When social content triggers excitement about a purchase, I will screenshot it and revisit in 48 hours with fresh eyes.',connection:'When seeing others buy things makes me feel left out, I will reach out to a friend directly instead of shopping.',default:'When social media triggers an impulse, I will put my phone down for 30 minutes. The feeling almost always passes.'},advertising:{FOMO:'When an ad creates a fear of missing out, I will remind myself: ads are designed to manufacture urgency. The deadline is not real.',identity:'When an ad makes me want to buy into a version of myself, I will ask: am I buying the product, or buying the feeling of the person in the ad?',excitement:'When an ad makes something feel thrilling, I will add it to a wishlist and check back in a week to see if the excitement holds.',reward:'When an ad frames a purchase as a reward I deserve, I will write down one free thing I could do to genuinely treat myself instead.',default:'When advertising creates an impulse, I will block or hide that ad and remind myself I was fine before I saw it.'},'email promotion':{FOMO:'When a promotional email creates urgency with a deadline, I will remind myself that another sale will always follow — they always do.',reward:'When an email offer feels like a reward I\'ve earned, I will close it and return only if I was already looking for that item.',excitement:'When a sale email sparks excitement, I will unsubscribe or move it to a folder and only revisit after 48 hours.',default:'When a promotional email triggers an impulse, I will unsubscribe from that list. Fewer emails means fewer temptations.'},sale:{FOMO:'When a sale creates urgency, I will ask: would I buy this at full price? If not, the discount isn\'t a reason to buy.',excitement:'When a sale makes buying feel thrilling, I will remind myself that the excitement is about the discount, not the item.',reward:'When I want to treat myself with a sale purchase, I will check whether I actually needed the item before the sale existed.',control:'When a sale feels like a smart financial decision, I will ask: am I spending money to save money, or just spending money?',default:'When a sale triggers an impulse, I will pause and ask: is this a genuine need, or am I just responding to manufactured scarcity?'},'browsing / scrolling':{escape:'When I find myself browsing to escape, I will close the app and do something that genuinely changes my environment.',comfort:'When browsing feels comforting, I will ask what I actually need comfort from — and address that directly instead.',excitement:'When scrolling creates a buzz of wanting, I will recognise it as the scroll doing its job, not me having a genuine need.',default:'When browsing and scrolling leads to impulse urges, I will set a timer and stop when it rings — then leave the app entirely.'},stress:{relief:'When stress makes me want to buy for relief, I will take 5 slow breaths first. Buying relieves nothing — it just delays the feeling.',escape:'When stress drives me to shop as an escape, I will step outside for 10 minutes before returning to any screen.',comfort:'When stress makes me reach for comfort purchases, I will make a hot drink and let myself feel the stress rather than spend through it.',reward:'When stress makes me feel I deserve a treat, I will choose a free reward — a nap, a bath, a call with someone I love.',default:'When stress triggers an impulse, I will write down what\'s stressing me before I open any shopping app. Naming it reduces its power.'},bored:{escape:'When boredom makes me reach for my phone to shop, I will ask: what would actually make me feel alive right now? Then do that instead.',excitement:'When boredom makes buying feel exciting, I will rediscover something I already own — something forgotten at the back of a drawer.',comfort:'When I shop out of boredom for comfort, I will call or text someone instead. Connection beats consumption.',default:'When boredom triggers a shopping impulse, I will put my phone down and do something with my hands for 15 minutes.'},payday:{reward:'On payday, before I spend anything, I will move my savings target amount first — then spend from what\'s left.',relief:'When payday makes me want to spend freely out of relief, I will make a quick plan for the money before I open any shopping apps.',excitement:'When payday excitement leads to impulse purchases, I will give myself a 48-hour window before buying anything non-essential.',default:'On payday, I will follow the plan I made before I got paid — not the impulses that arrive once the money lands.'},habit:{comfort:'When I realise I\'m buying out of habit, I will break the loop by changing one small thing about the routine that precedes it.',escape:'When habitual browsing leads to buying, I will replace the habit with a non-purchase ritual — a specific drink, a walk, a song.',relief:'When buying feels automatic and gives relief, I will pause and ask: what am I actually relieving? Then address that directly.',default:'When I catch myself buying out of habit, I will name the habit out loud and choose one small substitute action instead.'},'late night':{escape:'When late-night browsing leads to impulse buying, I will put my phone on charge in another room by a set time each night.',comfort:'When I shop late at night for comfort, I will recognise that tiredness lowers my resistance — and go to sleep instead.',relief:'When late-night impulses feel like relief, I will remind myself: nothing I buy tonight will feel as good as it looks on a tired screen.',default:'When late-night impulses arrive, I will add items to a wishlist only — no purchasing after a set time I\'ve decided in advance.'}};
+
+// Migration map: old field names → new field names across versions
+function migrateData(raw) {
+  var d = Object.assign({logs:[],reflections:{},reflectionHistory:[],settings:{name:'',avgSpend:25,mainTrigger:'',hardestTime:'',reminder:'weekly'},lastExportPrompt:null}, raw);
+  // v1/v2 had separate 'impulses' array — merge into logs as items
+  if (raw.impulses && raw.impulses.length && (!d.logs || !d.logs.some(function(l){return l.items&&l.items.length;}))) {
+    var byDate = {};
+    raw.impulses.forEach(function(imp) {
+      var date = imp.date || new Date().toISOString().slice(0,10);
+      if (!byDate[date]) byDate[date] = [];
+      byDate[date].push({id: imp.id||generateId(), name: imp.item||'unknown item', cost: null, bought: imp.instead==='bought it'?true:false, decode: {trigger:imp.trigger||'',need:imp.need||'',instead:imp.instead||''}});
+    });
+    Object.keys(byDate).forEach(function(date) {
+      var existing = d.logs.find(function(l){return l.date===date;});
+      if (existing) { existing.items = (existing.items||[]).concat(byDate[date]); }
+      else { d.logs.push({id:generateId(),date:date,noSpend:false,difficulty:0,note:'',items:byDate[date]}); }
+    });
+  }
+  return d;
+}
+
+var state={logs:[],reflections:{},reflectionHistory:[],settings:{name:'',avgSpend:25,mainTrigger:'',hardestTime:'',reminder:'weekly'},lastExportPrompt:null};
+var selectedStar=0,editingLogId=null,pendingSaveData=null;
+var currentDecodeLogId=null,currentDecodeItemId=null;
+var decodeSelections={trigger:'',need:'',instead:''};
+
+function generateId(){return Date.now()+Math.floor(Math.random()*1000);}
+
+function loadState(){
+  try {
+    // Try current key first
+    var s=localStorage.getItem(STORAGE_KEY);
+    if(s){state=migrateData(JSON.parse(s));return;}
+    // Try legacy keys
+    var legacy=['pause_app_v2','pause_app_v1'].map(function(k){return localStorage.getItem(k);}).filter(Boolean);
+    if(legacy.length){state=migrateData(JSON.parse(legacy[0]));saveState();toast('legacy data migrated ✓');return;}
+  }catch(e){}
+}
+
+function saveState(){
+  try{
+    var payload=JSON.stringify(Object.assign({},state,{_version:APP_VERSION,_savedAt:new Date().toISOString()}));
+    localStorage.setItem(STORAGE_KEY,payload);
+    updateStorageMonitor();
+  }catch(e){
+    if(e.name==='QuotaExceededError'){openModal('storage-warn-modal');}
+  }
+}
+
+function updateStorageMonitor(){
+  try {
+    var used=0;
+    for(var k in localStorage){if(localStorage.hasOwnProperty(k))used+=((localStorage[k].length+k.length)*2);}
+    var pct=Math.min(100,Math.round((used/STORAGE_MAX_BYTES)*100));
+    var usedKB=Math.round(used/1024);
+    var label=usedKB<1024?(usedKB+'KB'):((usedKB/1024).toFixed(1)+'MB');
+    var el=document.getElementById('storage-used-label');
+    var bar=document.getElementById('storage-bar');
+    var warn=document.getElementById('storage-warning');
+    var entries=document.getElementById('storage-entries-label');
+    if(el)el.textContent=label+' of ~5MB ('+pct+'%)';
+    if(bar){bar.style.width=pct+'%';bar.style.background=pct>=80?'var(--terracotta)':pct>=60?'var(--ochre)':'var(--sage)';}
+    if(warn)warn.style.display=pct>=80?'block':'none';
+    if(entries){var allItems=getAllItemsFlat();entries.textContent=state.logs.length+' check-in'+(state.logs.length!==1?'s':'')+' · '+allItems.length+' item'+(allItems.length!==1?'s':'')+' · '+state.reflectionHistory.length+' reflection'+(state.reflectionHistory.length!==1?'s':'')+' archived';}
+    if(pct>=80&&!sessionStorage.getItem('storageWarnShown')){openModal('storage-warn-modal');sessionStorage.setItem('storageWarnShown','1');}
+  }catch(e){}
+}
+
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function showTab(name,btn){
+  ['dashboard','log','decoder','reflection','insights','settings'].forEach(function(t){document.getElementById('tab-'+t).style.display='none';});
+  document.getElementById('tab-'+name).style.display='';
+  document.querySelectorAll('.nav-tab').forEach(function(b){b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  if(name==='dashboard')updateDashboard();
+  if(name==='decoder')renderDecoderList();
+  if(name==='insights')updateInsights();
+  if(name==='reflection'){loadReflections();generateIfThen();renderReflectionHistory();}
+  if(name==='settings')updateStorageMonitor();
+}
+
+function setStar(n){selectedStar=n;var labels=['','barely felt it','a little tricky','pretty tough','really hard','near impossible'];document.getElementById('star-label').textContent=labels[n];document.getElementById('star-row').querySelectorAll('.star-btn').forEach(function(b,i){b.classList.toggle('lit',i<n);});}
+
+function addItemRow(item){
+  var id=item?item.id:generateId();
+  var container=document.getElementById('item-entries');
+  var div=document.createElement('div');div.className='item-form';div.dataset.itemId=id;
+  var bc=item&&item.bought===true?' bought':'';var rc=item&&item.bought===false?' resisted':'';
+  div.innerHTML='<div class="item-form-fields"><input type="text" class="form-input" placeholder="item name" value="'+(item?escHtml(item.name||''):'')+'" data-field="name"/><input type="text" class="form-input" style="width:80px" placeholder="£ cost" value="'+(item&&item.cost?item.cost:'')+'" data-field="cost"/><button type="button" onclick="removeItemRow(this)" style="background:none;border:none;cursor:pointer;color:var(--text-hint);font-size:16px;padding:0 3px">✕</button></div><div class="item-toggle-row"><button type="button" class="item-toggle'+bc+'" onclick="setItemToggle(this,\'bought\')">✗ bought it</button><button type="button" class="item-toggle'+rc+'" onclick="setItemToggle(this,\'resisted\')">✓ resisted</button></div>';
+  container.appendChild(div);
+}
+function removeItemRow(btn){btn.closest('.item-form').remove();}
+function setItemToggle(btn,st){var row=btn.closest('.item-form');row.querySelectorAll('.item-toggle').forEach(function(b){b.className='item-toggle';});btn.className='item-toggle '+st;}
+
+function collectFormData(){
+  var date=document.getElementById('log-date').value;
+  var items=[];
+  document.querySelectorAll('#item-entries .item-form').forEach(function(row){
+    var name=row.querySelector('[data-field="name"]').value.trim();if(!name)return;
+    var costRaw=row.querySelector('[data-field="cost"]').value.replace(/[£,]/g,'').trim();
+    var cost=parseFloat(costRaw)||null;
+    var bought=row.querySelector('.item-toggle.bought')?true:(row.querySelector('.item-toggle.resisted')?false:null);
+    items.push({id:parseInt(row.dataset.itemId)||generateId(),name:name,cost:cost,bought:bought,decode:null});
+  });
+  return {date:date,difficulty:selectedStar,note:document.getElementById('log-note').value,items:items};
+}
+
+function initiateLogSave(){
+  var data=collectFormData();
+  if(!data.date){toast('please pick a date');return;}
+  if(!editingLogId){
+    var existing=state.logs.find(function(l){return l.date===data.date;});
+    if(existing){pendingSaveData=data;document.getElementById('duplicate-modal-body').textContent='you already have an entry for '+data.date+'. new items will be added to it.';openModal('duplicate-modal');return;}
+  }
+  if(!data.items.length){pendingSaveData=data;openModal('spend-prompt-modal');return;}
+  finalSaveLog(null,data);
+}
+
+function mergeWithExisting(){
+  closeModal('duplicate-modal');
+  var data=pendingSaveData;
+  var existing=state.logs.find(function(l){return l.date===data.date;});
+  if(!existing){finalSaveLog(null,data);return;}
+  var merged=existing.items?existing.items.slice():[];
+  data.items.forEach(function(ni){var found=merged.find(function(ei){return ei.id===ni.id;});if(found){Object.assign(found,ni);}else{merged.push(ni);}});
+  existing.items=merged;if(data.note)existing.note=data.note;if(data.difficulty)existing.difficulty=data.difficulty;
+  existing.noSpend=deriveNoSpend(existing.items,existing.noSpend);
+  saveState();renderLogHistory();renderDecoderList();updateDashboard();resetLogForm();toast('entry updated ✓');pendingSaveData=null;
+}
+
+function finalSaveLog(spentOverride,dataOverride){
+  var data=dataOverride||pendingSaveData;pendingSaveData=null;closeModal('spend-prompt-modal');
+  var noSpend=spentOverride!==null&&spentOverride!==undefined?!spentOverride:deriveNoSpend(data.items,true);
+  var entry={id:editingLogId||generateId(),date:data.date,noSpend:noSpend,difficulty:data.difficulty,note:data.note,items:data.items};
+  if(editingLogId){
+    var ex=state.logs.find(function(l){return l.id===editingLogId;});
+    if(ex&&ex.items){entry.items=entry.items.map(function(ni){var oi=ex.items.find(function(x){return x.id===ni.id;});if(oi&&oi.decode)ni.decode=oi.decode;return ni;});}
+    var idx=state.logs.findIndex(function(l){return l.id===editingLogId;});if(idx>-1)state.logs[idx]=entry;editingLogId=null;
+  }else{state.logs.unshift(entry);}
+  state.logs.sort(function(a,b){return b.date.localeCompare(a.date);});
+  saveState();renderLogHistory();renderDecoderList();updateDashboard();resetLogForm();toast('check-in saved ✓');
+}
+
+function deriveNoSpend(items,def){if(!items||!items.length)return def;if(items.some(function(i){return i.bought===true;}))return false;if(items.every(function(i){return i.bought===false;}))return true;return def!==undefined?def:true;}
+
+function resetLogForm(){
+  document.getElementById('log-date').value=new Date().toISOString().slice(0,10);
+  selectedStar=0;document.getElementById('log-note').value='';document.getElementById('item-entries').innerHTML='';
+  document.getElementById('star-row').querySelectorAll('.star-btn').forEach(function(b){b.classList.remove('lit');});
+  document.getElementById('star-label').textContent='—';document.getElementById('log-form-title').textContent='log a day';
+  document.getElementById('cancel-edit-btn').style.display='none';editingLogId=null;
+}
+
+function renderLogHistory(){
+  var el=document.getElementById('log-history');
+  if(!state.logs.length){el.innerHTML='<div class="empty-state">no check-ins yet.</div>';return;}
+  el.innerHTML=state.logs.map(function(l){
+    var badge=l.noSpend?'<span class="badge badge-green">no spend</span>':'<span class="badge badge-clay">spent</span>';
+    var stars=l.difficulty?'<span style="color:var(--ochre);font-size:11px">'+'★'.repeat(l.difficulty)+'☆'.repeat(5-l.difficulty)+'</span>':'';
+    var note=l.note?'<div style="font-size:11px;color:var(--text-muted);margin-top:3px">'+escHtml(l.note)+'</div>':'';
+    var itemsHtml='';
+    if(l.items&&l.items.length){itemsHtml='<div class="day-items">'+l.items.map(function(item){
+      var ib=item.bought===true?'<span class="badge badge-clay">bought</span>':item.bought===false?'<span class="badge badge-green">resisted</span>':'<span class="badge badge-sand">logged</span>';
+      var cost=item.cost?'<span style="font-size:11px;color:var(--text-muted)">£'+item.cost+'</span>':'';
+      var decoded=item.decode&&item.decode.trigger;
+      var db='<button class="decode-btn'+(decoded?' decoded':'')+'" onclick="openDecode('+l.id+','+item.id+')">'+(decoded?'✓ decoded':'decode')+'</button>';
+      return '<div class="day-item-row"><div class="day-item-left">'+ib+'<span>'+escHtml(item.name)+'</span>'+cost+'</div>'+db+'</div>';
+    }).join('')+'</div>';}
+    return '<div class="day-entry"><div class="day-entry-header"><span class="day-entry-date">'+l.date+'</span><div style="display:flex;gap:3px"><button class="edit-btn" onclick="editLog('+l.id+')">✎</button><button class="delete-btn" onclick="deleteLog('+l.id+')">✕</button></div></div><div class="day-entry-meta">'+badge+stars+'</div>'+note+itemsHtml+'</div>';
+  }).join('');
+}
+
+function editLog(id){var l=state.logs.find(function(x){return x.id===id;});if(!l)return;editingLogId=id;document.getElementById('log-date').value=l.date;setStar(l.difficulty||0);document.getElementById('log-note').value=l.note||'';document.getElementById('item-entries').innerHTML='';if(l.items)l.items.forEach(function(item){addItemRow(item);});document.getElementById('log-form-title').textContent='editing check-in';document.getElementById('cancel-edit-btn').style.display='inline-block';showTab('log',document.querySelectorAll('.nav-tab')[1]);toast('editing entry — save to update');}
+function deleteLog(id){if(!confirm('delete this check-in?'))return;state.logs=state.logs.filter(function(l){return l.id!==id;});saveState();renderLogHistory();renderDecoderList();updateDashboard();toast('entry deleted');}
+
+function getAllItemsFlat(){var r=[];state.logs.forEach(function(l){if(l.items)l.items.forEach(function(item){r.push({log:l,item:item});});});return r;}
+function getDecodedItems(){return getAllItemsFlat().filter(function(fi){return fi.item.decode&&fi.item.decode.trigger;});}
+
+function renderDecoderList(){
+  var el=document.getElementById('decoder-list');var allItems=getAllItemsFlat();
+  if(!allItems.length){el.innerHTML='<div class="empty-state">no items logged yet.</div>';return;}
+  el.innerHTML=allItems.map(function(fi){
+    var ib=fi.item.bought===true?'<span class="badge badge-clay">bought</span>':fi.item.bought===false?'<span class="badge badge-green">resisted</span>':'<span class="badge badge-sand">logged</span>';
+    var cost=fi.item.cost?'<span style="font-size:11px;color:var(--text-muted)">£'+fi.item.cost+'</span>':'';
+    var note=fi.log.note?'<div class="decoder-row-meta">'+escHtml(fi.log.note)+'</div>':'';
+    var decoded=fi.item.decode&&fi.item.decode.trigger;
+    var decodeInfo=decoded?'<div class="decoder-decode-info">trigger: <strong>'+fi.item.decode.trigger+'</strong>'+(fi.item.decode.need?' · need: <strong>'+fi.item.decode.need+'</strong>':'')+(fi.item.decode.instead?' · instead: <strong>'+fi.item.decode.instead+'</strong>':'')+'</div>':'';
+    var db='<button class="decode-btn'+(decoded?' decoded':'')+'" onclick="openDecode('+fi.log.id+','+fi.item.id+')">'+(decoded?'↻ re-decode':'decode')+'</button>';
+    return '<div class="decoder-row"><div class="decoder-row-left"><div class="decoder-row-date">'+fi.log.date+'</div><div class="decoder-row-name">'+ib+' '+escHtml(fi.item.name)+' '+cost+'</div>'+note+decodeInfo+'</div>'+db+'</div>';
+  }).join('');
+}
+
+function openDecode(logId,itemId){
+  logId=parseInt(logId);itemId=parseInt(itemId);
+  var log=state.logs.find(function(l){return l.id===logId;});if(!log)return;
+  var item=log.items.find(function(i){return i.id===itemId;});if(!item)return;
+  currentDecodeLogId=logId;currentDecodeItemId=itemId;
+  document.getElementById('decode-item-label').textContent=escHtml(item.name||'item')+(item.cost?' — £'+item.cost:'')+(log.date?' ('+log.date+')':'');
+  decodeSelections={trigger:'',need:'',instead:''};
+  ['decode-trigger-tags','decode-need-tags','decode-instead-tags'].forEach(function(g){document.getElementById(g).querySelectorAll('.tag').forEach(function(t){t.classList.remove('selected');});});
+  if(item.decode){
+    decodeSelections=Object.assign({},item.decode);
+    if(item.decode.trigger)document.getElementById('decode-trigger-tags').querySelectorAll('.tag').forEach(function(t){if(t.textContent.trim()===item.decode.trigger)t.classList.add('selected');});
+    if(item.decode.need)document.getElementById('decode-need-tags').querySelectorAll('.tag').forEach(function(t){if(t.textContent.trim()===item.decode.need)t.classList.add('selected');});
+    if(item.decode.instead)document.getElementById('decode-instead-tags').querySelectorAll('.tag').forEach(function(t){if(t.textContent.trim()===item.decode.instead)t.classList.add('selected');});
+  }
+  openModal('decode-modal');
+}
+function toggleDecodeTag(el,type){var groupMap={trigger:'decode-trigger-tags',need:'decode-need-tags',instead:'decode-instead-tags'};document.getElementById(groupMap[type]).querySelectorAll('.tag').forEach(function(t){t.classList.remove('selected');});el.classList.add('selected');decodeSelections[type]=el.textContent.trim();}
+function saveDecode(){if(!decodeSelections.trigger){toast('please pick a trigger');return;}var log=state.logs.find(function(l){return l.id===currentDecodeLogId;});if(!log)return;var item=log.items.find(function(i){return i.id===currentDecodeItemId;});if(!item)return;item.decode={trigger:decodeSelections.trigger,need:decodeSelections.need,instead:decodeSelections.instead};saveState();renderLogHistory();renderDecoderList();updateDashboard();closeModal('decode-modal');toast('impulse decoded ✓');}
+
+function calcStreak(){if(!state.logs.length)return 0;var ns=new Set(state.logs.filter(function(l){return l.noSpend;}).map(function(l){return l.date;}));var streak=0;var d=new Date();for(var i=0;i<365;i++){var key=d.toISOString().slice(0,10);if(ns.has(key)){streak++;}else if(streak>0){break;}else if(i>1){break;}d.setDate(d.getDate()-1);}return streak;}
+
+function updateDashboard(){
+  var noSpendDays=state.logs.filter(function(l){return l.noSpend;}).length;
+  var allItems=getAllItemsFlat();
+  var resisted=allItems.filter(function(fi){return fi.item.bought===false;}).length;
+  var avg=parseFloat(state.settings.avgSpend)||25;
+  var savedAmt=allItems.filter(function(fi){return fi.item.bought===false;}).reduce(function(sum,fi){return sum+(fi.item.cost||avg);},0);
+  document.getElementById('dash-nospend').textContent=noSpendDays;
+  document.getElementById('dash-items').textContent=allItems.length;
+  document.getElementById('dash-resisted').textContent=resisted;
+  document.getElementById('dash-saved').textContent='£'+Math.round(savedAmt);
+  var streak=calcStreak();
+  document.getElementById('header-streak').textContent='🔥 '+streak+' day'+(streak!==1?'s':'')+' streak';
+  var levels=[{name:'Seedling 🌱',days:7},{name:'Sprout 🌿',days:14},{name:'Sapling 🌳',days:21},{name:'Root 🪨',days:30},{name:'Anchor ⚓',days:60},{name:'Compass 🧭',days:90},{name:'Free 🦋',days:Infinity}];
+  var total=state.logs.length,cumDays=0,levelNum=1,levelInfo=levels[0],prevCum=0;
+  for(var li=0;li<levels.length;li++){if(total<cumDays+levels[li].days){levelNum=li+1;levelInfo=levels[li];prevCum=cumDays;break;}cumDays+=levels[li].days;prevCum=cumDays;if(li===levels.length-1){levelNum=levels.length;levelInfo=levels[li];prevCum=cumDays-levels[li].days;}}
+  var daysIn=total-prevCum,daysFor=levelInfo.days===Infinity?1:levelInfo.days;
+  document.getElementById('level-name-display').textContent='Level '+levelNum+' — '+levelInfo.name;
+  document.getElementById('level-days-display').textContent=daysIn+' / '+(levelInfo.days===Infinity?'∞':levelInfo.days)+' days';
+  document.getElementById('level-progress-bar').style.width=Math.min(100,Math.round((daysIn/daysFor)*100))+'%';
+  var recentLogs=state.logs.slice(0,7).reverse();
+  var chartEl=document.getElementById('difficulty-chart');
+  if(!recentLogs.length){chartEl.innerHTML='<div style="font-size:11px;color:var(--text-hint);align-self:center;padding:8px">no check-ins yet</div>';}
+  else{chartEl.innerHTML=recentLogs.map(function(l){var h=l.difficulty?(l.difficulty/5)*75:6;var col=l.noSpend?'var(--sage)':'var(--clay)';return '<div class="bar-col"><div class="bar-fill" style="height:'+h+'px;background:'+col+'"></div><div class="bar-label">'+l.date.slice(5)+'</div></div>';}).join('');}
+  var dec=getDecodedItems();
+  if(dec.length){var tC={};dec.forEach(function(fi){var t=fi.item.decode.trigger;if(t)tC[t]=(tC[t]||0)+1;});var top=Object.keys(tC).sort(function(a,b){return tC[b]-tC[a];})[0];document.getElementById('dash-top-trigger').innerHTML='<span class="badge badge-clay" style="font-size:12px;padding:4px 10px">'+top+'</span><span style="font-size:11px;color:var(--text-muted);margin-left:8px">appeared '+tC[top]+' time'+(tC[top]!==1?'s':'')+' in decoded impulses</span>';}
+  else{document.getElementById('dash-top-trigger').textContent='decode some impulses to see patterns here.';}
+}
+
+function generateIfThen(){
+  var decoded=getDecodedItems();
+  if(!decoded.length){document.getElementById('ifthen-output').textContent='decode some impulses first — your personalised plan will appear here.';return;}
+  var tCount={},nCount={};decoded.forEach(function(fi){var d=fi.item.decode;if(d.trigger)tCount[d.trigger]=(tCount[d.trigger]||0)+1;if(d.need)nCount[d.need]=(nCount[d.need]||0)+1;});
+  var topT=Object.keys(tCount).sort(function(a,b){return tCount[b]-tCount[a];})[0]||'social';
+  var topN=Object.keys(nCount).length?Object.keys(nCount).sort(function(a,b){return nCount[b]-nCount[a];})[0]:'default';
+  var tp=PLANS[topT]||PLANS['social'];var plan=tp[topN]||tp['default'];
+  var name=state.settings.name?state.settings.name+', ':'';
+  document.getElementById('ifthen-output').innerHTML='<strong>'+name+'your plan:</strong><br><br>'+plan;
+}
+
+function updateInsights(){
+  var decoded=getDecodedItems();var allItems=getAllItemsFlat();
+  if(!decoded.length){document.getElementById('insights-summary').textContent='log and decode some impulses to unlock your pattern summary.';['trigger-breakdown','outcome-breakdown','needs-breakdown'].forEach(function(id){document.getElementById(id).innerHTML='<div style="font-size:11px;color:var(--text-hint);text-align:center;padding:18px">no data yet</div>';});return;}
+  var tCount={},nCount={};decoded.forEach(function(fi){var d=fi.item.decode;if(d.trigger)tCount[d.trigger]=(tCount[d.trigger]||0)+1;if(d.need)nCount[d.need]=(nCount[d.need]||0)+1;});
+  var topT=Object.keys(tCount).sort(function(a,b){return tCount[b]-tCount[a];})[0];
+  var topN=Object.keys(nCount).length?Object.keys(nCount).sort(function(a,b){return nCount[b]-nCount[a];})[0]:'';
+  var total=allItems.length;var resisted=allItems.filter(function(fi){return fi.item.bought===false;}).length;
+  var resistPct=total>0?Math.round((resisted/total)*100):0;
+  var name=state.settings.name?state.settings.name+', your':'your';
+  document.getElementById('insights-summary').innerHTML='<strong>'+name+' pattern in plain english</strong><br><br>your most common trigger is <strong>'+(topT||'unknown')+'</strong>'+(topN?', often driven by a core driver of <strong>'+topN+'</strong>':'')+'. you\'ve logged '+total+' item'+(total!==1?'s':'')+' and resisted buying <strong>'+resistPct+'%</strong> of them. '+(resistPct>=60?'that\'s a strong self-awareness score.':resistPct>=30?'you\'re building the awareness muscle.':'every logged impulse is a win — awareness comes first.')+(state.settings.hardestTime?' watch the <strong>'+state.settings.hardestTime+'</strong> — you\'ve flagged it as your hardest time.':'');
+  function renderBar(obj,el,color){var t2=Object.values(obj).reduce(function(a,b){return a+b;},0);if(!t2){el.innerHTML='<div style="font-size:11px;color:var(--text-hint)">no data yet</div>';return;}el.innerHTML=Object.keys(obj).sort(function(a,b){return obj[b]-obj[a];}).map(function(k){var p=Math.round((obj[k]/t2)*100);return '<div style="margin-bottom:9px"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:3px"><span>'+k+'</span><span>'+obj[k]+'</span></div><div style="background:var(--sand-border);border-radius:3px;height:5px"><div style="width:'+p+'%;background:'+color+';border-radius:3px;height:5px"></div></div></div>';}).join('');}
+  renderBar(tCount,document.getElementById('trigger-breakdown'),'var(--terracotta)');
+  renderBar(nCount,document.getElementById('needs-breakdown'),'var(--ochre)');
+  var bought=allItems.filter(function(fi){return fi.item.bought===true;}).length;
+  var outcomeEl=document.getElementById('outcome-breakdown');
+  if(bought+resisted===0){outcomeEl.innerHTML='<div style="font-size:11px;color:var(--text-hint)">mark items as bought or resisted to see this</div>';}
+  else{var tot=bought+resisted;outcomeEl.innerHTML=[['resisted 💪',resisted,'var(--sage)'],['bought',bought,'var(--clay)']].map(function(row){var p=Math.round((row[1]/tot)*100);return '<div style="margin-bottom:9px"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:3px"><span>'+row[0]+'</span><span>'+row[1]+'</span></div><div style="background:var(--sand-border);border-radius:3px;height:5px"><div style="width:'+p+'%;background:'+row[2]+';border-radius:3px;height:5px"></div></div></div>';}).join('');}
+}
+
+function loadReflections(){document.querySelectorAll('[data-rkey]').forEach(function(el){var key=el.dataset.rkey;el.value=state.reflections[key]||'';var s=document.getElementById('saved-'+key);if(s)s.textContent=state.reflections[key]?'✓ saved':'';});}
+function saveReflection(el){var key=el.dataset.rkey;state.reflections[key]=el.value;saveState();var s=document.getElementById('saved-'+key);if(s){s.textContent='✓ saved';setTimeout(function(){if(s.textContent==='✓ saved')s.textContent='';},2000);}}
+function archiveReflection(){var hasContent=Object.values(state.reflections).some(function(v){return v&&v.trim();});if(!hasContent){toast('write something in the prompts first');return;}var entry={id:generateId(),date:new Date().toISOString().slice(0,10),answers:Object.assign({},state.reflections)};state.reflectionHistory.unshift(entry);state.reflections={};saveState();loadReflections();renderReflectionHistory();var c=document.getElementById('archive-confirm');c.textContent='✓ reflection archived!';setTimeout(function(){c.textContent='';},3000);toast('reflection saved ✓');}
+function renderReflectionHistory(){var el=document.getElementById('reflection-history-list');if(!state.reflectionHistory.length){el.innerHTML='<div class="empty-state">no archived reflections yet.</div>';return;}el.innerHTML=state.reflectionHistory.map(function(entry){var qs=QUESTIONS.map(function(q,i){var ans=entry.answers['r'+(i+1)];return ans&&ans.trim()?'<div class="history-qa"><div class="history-q">'+q+'</div><div class="history-a">'+escHtml(ans)+'</div></div>':'';}).join('');return '<div class="history-entry"><div style="display:flex;align-items:center;justify-content:space-between"><div class="history-date">week of '+entry.date+'</div><button class="delete-btn" onclick="deleteHistoryEntry('+entry.id+')">✕</button></div><div id="history-body-'+entry.id+'" style="display:none">'+qs+'</div><button class="history-toggle" onclick="toggleHistoryEntry('+entry.id+')">▸ show answers</button></div>';}).join('');}
+function toggleHistoryEntry(id){var b=document.getElementById('history-body-'+id);var btn=b.nextElementSibling;if(b.style.display==='none'){b.style.display='block';btn.textContent='▾ hide answers';}else{b.style.display='none';btn.textContent='▸ show answers';}}
+function deleteHistoryEntry(id){if(!confirm('delete this reflection?'))return;state.reflectionHistory=state.reflectionHistory.filter(function(e){return e.id!==id;});saveState();renderReflectionHistory();toast('entry deleted');}
+
+function saveSetting(key,val){state.settings[key]=val;saveState();}
+function setReminder(val){state.settings.reminder=val;saveState();['daily','weekly','off'].forEach(function(k){document.getElementById('remind-'+k).classList.toggle('active',k===val);});toast('reminder set to '+val);}
+function checkReminder(){if(state.settings.reminder==='off')return;var now=Date.now(),last=state.lastExportPrompt||0;var interval=state.settings.reminder==='daily'?86400000:604800000;if(now-last>interval){setTimeout(function(){openModal('reminder-modal');state.lastExportPrompt=now;saveState();},3000);}}
+function resetAllData(){state.logs=[];state.reflections={};state.reflectionHistory=[];saveState();renderLogHistory();renderDecoderList();updateDashboard();updateStorageMonitor();closeModal('reset-modal');showTab('dashboard',document.querySelectorAll('.nav-tab')[0]);toast('all data reset');}
+
+function exportJSON(){
+  var payload=Object.assign({},state,{_version:APP_VERSION,_exportedAt:new Date().toISOString()});
+  var blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pause-backup-v'+APP_VERSION+'-'+new Date().toISOString().slice(0,10)+'.json';a.click();
+  toast('JSON exported ✓');
+}
+function exportCSV(){
+  var rows=[['date','no_spend','difficulty','note','item_name','item_cost','item_status','trigger','need','instead']];
+  state.logs.forEach(function(l){if(!l.items||!l.items.length){rows.push([l.date,l.noSpend?'yes':'no',l.difficulty||'',l.note||'','','','','','','']);}else{l.items.forEach(function(item){rows.push([l.date,l.noSpend?'yes':'no',l.difficulty||'',l.note||'',item.name||'',item.cost||'',item.bought===true?'bought':item.bought===false?'resisted':'',item.decode?item.decode.trigger||'':'',item.decode?item.decode.need||'':'',item.decode?item.decode.instead||'':'']);});}});
+  var csv=rows.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(',');}).join('\n');
+  var blob=new Blob([csv],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pause-data-'+new Date().toISOString().slice(0,10)+'.csv';a.click();toast('CSV exported ✓');
+}
+function importJSON(e){
+  var file=e.target.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    try{
+      var parsed=JSON.parse(ev.target.result);
+      if(parsed.logs!==undefined){
+        state=migrateData(parsed);
+        saveState();init();
+        toast('data imported'+(parsed._version?' (from v'+parsed._version+')':'')+' ✓');
+      }else{toast('invalid file format');}
+    }catch(err){toast('could not read file');}
+  };
+  reader.readAsText(file);
+}
+
+function loadSettings(){var s=state.settings;if(s.name)document.getElementById('setting-name').value=s.name;if(s.avgSpend)document.getElementById('setting-avgspend').value=s.avgSpend;if(s.mainTrigger)document.getElementById('setting-trigger').value=s.mainTrigger;if(s.hardestTime)document.getElementById('setting-time').value=s.hardestTime;setReminder(s.reminder||'weekly');}
+
+function init(){loadState();document.getElementById('log-date').value=new Date().toISOString().slice(0,10);renderLogHistory();renderDecoderList();updateDashboard();loadSettings();checkReminder();updateStorageMonitor();}
+['data-modal','reminder-modal','reset-modal','decode-modal','spend-prompt-modal','duplicate-modal','storage-warn-modal'].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('click',function(e){if(e.target===this)closeModal(id);});});
+init();
+</script>

@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>I Tracked My Impulse Spending for 30 Days — Here's What I Found — Future Sanctuary</title>
+<meta name="description"
+  content="What actually happens when you track every impulse purchase for a month — not just the numbers, but the triggers, the emotional needs, and the patterns underneath. A 30-day diary." />
+<meta name="keywords"
+  content="impulse spending tracker results, no buy challenge diary, tracking spending habits, impulse buying patterns, mindful spending journal" />
+<meta property="og:title"
+  content="I Tracked My Impulse Spending for 30 Days — Here's What I Found" />
+<meta property="og:description"
+  content="Not a budget experiment. A pattern experiment. Here's what 30 days of honest tracking revealed about why I was really spending." />
+<meta property="og:type" content="article" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="style"
+  href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+  rel="stylesheet" />
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-cream: #FBFAF5;
+  --bg-cream-dark: #F5F3EB;
+  --bg-cream-border: #E8E0D2;
+  --grid-blue: #7597a7;
+  --grid-blue-light: #9EB5C0;
+  --terracotta: #E2BBAA;
+  --terracotta-light: #F5EAE4;
+  --sage: #8AADA7;
+  --sage-light: #E4EDE5;
+  --olive: #CFCBA9;
+  --sand: #F9E5C6;
+  --sand-light: #FAF0DC;
+  --text: #111111;
+  --muted: #7A6E65;
+  --hint: #A89D95;
+  --max-width: 720px;
+  --font-body: 'JetBrains Mono', monospace;
+  --font-heading: 'Gochi Hand', cursive;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-cream);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 15px;
+}
+
+/* ── NAV ── */
+nav {
+  background: var(--bg-cream-dark);
+  border-bottom: 1px solid var(--bg-cream-border);
+  padding: 14px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.nav-logo span {
+  color: var(--grid-blue);
+}
+
+.nav-links a {
+  font-size: 12px;
+  color: var(--hint);
+  margin-left: 16px;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+}
+
+/* ── ARTICLE HEADER ── */
+.article-header {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 56px 5% 0;
+}
+
+.breadcrumb {
+  font-size: 11px;
+  color: var(--hint);
+  margin-bottom: 24px;
+}
+
+.article-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grid-blue);
+  margin-bottom: 14px;
+}
+
+.article-title {
+  font-family: var(--font-heading);
+  font-size: clamp(30px, 5vw, 50px);
+  margin-bottom: 20px;
+  line-height: 1.15;
+}
+
+.article-meta {
+  font-size: 11px;
+  color: var(--hint);
+  border-bottom: 1px solid var(--bg-cream-border);
+  padding-bottom: 24px;
+  margin-bottom: 40px;
+}
+
+/* ── ARTICLE BODY ── */
+.article-body {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 5% 80px;
+}
+
+.article-body p {
+  margin-bottom: 20px;
+}
+
+.article-body h2 {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  margin: 48px 0 14px;
+  line-height: 1.2;
+}
+
+.article-body h3 {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  margin: 32px 0 10px;
+  color: var(--muted);
+}
+
+/* ── CALLOUT VARIANTS ── */
+.callout {
+  border-radius: 12px;
+  padding: 20px 22px;
+  margin: 28px 0;
+  border: 1px solid var(--bg-cream-border);
+  background: #fff;
+}
+
+.callout-blue {
+  border-left: 4px solid var(--grid-blue);
+  background: #EDF2F5;
+}
+
+.callout-insight {
+  border-left: 4px solid var(--sage);
+  background: var(--sage-light);
+}
+
+.callout-warm {
+  border-left: 4px solid var(--terracotta);
+  background: var(--terracotta-light);
+}
+
+.callout-sand {
+  border-left: 4px solid var(--olive);
+  background: var(--sand-light);
+}
+
+.callout-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--hint);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.callout-label-blue {
+  color: var(--grid-blue);
+}
+
+.callout-label-sage {
+  color: var(--sage);
+}
+
+.callout-label-warm {
+  color: #9A6E58;
+}
+
+/* ── STATS GRID ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+  margin: 28px 0;
+}
+
+.stat-card {
+  background: #fff;
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 10px;
+  padding: 16px 14px;
+  text-align: center;
+}
+
+.stat-val {
+  font-family: var(--font-heading);
+  font-size: 34px;
+  color: var(--grid-blue);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* ── WEEK HEADER ── */
+.week-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 48px 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--bg-cream-border);
+}
+
+.week-badge {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  background: var(--grid-blue);
+  color: #fff;
+  border-radius: 20px;
+  padding: 4px 14px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.week-title {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  color: var(--text);
+}
+
+/* ── DECODED ITEM BLOCK ── */
+.decoded-item {
+  background: var(--bg-cream-dark);
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 12px;
+  padding: 20px 22px;
+  margin: 24px 0;
+}
+
+.decoded-item-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--hint);
+  margin-bottom: 12px;
+}
+
+.decoded-item-name {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.decoded-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+
+.dtag {
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--bg-cream-border);
+  background: #fff;
+  color: var(--muted);
+}
+
+.dtag-blue {
+  background: #E0EBF0;
+  border-color: var(--grid-blue);
+  color: var(--grid-blue);
+}
+
+.dtag-sage {
+  background: var(--sage-light);
+  border-color: var(--sage);
+  color: #3A6A65;
+}
+
+.decoded-insight {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-style: italic;
+  border-top: 1px solid var(--bg-cream-border);
+  padding-top: 10px;
+  margin-top: 2px;
+}
+
+/* ── DIFFICULTY CHART (visual bar chart) ── */
+.diff-chart {
+  margin: 28px 0;
+  background: #fff;
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 12px;
+  padding: 20px 22px;
+}
+
+.diff-chart-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--hint);
+  margin-bottom: 16px;
+}
+
+.diff-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 80px;
+}
+
+.diff-bar-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.diff-bar {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  background: var(--bg-cream-border);
+  transition: background 0.2s;
+}
+
+.diff-bar-high { background: var(--grid-blue); }
+.diff-bar-med { background: var(--grid-blue-light); opacity: 0.7; }
+.diff-bar-low { background: var(--bg-cream-border); }
+
+.diff-bar-day {
+  font-size: 9px;
+  color: var(--hint);
+  text-align: center;
+}
+
+.diff-bar-note {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+/* ── IF-THEN PLAN ── */
+.plan-card {
+  background: var(--terracotta-light);
+  border: 1px solid #D9A98A;
+  border-radius: 12px;
+  padding: 22px 24px;
+  margin: 28px 0;
+}
+
+.plan-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #9A6E58;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.plan-text {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+/* ── TRIGGER BREAKDOWN ── */
+.trigger-breakdown {
+  margin: 28px 0;
+  background: #fff;
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 12px;
+  padding: 20px 22px;
+}
+
+.trigger-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.trigger-row:last-child { margin-bottom: 0; }
+
+.trigger-name {
+  font-size: 12px;
+  color: var(--text);
+  width: 150px;
+  flex-shrink: 0;
+}
+
+.trigger-bar-outer {
+  flex: 1;
+  height: 8px;
+  background: var(--bg-cream-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.trigger-bar-inner {
+  height: 100%;
+  background: var(--grid-blue);
+  border-radius: 4px;
+}
+
+.trigger-count {
+  font-size: 11px;
+  color: var(--hint);
+  width: 50px;
+  text-align: right;
+}
+
+/* ── STEP LIST ── */
+.step-list {
+  list-style: none;
+  margin: 24px 0;
+}
+
+.step-list li {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--grid-blue);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── PULL QUOTE ── */
+.pull-quote {
+  border-top: 2px solid var(--grid-blue);
+  border-bottom: 1px solid var(--bg-cream-border);
+  padding: 22px 0 20px;
+  margin: 36px 0;
+}
+
+.pull-quote p {
+  font-family: var(--font-heading);
+  font-size: clamp(18px, 2.5vw, 24px);
+  line-height: 1.4;
+  color: var(--text);
+  margin-bottom: 0;
+}
+
+/* ── INTERNAL LINK ── */
+.internal-link {
+  display: inline-block;
+  color: var(--grid-blue);
+  text-decoration: none;
+  border-bottom: 1px solid var(--grid-blue);
+  font-size: 13px;
+  margin: 4px 0;
+}
+
+.internal-link:hover {
+  opacity: 0.75;
+}
+
+/* ── CTA BOX ── */
+.cta-box {
+  background: var(--bg-cream-dark);
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 14px;
+  padding: 32px;
+  text-align: center;
+  margin: 52px 0 20px;
+}
+
+.cta-title {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.cta-body {
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto 20px;
+  line-height: 1.75;
+}
+
+.cta-links {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: var(--grid-blue);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 13px;
+  transition: opacity 0.2s;
+}
+
+.cta-btn:hover { opacity: 0.85; }
+
+.cta-btn-outline {
+  display: inline-block;
+  background: transparent;
+  color: var(--grid-blue);
+  padding: 12px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 13px;
+  border: 1px solid var(--grid-blue);
+  transition: background 0.2s;
+}
+
+.cta-btn-outline:hover { background: #EDF2F5; }
+
+/* ── RELATED ARTICLES ── */
+.related-section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 5% 64px;
+  border-top: 1px solid var(--bg-cream-border);
+}
+
+.related-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--hint);
+  margin: 32px 0 16px;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.related-card {
+  background: var(--bg-cream-dark);
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 10px;
+  padding: 16px;
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+  transition: border-color 0.2s;
+}
+
+.related-card:hover { border-color: var(--grid-blue); }
+
+.related-card-label {
+  font-size: 10px;
+  color: var(--hint);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 6px;
+}
+
+.related-card-title {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg-cream-dark);
+  padding: 28px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--bg-cream-border);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-logo {
+  font-family: var(--font-heading);
+  text-decoration: none;
+  color: var(--text);
+  font-size: 20px;
+}
+
+.footer-logo span {
+  color: var(--grid-blue);
+}
+
+.footer-links {
+  font-size: 12px;
+  color: var(--hint);
+}
+
+.footer-links a {
+  color: var(--hint);
+  text-decoration: none;
+  margin-left: 16px;
+}
+
+.footer-links a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">future sanctuary<span>.</span></a>
+  <div class="nav-links">
+    <a href="/blog">blog</a>
+    <a href="/#apps">apps</a>
+  </div>
+</nav>
+
+<article>
+
+  <header class="article-header">
+    <div class="breadcrumb">home / blog / impulse spending diary</div>
+    <div class="article-label">narrative · case study</div>
+    <h1 class="article-title">I Tracked My Impulse Spending for 30 Days — Here's What I Found</h1>
+    <div class="article-meta">
+      📅 8 min read &nbsp;·&nbsp; impulse spending tracker results &nbsp;·&nbsp; mindful spending journal
+    </div>
+  </header>
+
+  <div class="article-body">
+
+    <p>It started with a bank statement I didn't want to open.</p>
+
+    <p>Not because I was in debt. Not because I was reckless. But because I had a vague, persistent sense that something wasn't adding up — between how much I was earning, how much I was spending, and how little I had to show for it that I actually cared about. My wardrobe was full of things with tags still on. My bookmarks bar had four abandoned wishlists. Every month I'd think "I'll sort this out," and every month I wouldn't.</p>
+
+    <p>What I decided to do wasn't make a budget. I'd tried budgets. They made me feel watched and guilty and vaguely like a child being given pocket money. What I decided to do instead was track differently — not the amounts, but the <em>why</em>. What was I actually doing when I spent? What was I reaching for? Was there a pattern I hadn't named yet?</p>
+
+    <p>I used <a href="/pause" class="internal-link">Pause</a> to track everything for 30 days. What follows is an honest account of what happened — the numbers, yes, but more importantly the patterns I found underneath them.</p>
+
+    <div class="callout callout-blue">
+      <span class="callout-label callout-label-blue">how I tracked</span>
+      Each day I logged whether I'd spent, how difficult it had been to resist any impulses, and any individual items I'd bought or almost bought. For each item, I used the Impulse Decoder to tag the trigger (what set off the urge) and the core driver (the emotional need underneath it). At the end of each week, I wrote a reflection. By day 30, I had 34 decoded impulse entries.
+    </div>
+
+    <!-- ── WEEK 1 ── -->
+    <div class="week-header">
+      <span class="week-badge">Week 1</span>
+      <div class="week-title">The Baseline</div>
+    </div>
+
+    <p>The first week was uncomfortable in a way I hadn't expected. Not because I spent a lot — I didn't, particularly — but because I started noticing how automatic the behaviour was.</p>
+
+    <p>By day three I had logged six impulse items. Six things I'd either bought or almost bought, and the moment I wrote them down I realised I hadn't consciously decided to engage with any of them. They had just happened. I'd opened a shopping app the way you open the fridge — not because you're hungry, but because you walked past it.</p>
+
+    <p>The first decoded item that actually stopped me was a pair of trainers I'd added to my basket at 11:47pm on a Tuesday.</p>
+
+    <div class="decoded-item">
+      <div class="decoded-item-label">decoded entry · day 3</div>
+      <div class="decoded-item-name">White trainers — added to basket, not purchased</div>
+      <div class="decoded-tags">
+        <span class="dtag dtag-blue">late night</span>
+        <span class="dtag dtag-blue">browsing / scrolling</span>
+        <span class="dtag dtag-sage">escape</span>
+        <span class="dtag dtag-sage">control</span>
+      </div>
+      <div class="decoded-insight">I'd had a bad meeting that afternoon and spent the evening half-watching something, half on my phone. I wasn't thinking about trainers. I ended up there because I was restless and wanted to feel like I was doing something. The trainers were never really about the trainers.</div>
+    </div>
+
+    <p>The trigger was obvious enough — late night, passive scrolling. But the core driver was what surprised me. My first instinct was to call it <em>boredom</em>, which is what I would have said before I started tracking. But sitting with it, it felt more like <em>control</em>. The meeting had gone badly. My evening had felt out of hand. Putting something in a basket — deciding, choosing — gave me a tiny illusion of agency.</p>
+
+    <p>By the end of week one I had: 3 no-spend days, 11 logged items, and one genuinely new piece of information about myself.</p>
+
+    <!-- ── WEEK 2 ── -->
+    <div class="week-header">
+      <span class="week-badge">Week 2</span>
+      <div class="week-title">The Pattern Starts to Show</div>
+    </div>
+
+    <p>The second week was when tracking started to feel less like an exercise and more like something that was actually useful.</p>
+
+    <p>By day 14 I had enough data to start seeing a shape. Two triggers were showing up in almost everything: <strong>browsing/scrolling</strong> and <strong>stress</strong>. Sometimes separately. More often together. And underneath them, two core drivers kept appearing: <strong>escape</strong> and <strong>reward</strong>.</p>
+
+    <div class="trigger-breakdown">
+      <div class="diff-chart-title" style="margin-bottom:16px;">trigger frequency — days 1–14</div>
+      <div class="trigger-row">
+        <div class="trigger-name">browsing / scrolling</div>
+        <div class="trigger-bar-outer"><div class="trigger-bar-inner" style="width:85%;"></div></div>
+        <div class="trigger-count">11 of 14</div>
+      </div>
+      <div class="trigger-row">
+        <div class="trigger-name">stress</div>
+        <div class="trigger-bar-outer"><div class="trigger-bar-inner" style="width:62%;"></div></div>
+        <div class="trigger-count">8 of 14</div>
+      </div>
+      <div class="trigger-row">
+        <div class="trigger-name">late night</div>
+        <div class="trigger-bar-outer"><div class="trigger-bar-inner" style="width:54%;"></div></div>
+        <div class="trigger-count">7 of 14</div>
+      </div>
+      <div class="trigger-row">
+        <div class="trigger-name">sale / discount</div>
+        <div class="trigger-bar-outer"><div class="trigger-bar-inner" style="width:31%;"></div></div>
+        <div class="trigger-count">4 of 14</div>
+      </div>
+      <div class="trigger-row">
+        <div class="trigger-name">email promotion</div>
+        <div class="trigger-bar-outer"><div class="trigger-bar-inner" style="width:23%;"></div></div>
+        <div class="trigger-count">3 of 14</div>
+      </div>
+    </div>
+
+    <p>The difficulty chart was the second thing that surprised me. I'd expected the hardest days to be the ones with the most triggers — sale emails, payday, a particularly tempting Instagram ad. But that wasn't what the data showed.</p>
+
+    <div class="diff-chart">
+      <div class="diff-chart-title">difficulty to resist · week 2 (1 = easy, 5 = very hard)</div>
+      <div class="diff-bars">
+        <div class="diff-bar-wrap">
+          <div class="diff-bar diff-bar-low" style="height:20%;"></div>
+          <div class="diff-bar-day">Mon</div>
+        </div>
+        <div class="diff-bar-wrap">
+          <div class="diff-bar diff-bar-low" style="height:30%;"></div>
+          <div class="diff-bar-day">Tue</div>
+        </div>
+        <div class="diff-bar-wrap">
+          <div class="diff-bar diff-bar-high" style="height:90%;"></div>
+          <div class="diff-bar-day">Wed</div>
+        </div>
+        <div class="diff-bar-wrap">
+          <div class="diff-bar diff-bar-med" style="height:55%;"></div>
+          <div class="diff-bar-day">Thu</div>
+        </div>
+        <div class="diff-bar-wrap">
+          <div class="diff-bar diff-bar-high" style="height:80%;"></div>
+          <div class="diff-bar-day">Fri</div>
+        </div>
+        <div class="diff-bar-wrap">
+          <div class="diff-bar diff-bar-low" style="height:25%;"></div>
+          <div class="diff-bar-day">Sat</div>
+        </div>
+        <div class="diff-bar-wrap">
+          <div class="diff-bar diff-bar-low" style="height:15%;"></div>
+          <div class="diff-bar-day">Sun</div>
+        </div>
+      </div>
+      <div class="diff-bar-note">Hardest days: Wednesday (heavy workload, back-to-back meetings) and Friday evening (the week's accumulated tension released at once).</div>
+    </div>
+
+    <p>The hardest days were the ones where I'd had a heavy, relentless kind of workday — the kind where you get to the end and feel hollowed out. Wednesday evenings especially. I'd noticed this vaguely before. Seeing it in the data made it undeniable.</p>
+
+    <div class="pull-quote">
+      <p>"The spending wasn't the problem. It was the signal. I was burning through a hard week and reaching for something that felt like a reward, a release, a small act of care. The spending was the symptom of the depleted Wednesday. The Wednesday was the thing worth looking at."</p>
+    </div>
+
+    <p>This was the key insight of week two. It changed how I thought about "stopping." You can't willpower your way out of a depleted Wednesday evening by simply deciding not to open a shopping app. The need that's driving the behaviour is real and legitimate. What you can do is meet it differently.</p>
+
+    <!-- ── WEEK 3 ── -->
+    <div class="week-header">
+      <span class="week-badge">Week 3</span>
+      <div class="week-title">The If-Then Plan</div>
+    </div>
+
+    <p>By week three, Pause had enough data to generate my if-then plan. I'd been curious about this — it felt slightly algorithmic, like it might produce something generic. It didn't.</p>
+
+    <div class="plan-card">
+      <span class="plan-label">my personalised if-then plan · generated day 19</span>
+      <div class="plan-text">"When stress and late-night browsing combine, I will close all shopping apps, make a drink, and write down three things I'm genuinely looking forward to this week."</div>
+    </div>
+
+    <p>The specificity of it was what made it feel workable. Not "don't impulse buy." Not "wait 24 hours." A single sentence, built from my actual trigger pattern, with a concrete action that addressed the real need (rest, relief, something to look forward to) rather than just suppressing the behaviour.</p>
+
+    <p>The first time the combination fired after I'd set the plan — a Thursday evening, tired, phone in hand — I actually remembered it. And I tried it. I made the drink. I wrote the three things. The urge dissolved in about eight minutes.</p>
+
+    <p>The second time, a few days later, I did not remember it. I bought a book I probably would have bought anyway, logged it, and decoded it as <em>reward</em> after a week I was genuinely proud of. That one I didn't mind.</p>
+
+    <div class="callout callout-insight">
+      <span class="callout-label callout-label-sage">what I noticed</span>
+      The if-then plan isn't a rule. It's a pre-made decision that removes the need to negotiate with yourself in the moment. Having it written down and visible changed what happened in my head when the trigger appeared — not every time, but often enough to feel like progress.
+    </div>
+
+    <!-- ── WEEK 4 ── -->
+    <div class="week-header">
+      <span class="week-badge">Week 4</span>
+      <div class="week-title">The End of the Month</div>
+    </div>
+
+    <p>Here are the final numbers.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-val">19</div>
+        <div class="stat-label">no-spend days</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">34</div>
+        <div class="stat-label">impulses decoded</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">21</div>
+        <div class="stat-label">purchases resisted</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">£214</div>
+        <div class="stat-label">estimated not spent</div>
+      </div>
+    </div>
+
+    <p>The money is real but it isn't really the point. The £214 represents 21 things I didn't buy, and of those 21 I couldn't tell you what most of them were. They weren't things I wanted. They were things I reached for when I needed something else.</p>
+
+    <p>What the month gave me that no budgeting app ever did was a picture of <em>when</em> and <em>why</em>. Not just the amounts but the context. Not just "I spent £47 on clothes" but "I spent £47 on clothes across four late-night sessions, all of them after difficult days, and the core driver in every single one was escape."</p>
+
+    <p>Two things surprised me:</p>
+
+    <p>The first was how consistent the pattern was. I'd have guessed my spending was fairly random — impulse by definition feels random. But it wasn't. It was almost entirely concentrated in two-hour windows on weekday evenings, clustered around the most demanding weeks at work. The randomness was an illusion.</p>
+
+    <p>The second was how non-judgmental the tracking felt once I stopped thinking of it as a performance. I wasn't trying to have a good month. I was trying to understand a pattern. That reframe made it possible to log the days I spent without shame, which meant the data was accurate, which meant the insights were real.</p>
+
+    <div class="callout callout-warm">
+      <span class="callout-label callout-label-warm">what will I carry forward</span>
+      The if-then plan. The habit of noticing, even imperfectly. And the understanding that when I reach for my phone at 10pm on a hard Wednesday, I'm not looking for a purchase — I'm looking for rest. That's a much more solvable problem.
+    </div>
+
+    <h2>What tracking patterns taught me that tracking numbers never did</h2>
+
+    <p>Budgets track outcomes. They tell you what happened. A tracker like this tells you <em>why</em> it happened — which means you have something to actually work with.</p>
+
+    <p>Knowing I spent £200 on clothes last month doesn't tell me anything useful. Knowing I spent £200 on clothes across six late-night sessions, all triggered by stress, all driven by a need for escape that was never really met by buying anything — that tells me something I can act on.</p>
+
+    <p>The 30 days didn't turn me into someone who never impulse spends. It turned me into someone who, most of the time, can see the pattern in real time and make a slightly more conscious choice about what to do with it.</p>
+
+    <p>That's not a small thing. That might be the whole thing.</p>
+
+    <p style="color: var(--hint); font-size: 13px; margin-top: 8px;">
+      → <a href="/blog/triggers-vs-core-drivers" class="internal-link">Triggers vs Core Drivers: The Two-Layer System Behind Every Impulse Purchase</a><br/>
+      → <a href="/blog/why-you-keep-impulse-buying" class="internal-link">Why You Keep Impulse Buying (And What's Actually Going On)</a>
+    </p>
+
+    <div class="cta-box">
+      <div class="cta-title">run your own 30-day experiment</div>
+      <p class="cta-body">Pause is the tool I used — free to start in your browser, no download, no account. Log your days, decode your impulses, and let the pattern find you. The insights panel and if-then plan are there when you're ready for them.</p>
+      <div class="cta-links">
+        <a class="cta-btn" href="/pause">try Pause free →</a>
+        <a class="cta-btn-outline" href="https://www.etsy.com" target="_blank">find it on Etsy</a>
+      </div>
+    </div>
+
+  </div>
+  <!-- /article-body -->
+
+</article>
+
+<!-- RELATED ARTICLES -->
+<section class="related-section">
+  <div class="related-label">read next</div>
+  <div class="related-grid">
+    <a class="related-card" href="/blog/why-you-keep-impulse-buying">
+      <div class="related-card-label">educational explainer</div>
+      <div class="related-card-title">Why You Keep Impulse Buying (And What's Actually Going On)</div>
+    </a>
+    <a class="related-card" href="/blog/triggers-vs-core-drivers">
+      <div class="related-card-label">educational explainer</div>
+      <div class="related-card-title">Triggers vs Core Drivers: The Two-Layer System</div>
+    </a>
+    <a class="related-card" href="/blog/10-things-to-do-instead">
+      <div class="related-card-label">listicle</div>
+      <div class="related-card-title">10 Things to Do Instead of Impulse Buying (That Actually Work)</div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <a href="/" class="footer-logo">future sanctuary<span>.</span></a>
+  <div class="footer-links">
+    <a href="/blog">blog</a>
+    <a href="/#apps">apps</a>
+    <a href="/privacy">privacy</a>
+  </div>
+</footer>
+
+</body>
+</html>

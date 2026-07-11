@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Future Sanctuary — small tools for a more intentional life</title>
+<meta name="description"
+  content="Future Sanctuary makes calm, focused tools for the parts of life that usually feel anything but — starting with Pause, an impulse spending tracker. More on the way." />
+<meta property="og:title" content="Future Sanctuary — small tools for a more intentional life" />
+<meta property="og:description" content="Calm, focused tools for the parts of life that usually feel anything but." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="style"
+  href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+  rel="stylesheet" />
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-cream: #FBFAF5;
+  --bg-cream-dark: #F5F3EB;
+  --bg-cream-border: #E8E0D2;
+  --grid-blue: #7597a7;
+  --grid-blue-light: #9EB5C0;
+  --grid-blue-pale: #EDF2F5;
+  --terracotta: #E2BBAA;
+  --terracotta-light: #F5EAE4;
+  --terracotta-mid: #D9A98A;
+  --sage: #8AADA7;
+  --sage-light: #E4EDE5;
+  --olive: #CFCBA9;
+  --sand: #F9E5C6;
+  --sand-light: #FAF0DC;
+  --text: #111111;
+  --muted: #7A6E65;
+  --hint: #A89D95;
+  --max-width: 1020px;
+  --font-body: 'JetBrains Mono', monospace;
+  --font-heading: 'Gochi Hand', cursive;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-cream);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 15px;
+}
+
+/* ── NAV ── */
+nav {
+  background: var(--bg-cream-dark);
+  border-bottom: 1px solid var(--bg-cream-border);
+  padding: 14px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-logo {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-logo span { color: var(--grid-blue); }
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 12px;
+  color: var(--hint);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+.nav-cta {
+  background: var(--grid-blue);
+  color: #fff !important;
+  padding: 7px 18px;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.nav-cta:hover { background: #8BA4B0; color: #fff; }
+
+/* ── HERO ── */
+.hero {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 72px 5% 56px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; padding: 48px 5% 40px; gap: 32px; }
+  .hero-visual { order: -1; }
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--grid-blue);
+  margin-bottom: 16px;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(34px, 5.5vw, 54px);
+  line-height: 1.12;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.hero-title em { color: var(--grid-blue); font-style: normal; }
+
+.hero-sub {
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.85;
+  max-width: 460px;
+  margin-bottom: 28px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: var(--grid-blue);
+  color: #fff;
+  padding: 13px 26px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 13px;
+  font-family: var(--font-body);
+  transition: opacity 0.2s;
+}
+
+.btn-primary:hover { opacity: 0.85; }
+
+.btn-secondary {
+  display: inline-block;
+  background: transparent;
+  color: var(--text);
+  padding: 13px 26px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 13px;
+  font-family: var(--font-body);
+  border: 1px solid var(--bg-cream-border);
+  transition: background 0.2s;
+}
+
+.btn-secondary:hover { background: var(--bg-cream-dark); }
+
+.hero-note {
+  font-size: 10.5px;
+  color: var(--hint);
+  margin-top: 18px;
+  letter-spacing: 0.3px;
+}
+
+/* Hero visual — a quiet stack of "cards" representing the apps ecosystem */
+.hero-visual { position: relative; height: 260px; }
+
+.hv-card {
+  position: absolute;
+  width: 240px;
+  border-radius: 14px;
+  border: 1px solid var(--bg-cream-border);
+  background: #fff;
+  padding: 18px 20px;
+  box-shadow: 0 10px 32px rgba(58,53,48,0.07);
+}
+
+.hv-card-1 {
+  top: 0;
+  left: 10%;
+  transform: rotate(-4deg);
+  z-index: 1;
+}
+
+.hv-card-2 {
+  top: 46px;
+  left: 32%;
+  transform: rotate(3deg);
+  z-index: 2;
+  border-color: var(--grid-blue-light);
+}
+
+.hv-card-3 {
+  top: 96px;
+  left: 6%;
+  transform: rotate(-2deg);
+  z-index: 3;
+  background: var(--bg-cream);
+}
+
+.hv-eyebrow {
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--hint);
+  margin-bottom: 6px;
+}
+
+.hv-title {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.hv-text {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.hv-badge {
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  background: var(--sage-light);
+  border: 1px solid var(--sage);
+  color: #3A6A65;
+  border-radius: 10px;
+  padding: 2px 8px;
+  margin-top: 8px;
+}
+
+.hv-badge.soon {
+  background: var(--bg-cream-dark);
+  border-color: var(--bg-cream-border);
+  color: var(--hint);
+}
+
+/* ── WASHI DIVIDER ── */
+.washi-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+.washi-strip {
+  height: 14px;
+  flex: 1;
+  border-radius: 2px;
+  opacity: 0.5;
+}
+
+.washi-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bg-cream-border);
+  flex-shrink: 0;
+}
+
+/* ── SECTION SHELLS ── */
+.section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 64px 5% 0;
+}
+
+.section-eyebrow {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--grid-blue);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(26px, 4vw, 38px);
+  line-height: 1.18;
+  margin-bottom: 16px;
+}
+
+.section-sub {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.85;
+}
+
+/* ── PHILOSOPHY / PILLARS ── */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 40px;
+}
+
+@media (max-width: 760px) {
+  .pillars-grid { grid-template-columns: 1fr; }
+}
+
+.pillar-card {
+  background: #fff;
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 14px;
+  padding: 26px 22px;
+}
+
+.pillar-icon { font-size: 24px; margin-bottom: 12px; }
+
+.pillar-title {
+  font-family: var(--font-heading);
+  font-size: 19px;
+  margin-bottom: 8px;
+}
+
+.pillar-text {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+/* ── APPS SECTION ── */
+.apps-section {
+  background: var(--bg-cream-dark);
+  margin-top: 64px;
+  padding: 64px 5%;
+}
+
+.apps-inner { max-width: var(--max-width); margin: 0 auto; }
+
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 40px;
+}
+
+@media (max-width: 760px) {
+  .apps-grid { grid-template-columns: 1fr; }
+}
+
+.app-card {
+  background: #fff;
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.app-card.live { border-color: var(--grid-blue-light); }
+
+.app-card.live:hover { border-color: var(--grid-blue); transform: translateY(-2px); }
+
+.app-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9.5px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  width: fit-content;
+}
+
+.app-status.live {
+  background: var(--sage-light);
+  border: 1px solid var(--sage);
+  color: #3A6A65;
+}
+
+.app-status.soon {
+  background: var(--bg-cream-dark);
+  border: 1px solid var(--bg-cream-border);
+  color: var(--hint);
+}
+
+.app-status.live::before { content: '●'; color: #3A6A65; font-size: 8px; }
+
+.app-icon { font-size: 26px; margin-bottom: 6px; }
+
+.app-title {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.app-desc {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.app-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.app-tag {
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--bg-cream-border);
+  background: var(--bg-cream-dark);
+  color: var(--muted);
+}
+
+.app-btn {
+  display: inline-block;
+  background: var(--grid-blue);
+  color: #fff;
+  padding: 11px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 12.5px;
+  font-family: var(--font-body);
+  width: fit-content;
+  transition: opacity 0.2s;
+}
+
+.app-btn:hover { opacity: 0.85; }
+
+.app-btn-disabled {
+  display: inline-block;
+  background: transparent;
+  color: var(--hint);
+  padding: 11px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--bg-cream-border);
+  font-size: 12.5px;
+  font-family: var(--font-body);
+  width: fit-content;
+}
+
+/* ── FUTURE DOMAINS NOTE ── */
+.domains-note {
+  margin-top: 22px;
+  background: var(--grid-blue-pale);
+  border: 1px solid var(--grid-blue-light);
+  border-radius: 14px;
+  padding: 22px 26px;
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.domains-note strong { color: var(--text); }
+
+/* ── BLOG TEASER ── */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+
+@media (max-width: 760px) {
+  .blog-grid { grid-template-columns: 1fr; }
+}
+
+.blog-card {
+  background: #fff;
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 14px;
+  padding: 22px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.blog-card:hover { border-color: var(--grid-blue); transform: translateY(-2px); }
+
+.blog-card-type {
+  font-size: 9.5px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--grid-blue);
+  margin-bottom: 12px;
+}
+
+.blog-card-title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--text);
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.blog-card-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.65;
+  flex: 1;
+  margin-bottom: 14px;
+}
+
+.blog-card-read {
+  font-size: 11px;
+  color: var(--grid-blue);
+}
+
+.blog-cta-row {
+  text-align: center;
+  margin-top: 32px;
+}
+
+.blog-cta-row a {
+  font-size: 12.5px;
+  color: var(--grid-blue);
+  text-decoration: none;
+  border-bottom: 1px solid var(--grid-blue);
+}
+
+/* ── QUOTE ── */
+.quote-section {
+  max-width: 640px;
+  margin: 64px auto 0;
+  padding: 0 5%;
+  text-align: center;
+}
+
+.quote-mark {
+  font-family: var(--font-heading);
+  font-size: 60px;
+  color: var(--grid-blue);
+  line-height: 0.4;
+  display: block;
+  margin-bottom: 18px;
+  opacity: 0.6;
+}
+
+.quote-text {
+  font-family: var(--font-heading);
+  font-size: clamp(18px, 2.6vw, 24px);
+  line-height: 1.45;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.quote-attr {
+  font-size: 11px;
+  color: var(--hint);
+}
+
+/* ── NEWSLETTER ── */
+.newsletter-box {
+  max-width: var(--max-width);
+  margin: 64px auto 0;
+  padding: 0 5%;
+}
+
+.newsletter-inner {
+  background: var(--bg-cream-dark);
+  border: 1px solid var(--bg-cream-border);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+}
+
+.newsletter-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grid-blue);
+  margin-bottom: 12px;
+}
+
+.newsletter-title {
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 3.5vw, 32px);
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.newsletter-sub {
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 460px;
+  margin: 0 auto 24px;
+  line-height: 1.75;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: var(--grid-blue);
+  color: #fff !important;
+  padding: 12px 28px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 13px;
+  transition: background 0.2s;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.cta-btn:hover { background: #8BA4B0; }
+
+.cta-note {
+  font-size: 11px;
+  color: var(--hint);
+  margin-top: 14px;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg-cream-dark);
+  border-top: 1px solid var(--bg-cream-border);
+  padding: 28px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 64px;
+}
+
+.footer-logo {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.footer-logo span { color: var(--grid-blue); }
+
+.footer-links {
+  display: flex;
+  gap: 18px;
+  font-size: 12px;
+}
+
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.footer-links a:hover { color: var(--text); }
+
+.footer-note {
+  font-size: 11px;
+  color: var(--hint);
+}
+
+@media (max-width: 640px) {
+  nav .nav-links a:not(.nav-cta) { display: none; }
+}
+</style>
+</head>
+
+<script async data-uid="fb3f937f46" src="https://lumila.kit.com/fb3f937f46/index.js"></script>
+
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">future sanctuary<span>.</span></a>
+  <div class="nav-links">
+    <a href="/blog">blog</a>
+    <a href="#apps">apps</a>
+    <a href="#newsletter" class="nav-cta">get the workbook</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">a home for intentional living</div>
+    <h1 class="hero-title">small tools for<br/>a more <em>intentional</em> life</h1>
+    <p class="hero-sub">Future Sanctuary makes calm, focused tools for the parts of life that usually feel anything but — starting with spending, and growing from there. No noise, no guilt, no fifty features you'll never open.</p>
+    <div class="hero-actions">
+      <a href="#apps" class="btn-primary">explore the apps →</a>
+      <a href="/blog" class="btn-secondary">read the blog</a>
+    </div>
+    <p class="hero-note">free to start · no login required · one calm tool at a time</p>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hv-card hv-card-1">
+      <div class="hv-eyebrow">spending</div>
+      <div class="hv-title">pause<span style="color:var(--grid-blue);">.</span></div>
+      <div class="hv-text">decode your impulse spending, one trigger at a time.</div>
+      <span class="hv-badge">live now</span>
+    </div>
+    <div class="hv-card hv-card-2">
+      <div class="hv-eyebrow">focus &amp; time</div>
+      <div class="hv-title">— untitled —</div>
+      <div class="hv-text">a calmer way to hold your attention.</div>
+      <span class="hv-badge soon">in the works</span>
+    </div>
+    <div class="hv-card hv-card-3">
+      <div class="hv-eyebrow">work &amp; career</div>
+      <div class="hv-title">— untitled —</div>
+      <div class="hv-text">for the decisions that shape the decade.</div>
+      <span class="hv-badge soon">early days</span>
+    </div>
+  </div>
+</section>
+
+<div class="washi-divider">
+  <div class="washi-strip" style="background:var(--grid-blue);opacity:0.35"></div>
+  <div class="washi-dot"></div>
+  <div class="washi-strip" style="background:var(--bg-cream-border)"></div>
+</div>
+
+<!-- PHILOSOPHY -->
+<section class="section">
+  <div class="section-eyebrow">the idea behind it</div>
+  <h2 class="section-title">most tools for modern life<br/>are built to hold your attention.<br/>these are built to give it back.</h2>
+  <p class="section-sub">Future Sanctuary is an umbrella for a small, growing family of apps built around the same conviction: the parts of life that feel automatic — spending, focus, decisions, work — get easier once you can actually see the pattern underneath them. Each app is narrow on purpose. Understand one thing well, rather than manage everything badly.</p>
+
+  <div class="pillars-grid">
+    <div class="pillar-card">
+      <div class="pillar-icon">🌿</div>
+      <div class="pillar-title">calm by design</div>
+      <p class="pillar-text">No streak-shaming, no red badges, no dark patterns designed to keep you opening the app. If a tool isn't useful anymore, you should be able to just stop.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">🔍</div>
+      <div class="pillar-title">pattern over performance</div>
+      <p class="pillar-text">Every app starts from the same question: not "how do I do better?" but "what's actually happening, and why?" Awareness first. Change tends to follow.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">🗝</div>
+      <div class="pillar-title">yours, not ours</div>
+      <p class="pillar-text">No accounts unless there's a real reason for one. Your data lives in your browser by default, and you can always export it and take it with you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- APPS -->
+<section class="apps-section" id="apps">
+  <div class="apps-inner">
+    <div class="section-eyebrow">the apps</div>
+    <h2 class="section-title">one life, a few quiet tools</h2>
+    <p class="section-sub">Future Sanctuary isn't one app trying to do everything — it's a handful of small, specific ones, each built around a single part of life. Pause is live today. The rest are being built the same way: slowly, and only once there's something genuinely useful to say.</p>
+
+    <div class="apps-grid">
+
+      <div class="app-card live">
+        <span class="app-status live">available now</span>
+        <div class="app-icon">🌿</div>
+        <div class="app-title">Pause</div>
+        <p class="app-desc">A calm, browser-based tracker for impulse spending. Log your days, decode your triggers, and get a personalised if-then plan built from your own patterns — not a generic budget rule.</p>
+        <div class="app-tags">
+          <span class="app-tag">mindful spending</span>
+          <span class="app-tag">no-buy challenges</span>
+          <span class="app-tag">no login</span>
+        </div>
+        <a href="/pause" class="app-btn">try Pause free →</a>
+      </div>
+
+      <div class="app-card">
+        <span class="app-status soon">in the works</span>
+        <div class="app-icon">⏳</div>
+        <div class="app-title">Focus &amp; time (untitled)</div>
+        <p class="app-desc">The same decode-your-pattern approach as Pause, applied to how the day actually gets spent — where attention leaks, and what's usually driving it.</p>
+        <div class="app-tags">
+          <span class="app-tag">productivity</span>
+          <span class="app-tag">attention</span>
+        </div>
+        <span class="app-btn-disabled">not yet available</span>
+      </div>
+
+      <div class="app-card">
+        <span class="app-status soon">early days</span>
+        <div class="app-icon">💼</div>
+        <div class="app-title">Career &amp; work (untitled)</div>
+        <p class="app-desc">A quieter way to think through the bigger, slower decisions — whether to stay, whether to leave, what's actually driving the restlessness underneath a job search.</p>
+        <div class="app-tags">
+          <span class="app-tag">career</span>
+          <span class="app-tag">decision-making</span>
+        </div>
+        <span class="app-btn-disabled">not yet available</span>
+      </div>
+
+      <div class="app-card">
+        <span class="app-status soon">idea stage</span>
+        <div class="app-icon">💛</div>
+        <div class="app-title">Something else entirely</div>
+        <p class="app-desc">The list of "life areas that feel automatic until you look closely" is longer than three. If there's a part of your life you wish had a Pause-shaped tool, that's exactly the kind of thing this space is for.</p>
+        <div class="app-tags">
+          <span class="app-tag">your suggestions welcome</span>
+        </div>
+        <span class="app-btn-disabled">not yet defined</span>
+      </div>
+
+    </div>
+
+    <div class="domains-note">
+      <strong>Why so undefined?</strong> Because the point isn't to launch a suite of apps quickly — it's to only build the next one once there's a real, specific pattern worth decoding. Pause exists because impulse spending is a well-understood, well-defined problem. The next app will exist for the same reason, once one becomes clear.
+    </div>
+  </div>
+</section>
+
+<!-- BLOG TEASER -->
+<section class="section">
+  <div class="section-eyebrow">from the journal</div>
+  <h2 class="section-title">writing on mindful spending &amp; slow living</h2>
+  <p class="section-sub">The blog is where the thinking behind Pause (and whatever comes next) gets worked out in public — the psychology, the frameworks, and the practical tools, before and after they make it into an app.</p>
+
+  <div class="blog-grid">
+    <a href="/blog/why-you-keep-impulse-buying" class="blog-card">
+      <div class="blog-card-type">start here</div>
+      <div class="blog-card-title">Why You Keep Impulse Buying (And What's Actually Going On)</div>
+      <p class="blog-card-desc">It's not a willpower problem. It's a trigger meeting an unmet need — the two-layer framework behind most impulse spending.</p>
+      <div class="blog-card-read">read → 5 min</div>
+    </a>
+    <a href="/blog/triggers-vs-core-drivers" class="blog-card">
+      <div class="blog-card-type">deep dive</div>
+      <div class="blog-card-title">Triggers vs Core Drivers: The Two-Layer System</div>
+      <p class="blog-card-desc">The trigger is just the match. The fire is something else entirely — a closer look at the emotional needs underneath spending.</p>
+      <div class="blog-card-read">read → 6 min</div>
+    </a>
+    <a href="/blog/no-buy-challenge-guide" class="blog-card">
+      <div class="blog-card-type">beginner's guide</div>
+      <div class="blog-card-title">What Is a No-Buy Challenge? A Gentle Beginner's Guide</div>
+      <p class="blog-card-desc">Not deprivation, not financial punishment — how to set one up, and track it without losing your mind.</p>
+      <div class="blog-card-read">read → 7 min</div>
+    </a>
+  </div>
+
+  <div class="blog-cta-row">
+    <a href="/blog">see all articles →</a>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-section">
+  <span class="quote-mark">"</span>
+  <p class="quote-text">The goal isn't to manage every part of your life better. It's to understand one part of it clearly enough that it stops running on autopilot.</p>
+  <p class="quote-attr">— the idea behind Future Sanctuary</p>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-box" id="newsletter">
+  <div class="newsletter-inner">
+    <div class="newsletter-label">free workbook</div>
+    <h2 class="newsletter-title">Get The 6 Spending Triggers Workbook</h2>
+    <p class="newsletter-sub">A 2-page printable PDF: a visual guide to the six most common emotional spending triggers, plus a journaling template to decode any impulse moment. Sent straight to your inbox — and you'll hear first when a new app launches.</p>
+    <a class="cta-btn" data-formkit-toggle="fb3f937f46">
+      Get the free workbook
+    </a>
+    <div class="cta-note">no spam · unsubscribe any time · sent instantly</div>
+  </div>
+</section>
+
+<footer>
+  <a href="/" class="footer-logo">futuresanctuary<span>.</span></a>
+  <div class="footer-links">
+    <a href="/blog">blog</a>
+    <a href="#apps">apps</a>
+    <a href="/privacy">privacy</a>
+    <a href="/contact">contact</a>
+  </div>
+  <div class="footer-note">© 2026 Future Sanctuary · one small step</div>
+</footer>
+
+</body>
+</html>

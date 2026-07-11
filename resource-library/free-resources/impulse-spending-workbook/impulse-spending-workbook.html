@@ -1,0 +1,2670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impulse Spending Workbook — Future Sanctuary</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ============================================================
+   FUTURE SANCTUARY — IMPULSE SPENDING WORKBOOK
+   Brand: clean, archival, muted. Not warm-terracotta-heavy.
+   Primary: #7597a7 (slate blue)
+   Accent: #E2BBAA (soft blush/terracotta)
+   Text: #111111
+   Background pages: #FBFAF5 (near-white linen)
+   Muted bg boxes: #F5F3EB
+   Dividers: #E8E0D2
+   ============================================================ */
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --blue: #7597a7;
+      --blue-mid: #8AADA7;
+      --light-blue: #d2d8da;
+      --blush: #E2BBAA;
+      --blush-light: #F5EAE4;
+      --text: #111111;
+      --muted: #7A6E65;
+      --hint: #A89D95;
+      --bg: #FBFAF5;
+      --bg-box: #F5F3EB;
+      --border: #E8E0D2;
+      --sage: #8A9E8C;
+      --sage-light: #EAF0EA;
+      --ochre: #C9A96E;
+      --ochre-light: #FAF3E0;
+      --terracotta: #C4785A;
+    }
+
+    body {
+      background: #D0C9C0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* A4: 210mm × 297mm ≈ 794px × 1123px at 96dpi */
+    .page {
+      width: 794px;
+      min-height: 1123px;
+      height: 1123px;
+      background: var(--bg);
+      margin: 32px auto;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ---- PAGE VARIANTS ---- */
+    .page-cover {
+      background: #f4eee9;
+    }
+
+    .page-light {
+      background: var(--bg);
+    }
+
+    .page-sand {
+      background: var(--bg-box);
+    }
+
+    /* ---- GLOBAL PAGE INNER ---- */
+    .page-inner {
+      padding: 52px 56px 44px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-inner-wide {
+      padding: 44px 48px 36px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ---- HEADER BAR (every interior page) ---- */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-header-logo {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 18px;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    .page-header-logo span {
+      color: var(--blue);
+    }
+
+    .page-header-meta {
+      font-size: 10px;
+      color: var(--hint);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    /* ---- FOOTER BAR ---- */
+    .page-footer {
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .page-footer-text {
+      font-size: 8px;
+      color: #111111;
+      letter-spacing: 0.8px;
+    }
+
+    .page-num {
+      font-size: 10px;
+      color: var(--hint);
+      font-family: 'Gochi Hand', cursive;
+    }
+
+    /* ---- ACCENT STRIP ---- */
+    .accent-strip {
+      height: 3px;
+      background: var(--blue);
+      width: 100%;
+    }
+
+    .accent-strip-blush {
+      background: var(--blush);
+    }
+
+    .accent-strip-gradient {
+      background: linear-gradient(90deg, var(--blue), var(--blue-mid), var(--blush));
+    }
+
+    /* ---- TYPOGRAPHY ---- */
+    .display-title {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1.1;
+      color: #FBFAF5;
+    }
+
+    .display-title em {
+      color: var(--blush);
+      font-style: italic;
+    }
+
+    .section-title {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .section-title-sm {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: 4px;
+    }
+
+    .eyebrow {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+
+    .eyebrow-blush {
+      color: var(--blush);
+    }
+
+    .eyebrow-muted {
+      color: var(--hint);
+    }
+
+    .body-text {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .body-text strong {
+      color: var(--text);
+    }
+
+    .body-text-sm {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ---- DIVIDERS ---- */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 18px 0;
+    }
+
+    .divider-blue {
+      border-top: 2px solid var(--blue);
+    }
+
+    /* ---- CALLOUT BOXES ---- */
+    .callout {
+      background: var(--bg-box);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 16px 20px;
+    }
+
+    .callout-blue {
+      background: #EBF0F3;
+      border-left: 3px solid var(--blue);
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+    }
+
+    .callout-blush {
+      background: var(--blush-light);
+      border-left: 3px solid var(--blush);
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+    }
+
+    .callout-sage {
+      background: var(--sage-light);
+      border-left: 3px solid var(--sage);
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+    }
+
+    .callout-ochre {
+      background: var(--ochre-light);
+      border-left: 3px solid var(--ochre);
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+    }
+
+    /* ---- INPUT FIELDS ---- */
+    .field-label {
+      font-size: 9.5px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Courier Prime', monospace;
+      font-size: 12.5px;
+      color: var(--text);
+      padding: 6px 2px;
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s;
+      line-height: 1.6;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      border-bottom-color: var(--blue);
+    }
+
+    textarea {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: #FDFCF8;
+    }
+
+    textarea:focus {
+      border-color: var(--blue);
+    }
+
+    .line-field {
+      border-bottom: 1px solid var(--border);
+      min-height: 26px;
+      margin-bottom: 8px;
+      width: 100%;
+      font-size: 12.5px;
+      font-family: 'Courier Prime', monospace;
+      color: var(--text);
+      background: transparent;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      outline: none;
+      padding: 3px 2px;
+    }
+
+    .line-field:focus {
+      border-bottom-color: var(--blue);
+    }
+
+    /* ---- CHECKBOX ROWS ---- */
+    .check-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 9px;
+    }
+
+    .check-row input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--blue);
+      cursor: pointer;
+    }
+
+    .check-row label {
+      font-size: 12px;
+      color: var(--text);
+      line-height: 1.55;
+      cursor: pointer;
+    }
+
+    .check-row label span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* ---- RADIO ROWS ---- */
+    .radio-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 7px;
+      cursor: pointer;
+    }
+
+    .radio-row input[type="radio"] {
+      accent-color: var(--blue);
+      width: 13px;
+      height: 13px;
+      cursor: pointer;
+    }
+
+    .radio-row label {
+      font-size: 12px;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    /* ---- GRID LAYOUTS ---- */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* ---- ILLUSTRATION PLACEHOLDERS ---- */
+    .illustration {
+      background: var(--bg-box);
+      border: 1.5px dashed var(--border);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--hint);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      gap: 6px;
+    }
+
+    .illustration-icon {
+      font-size: 28px;
+      opacity: 0.45;
+    }
+
+    .illustration-label {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--hint);
+      text-align: center;
+    }
+
+    /* ---- SCALE SLIDER ---- */
+    .scale-track {
+      display: flex;
+      gap: 0;
+      margin: 8px 0;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .scale-cell {
+      flex: 1;
+      text-align: center;
+      padding: 7px 2px;
+      font-size: 11px;
+      border-right: 1px solid var(--border);
+      cursor: pointer;
+      color: var(--muted);
+      transition: background 0.15s, color 0.15s;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .scale-cell:last-child {
+      border-right: none;
+    }
+
+    .scale-cell:hover {
+      background: #EBF0F3;
+    }
+
+    .scale-cell.selected {
+      background: var(--blue);
+      color: white;
+    }
+
+    /* ---- TRIGGER TAGS (interactive) ---- */
+    .tag-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 10px;
+      margin: 8px 0;
+    }
+
+    .tag-btn {
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--bg-box);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .tag-btn:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .tag-btn.selected {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: white;
+    }
+
+    .tag-btn.sel-blush {
+      background: var(--blush);
+      border-color: var(--blush);
+      color: white;
+    }
+
+    /* ---- PROGRESS BAR ---- */
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .progress-label {
+      font-size: 11px;
+      color: var(--text);
+      width: 120px;
+      flex-shrink: 0;
+    }
+
+    .progress-bar-outer {
+      flex: 1;
+      height: 8px;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar-inner {
+      height: 100%;
+      background: var(--blue);
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+
+    input[type="range"] {
+      flex: 1;
+      accent-color: var(--blue);
+      cursor: pointer;
+    }
+
+    .progress-val {
+      font-size: 11px;
+      color: var(--muted);
+      width: 28px;
+      text-align: right;
+    }
+
+    /* ---- NUMBERED STEPS ---- */
+    .step-row {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 14px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: white;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-family: 'Courier Prime', monospace;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    /* ---- TWO-COLUMN TABLE ---- */
+    .decode-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .decode-table th {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--hint);
+      border-bottom: 1px solid var(--border);
+      padding: 6px 10px;
+      text-align: left;
+      font-weight: normal;
+    }
+
+    .decode-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      vertical-align: top;
+    }
+
+    .decode-table td input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      font-family: 'Courier Prime', monospace;
+      font-size: 12px;
+      color: var(--text);
+      outline: none;
+      padding: 0;
+    }
+
+    .decode-table td input:focus {
+      background: #EBF0F3;
+    }
+
+    /* ---- HABIT TRACKER GRID ---- */
+    .habit-grid {
+      display: grid;
+      grid-template-columns: 110px repeat(7, 1fr);
+      gap: 3px;
+    }
+
+    .hg-cell {
+      height: 30px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--hint);
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+      transition: background 0.1s;
+    }
+
+    .hg-cell.header {
+      background: var(--bg-box);
+      font-size: 9px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      cursor: default;
+      color: var(--muted);
+    }
+
+    .hg-cell.row-label {
+      font-size: 10px;
+      color: var(--text);
+      justify-content: flex-start;
+      padding-left: 4px;
+      cursor: default;
+      background: transparent;
+      border: none;
+
+    }
+
+    .hg-cell.data:hover {
+      background: #EBF0F3;
+    }
+
+    .hg-cell.marked {
+      background: var(--blue);
+      color: white;
+    }
+
+    .hg-cell.marked::after {
+      content: '✓';
+    }
+
+    /* ---- WHEEL ILLUSTRATION (SVG) ---- */
+    .wheel-container {
+      position: relative;
+    }
+
+    /* ---- STAR RATING ---- */
+    .star-row {
+      display: flex;
+      gap: 4px;
+      margin: 4px 0;
+    }
+
+    .star {
+      font-size: 18px;
+      cursor: pointer;
+      color: var(--border);
+      transition: color 0.1s;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .star.lit {
+      color: var(--ochre);
+    }
+
+    .star:hover {
+      color: var(--ochre);
+    }
+
+    /* ---- SAVE BUTTON ---- */
+    .save-bar {
+      background: var(--bg-box);
+      padding: 24px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 auto;
+      width: 794px;
+      margin-top: 0;
+      margin-bottom: 40px;
+    }
+
+    .save-btn {
+      background: var(--blue);
+      color: white;
+      border: none;
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px;
+      padding: 12px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: background 0.2s;
+      width: 120px !important;
+      min-height: 50px;
+    }
+
+    .save-btn:hover {
+      background: #5a7a8a;
+    }
+
+    .save-note {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #888;
+    }
+
+    /* ---- SAVE / EXPORT MODAL ---- */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 17, 17, 0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--bg);
+      border-radius: 14px;
+      width: 100%;
+      max-width: 420px;
+      padding: 28px 28px 24px;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--hint);
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      color: var(--text);
+    }
+
+    .modal-title {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 22px;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .modal-option {
+      padding: 16px 0;
+    }
+
+    .modal-option-title {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .modal-option-desc {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .modal-checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 10.5px;
+      color: var(--muted);
+      cursor: pointer;
+      margin-bottom: 14px;
+    }
+
+    .modal-checkbox-row input {
+      cursor: pointer;
+      accent-color: var(--blue);
+    }
+
+    .modal-action-btn {
+      display: inline-block;
+      background: var(--blue);
+      color: white;
+      border: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .modal-action-btn:hover {
+      background: #5a7a8a;
+    }
+
+    .modal-divider {
+      border-top: 1px solid var(--border);
+      margin: 4px 0;
+    }
+
+    /* ---- PRINT STYLES ---- */
+    @media print {
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+
+      body {
+        background: white;
+      }
+
+      /* Page "paper" tints are a screen-only nicety — on paper they just
+         waste ink (worse in black & white, where a pale tint becomes a
+         faint grey wash across the whole page). Flatten every page,
+         including the pale cover, to pure white by default. */
+      .page-cover,
+      .page-light,
+      .page-sand {
+        background: #ffffff !important;
+      }
+
+      /* Opt-in: if the "keep paper tint" toggle is checked, restore the
+         original cream/sand tones — useful when saving as PDF to keep or
+         share digitally rather than sending to a physical printer. */
+      body.keep-tint .page-cover {
+        background: #f4eee9 !important;
+      }
+
+      body.keep-tint .page-light {
+        background: var(--bg) !important;
+      }
+
+      body.keep-tint .page-sand {
+        background: var(--bg-box) !important;
+      }
+
+      .page {
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+        break-after: page;
+      }
+
+      .save-bar {
+        display: none;
+      }
+
+      .modal-backdrop {
+        display: none !important;
+      }
+
+      input,
+      textarea {
+        border-color: #ccc !important;
+      }
+    }
+
+    /* ---- COVER PAGE SPECIFICS ---- */
+    .cover-inner {
+      padding: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cover-top {
+      padding: 44px 52px 0;
+      flex: 1;
+    }
+
+    .cover-tag {
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 32px;
+    }
+
+    .cover-number {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 110px;
+      color: #1E1E1E;
+      line-height: 1;
+      margin-bottom: -8px;
+      font-weight: 600;
+    }
+
+    .cover-subtitle {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.8;
+      max-width: 380px;
+      margin-top: 20px;
+    }
+
+    .cover-bottom {
+      padding: 28px 52px 36px;
+      border-top: 1px solid #2A2A2A;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .cover-brand {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 16px;
+      color: #888;
+    }
+
+    .cover-brand span {
+      color: var(--blue);
+    }
+
+    .cover-product {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #555;
+    }
+
+    .cover-blush-strip {
+      height: 5px;
+      background: linear-gradient(90deg, var(--blue) 0%, var(--blue-mid) 50%, var(--blush) 100%);
+    }
+
+    /* toc styles */
+    .toc-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc-num {
+      font-size: 9px;
+      letter-spacing: 1px;
+      color: var(--blue);
+      width: 32px;
+      flex-shrink: 0;
+      text-transform: uppercase;
+    }
+
+    .toc-title {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 14px;
+      color: var(--text);
+      flex: 1;
+    }
+
+    .toc-desc {
+      font-size: 11px;
+      color: var(--hint);
+      flex: 2;
+      padding-left: 8px;
+    }
+
+    .toc-pg {
+      font-size: 10px;
+      color: var(--hint);
+      width: 20px;
+      text-align: right;
+    }
+
+    /* tag cloud for triggers */
+    .trigger-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      padding: 5px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg-box);
+      color: var(--muted);
+      margin: 3px;
+    }
+
+    /* matrix grid */
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: 250px repeat(6, 1fr);
+      gap: 2px;
+      font-size: 10px;
+      grid-auto-rows: 60px;
+    }
+
+    .mg-header {
+      background: var(--blue);
+      color: white;
+      padding: 5px 4px;
+      text-align: center;
+      font-size: 9px;
+      letter-spacing: 0.5px;
+      border-radius: 2px;
+
+      /* stack the spans */
+      display: flex;
+      flex-direction: column;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      line-height: 1;
+    }
+
+    .mg-row-label {
+      background: var(--bg-box);
+      padding: 5px 6px;
+      font-size: 10px;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+
+    }
+
+    .mg-cell {
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      min-height: 32px;
+      cursor: pointer;
+      transition: background 0.1s;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .mg-cell:hover {
+      background: #EBF0F3;
+    }
+
+    .mg-cell.active {
+      background: var(--blue);
+    }
+
+    .mg-cell.active::after {
+      content: '✓';
+      color: white;
+      font-size: 12px;
+    }
+
+    /* plan card */
+    .plan-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      background: #FDFCF8;
+      margin-bottom: 10px;
+    }
+
+    .plan-card-label {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+
+    /* reflection prompt */
+    .prompt-box {
+      margin-bottom: 14px;
+    }
+
+    .prompt-q {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 13px;
+      color: var(--text);
+      margin-bottom: 6px;
+      font-style: italic;
+    }
+
+    /* compact spacing helpers */
+    .mb4 {
+      margin-bottom: 4px;
+    }
+
+    .mb8 {
+      margin-bottom: 8px;
+    }
+
+    .mb12 {
+      margin-bottom: 12px;
+    }
+
+    .mb16 {
+      margin-bottom: 16px;
+    }
+
+    .mb20 {
+      margin-bottom: 20px;
+    }
+
+    .mb24 {
+      margin-bottom: 24px;
+    }
+
+    .mt8 {
+      margin-top: 8px;
+    }
+
+    .mt12 {
+      margin-top: 12px;
+    }
+
+    .mt16 {
+      margin-top: 16px;
+    }
+
+
+    /*placeholder text*/
+    input::placeholder,
+    textarea::placeholder {
+      font-size: 11px;
+      /* smaller than your 12.5px base */
+      color: var(--hint);
+      /* already a softer tone */
+      opacity: 0.6;
+      /* makes it more faint */
+
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+
+    /* verical labels */
+    .mg-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 8px 4px;
+    }
+
+    .mg-header span {
+      display: inline-block;
+      transform: rotate(45deg);
+      /* or -30deg / -60deg depending on look */
+      transform-origin: center;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+     PAGE 1 — COVER
+     ============================================================ -->
+  <div class="page page-cover">
+    <div class="cover-blush-strip"></div>
+    <div class="cover-inner">
+      <div class="cover-top">
+        <div class="cover-tag">Future Sanctuary · Impulse Spending Workbook</div>
+        <div class="cover-number">10</div>
+        <div style="margin-top:2px;">
+          <div class="display-title" style="font-size:32px; color:#111111;">exercises to understand<br />
+            <em>why</em>
+            you impulse spend
+          </div>
+        </div>
+        <div class="cover-subtitle">
+          A practical, fill-in workbook built around the Pause framework — helping you decode your spending triggers,
+          name your core drivers, and build a plan that actually fits how you think and feel.
+        </div>
+        <br>
+        <br>
+
+        <!-- Illustration placeholder
+        <div class="illustration"
+          style="height:260px; margin-top:32px; background:#1A1A1A; border-color:#333; color:#555;">
+          <div class="illustration-icon" style="font-size:48px; opacity:0.3;">◉</div>
+          <div class="illustration-label" style="color:#444;">
+            Illustration placeholder<br />
+            Suggested: Decoded impulse wheel / journal spread<br />
+            Style: Dark background, muted blue + blush ink
+          </div>
+        </div> -->
+        <img src="assets/front-cover.png" alt="The decoded impulse wheel"
+          style="height:460px; margin-bottom:14px; display:block;" />
+      </div>
+
+
+      <div class="cover-bottom">
+
+        <div>
+          <div class="cover-brand">futuresanctuary<span>.</span></div>
+          <div style="font-size:10px;color:#555;margin-top:3px;letter-spacing:0.5px;">impulse spending workbook
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     PAGE 2 — TABLE OF CONTENTS + HOW TO USE
+     ============================================================ -->
+  <div class="page page-light">
+    <div class="accent-strip"></div>
+    <div class="page-inner">
+      <div class="page-header">
+        <div class="page-header-logo">futuresanctuary<span>.</span></div>
+        <div class="page-header-meta">impulse spending workbook</div>
+      </div>
+
+      <div class="eyebrow mb8">Contents</div>
+      <div class="section-title mb16">What's inside</div>
+
+      <div class="toc-row">
+        <div class="toc-num">Ex 1</div>
+        <div class="toc-title">Your Spending Snapshot</div>
+        <div class="toc-desc">A quick baseline assessment of your current relationship with spending</div>
+        <div class="toc-pg">p3</div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-num">Ex 2</div>
+        <div class="toc-title">Trigger Identification</div>
+        <div class="toc-desc">Identify which of the 12 triggers most often set off your impulse urges</div>
+        <div class="toc-pg">p4</div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-num">Ex 3</div>
+        <div class="toc-title">The Decode Method</div>
+        <div class="toc-desc">Practise the two-layer decode on 5 real purchases from your recent history</div>
+        <div class="toc-pg">p5</div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-num">Ex 4</div>
+        <div class="toc-title">Core Driver Deep Dive</div>
+        <div class="toc-desc">Explore the emotional need underneath your most frequent impulse driver</div>
+        <div class="toc-pg">p6</div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-num">Ex 5</div>
+        <div class="toc-title">The Trigger × Need Matrix</div>
+        <div class="toc-desc">Map your personal trigger-to-driver combinations with an interactive grid</div>
+        <div class="toc-pg">p7</div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-num">Ex 6</div>
+        <div class="toc-title">Your Spending Environment Audit</div>
+        <div class="toc-desc">Identify the environments, times, and contexts that raise your risk</div>
+        <div class="toc-pg">p8</div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-num">Ex 7</div>
+        <div class="toc-title">The 30-Minute Pause Protocol</div>
+        <div class="toc-desc">Build a personalised interruption strategy tailored to your triggers</div>
+        <div class="toc-pg">p9</div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-num">Ex 8</div>
+        <div class="toc-title">Your If–Then Plan</div>
+        <div class="toc-desc">Write your own personalised if-then spending plan using your decoded data</div>
+        <div class="toc-pg">p10</div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-num">Ex 9</div>
+        <div class="toc-title">7-Day Awareness Tracker</div>
+        <div class="toc-desc">A one-week daily habit grid to build the decode habit from scratch</div>
+        <div class="toc-pg">p11</div>
+      </div>
+      <div class="toc-row" style="border-bottom: none;">
+        <div class="toc-num">Ex 10</div>
+        <div class="toc-title">Weekly Reflection Prompts</div>
+        <div class="toc-desc">8 guided questions to close out the week with genuine self-awareness</div>
+        <div class="toc-pg">p12</div>
+      </div>
+
+      <hr class="divider" style="margin-top:16px;" />
+
+      <div class="callout-blue mt8">
+        <div class="eyebrow mb4">How to use this workbook</div>
+        <p class="body-text-sm">All fields are interactive. You can work through all 10 exercises in one session, or
+          pick up one at a time over a week. There's no
+          right way — just honest engagement. The exercises build on each other, so starting at Exercise 1 is
+          recommended. When you're ready to continue tracking daily, <strong>Pause</strong> (the free browser-based app)
+          picks up exactly where this workbook leaves off.
+        </p>
+      </div>
+
+      <div class="page-footer">
+        <div class="page-footer-text">futuresanctuary. · impulse spending workbook</div>
+        <div class="page-num">2</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     PAGE 3 — EXERCISE 1: Your Spending Snapshot
+     ============================================================ -->
+  <div class="page page-light">
+    <div class="accent-strip"></div>
+    <div class="page-inner">
+      <div class="page-header">
+        <div class="page-header-logo">futuresanctuary<span>.</span></div>
+        <div class="page-header-meta">Exercise 01 · Spending Snapshot</div>
+      </div>
+
+      <div class="eyebrow mb4">Exercise 01</div>
+      <div class="section-title mb4">Your Spending Snapshot</div>
+      <p class="body-text mb16">Before we decode anything, let's establish your baseline — how you currently feel about
+        your spending, not what the numbers say. Honest first impressions are more useful than curated ones.</p>
+
+      <div class="callout-blue mb20">
+        <p class="body-text-sm"><strong>Instructions:</strong> Answer each question quickly. Don't overthink — your
+          first instinct is usually the most accurate data you have.</p>
+      </div>
+
+      <div class="mb16">
+        <label class="field-label">In one sentence, how do you feel about your relationship with spending right
+          now?</label>
+        <textarea rows="2" placeholder="e.g. I know I spend too much but I don't really understand why..."></textarea>
+      </div>
+
+      <div class="grid-2 mb16">
+        <div>
+          <label class="field-label">What triggers your spending most often? (gut answer)</label>
+          <input type="text" class="line-field" placeholder="e.g. stress, late nights, scrolling..." />
+          <input type="text" class="line-field" placeholder="" />
+        </div>
+        <div>
+          <label class="field-label">What do you usually feel after an impulse buy? </label>
+
+          <input type="text" class="line-field" placeholder="e.g. brief relief, then guilt..." />
+          <input type="text" class="line-field" placeholder="" />
+        </div>
+      </div>
+
+      <div class="mb16">
+        <label class="field-label">Rate your current awareness of your spending patterns (click to select)</label>
+        <div class="scale-track" id="awareness-scale">
+          <div class="scale-cell" onclick="selectScale('awareness-scale', this)">1<br /><span
+              style="font-size:9px;color:inherit;">none</span></div>
+          <div class="scale-cell" onclick="selectScale('awareness-scale', this)">2<br /><span
+              style="font-size:9px;color:inherit;">rarely notice</span></div>
+          <div class="scale-cell" onclick="selectScale('awareness-scale', this)">3<br /><span
+              style="font-size:9px;color:inherit;">sometimes notice</span></div>
+          <div class="scale-cell" onclick="selectScale('awareness-scale', this)">4<br /><span
+              style="font-size:9px;color:inherit;">usually notice</span></div>
+          <div class="scale-cell" onclick="selectScale('awareness-scale', this)">5<br /><span
+              style="font-size:9px;color:inherit;">full clarity</span></div>
+        </div>
+      </div>
+
+      <div class="mb16">
+        <label class="field-label">Which of these statements feel true for you right now? (tick all that apply)</label>
+        <div class="check-row"><input type="checkbox" id="s1" /><label for="s1">I often buy things and later don't
+            remember the exact moment I decided to.</label></div>
+        <div class="check-row"><input type="checkbox" id="s2" /><label for="s2">I know roughly what triggers me, but I
+            can't seem to stop it in the moment.</label></div>
+        <div class="check-row"><input type="checkbox" id="s3" /><label for="s3">I feel like I should be better at this —
+            like it's a discipline problem.</label></div>
+        <div class="check-row"><input type="checkbox" id="s4" /><label for="s4">Spending gives me a brief sense of
+            relief, comfort, or control.</label></div>
+        <div class="check-row"><input type="checkbox" id="s5" /><label for="s5">My spending feels disconnected from what
+            I actually value or care about.</label></div>
+        <div class="check-row"><input type="checkbox" id="s6" /><label for="s6">I've tried budgeting apps but they
+            didn't address the underlying pattern.</label></div>
+      </div>
+
+      <div class="mb16">
+        <label class="field-label">What would genuinely understanding your spending patterns change for you?</label>
+        <textarea rows="2" placeholder="Think beyond money — what would feel different in your daily life?"></textarea>
+      </div>
+
+      <div class="callout-sage" style="margin-top: -8px;">
+        <p class="body-text-sm"><strong>Remember:</strong> This workbook isn't about willpower or discipline. It's about
+          understanding. The goal after these 10 exercises is not to spend zero — it's to spend with <em>awareness</em>.
+        </p>
+      </div>
+      <div class="page-footer">
+        <div class="page-footer-text">futuresanctuary. · impulse spending workbook</div>
+        <div class="page-num">3</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     PAGE 4 — EXERCISE 2: Trigger Identification
+     ============================================================ -->
+  <div class="page page-light">
+    <div class="accent-strip accent-strip-blush"></div>
+    <div class="page-inner">
+      <div class="page-header">
+        <div class="page-header-logo">futuresanctuary<span>.</span></div>
+        <div class="page-header-meta">Exercise 02 · Trigger Identification</div>
+      </div>
+
+      <div class="eyebrow eyebrow-blush mb4">Exercise 02</div>
+      <div class="section-title mb4">The 12 Spending Triggers — Which Are Yours?</div>
+      <p class="body-text mb16">Most people have 2–3 dominant triggers that repeat. The goal isn't to eliminate them —
+        triggers are a normal part of life. The goal is to <em>recognise</em> yours so they lose their automatic power.
+      </p>
+
+      <!-- Illustration placeholder
+      <div class="illustration" style="height:90px; margin-bottom:14px; flex-direction:row; gap:16px; padding: 0 20px;">
+        <div style="text-align:center;">
+          <div class="illustration-icon">🏷</div>
+          <div class="illustration-label">Infographic placeholder<br />Style: 10 trigger tags arranged in a circular or
+            receipt-style layout<br />Palette: muted blue, blush, sage on linen background</div>
+        </div>
+      </div> -->
+
+      <img src="assets/the-12-spending-triggers.png" alt="spending triggers"
+        style="height:250px; margin-bottom:14px; display:block;" />
+
+      <div class="mb12">
+        <label class="field-label">Tap the triggers that resonate with you (select all that apply)</label>
+        <div class="tag-grid" id="trigger-tags">
+          <div class="tag-btn" onclick="toggleTag(this, 'blue')">📱 browsing / scrolling</div>
+          <div class="tag-btn" onclick="toggleTag(this, 'blue')">😰 stress</div>
+          <div class="tag-btn" onclick="toggleTag(this, 'blue')">😐 boredom</div>
+          <div class="tag-btn" onclick="toggleTag(this, 'blue')">🌙 late night</div>
+          <div class="tag-btn" onclick="toggleTag(this, 'blue')">💰 payday</div>
+          <div class="tag-btn" onclick="toggleTag(this, 'blue')">📣 advertising</div>
+          <div class="tag-btn" onclick="toggleTag(this, 'blue')">👥 social</div>
+          <div class="tag-btn" onclick="toggleTag(this, 'blue')">📧 email promotions</div>
+          <div class="tag-btn" onclick="toggleTag(this, 'blue')">🏷 sale / discount</div>
+          <div class="tag-btn" onclick="toggleTag(this, 'blue')">🔁 habit</div>
+          <div class="tag-btn" onclick="toggleTag(this, 'blue')">🎉 celebration</div>
+          <div class="tag-btn" onclick="toggleTag(this, 'blue')">😞 low mood</div>
+        </div>
+      </div>
+
+      <div class="grid-2 mb14">
+        <div>
+          <label class="field-label">My top trigger is:</label>
+          <input type="text" class="line-field" placeholder="e.g. late-night scrolling" />
+          <label class="field-label" style="margin-top:10px;">My second trigger is:</label>
+          <input type="text" class="line-field" placeholder="e.g. stress" />
+        </div>
+        <div>
+          <label class="field-label">When exactly does this trigger typically hit?<br /><span
+              style="font-size:10px;color:var(--hint);text-transform:none;letter-spacing:0;">(time, place,
+              context)</span></label>
+          <textarea rows="4"
+            placeholder="e.g. after 10pm, when I'm in bed with my phone, usually after a hard day..."></textarea>
+        </div>
+      </div>
+
+      <br>
+      <div class="mb14">
+        <label class="field-label">Describe your most recent trigger moment in detail:</label>
+        <textarea rows="3"
+          placeholder="What happened in the hour before the urge hit? Where were you? How were you feeling?"></textarea>
+      </div>
+      <br>
+      <div class="callout-blush">
+        <div class="eyebrow eyebrow-blush mb4">Key insight</div>
+        <p class="body-text-sm">A trigger is just the <strong>match</strong>. The fire is something deeper — an
+          emotional need the purchase is attempting to meet. We'll decode that in Exercise 3.</p>
+      </div>
+
+      <div class="page-footer">
+        <div class="page-footer-text">futuresanctuary. · impulse spending workbook</div>
+        <div class="page-num">4</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     PAGE 5 — EXERCISE 3: The Decode Method
+     ============================================================ -->
+  <div class="page page-light">
+    <div class="accent-strip"></div>
+    <div class="page-inner-wide">
+      <div class="page-header">
+        <div class="page-header-logo">futuresanctuary<span>.</span></div>
+        <div class="page-header-meta">Exercise 03 · The Decode Method</div>
+      </div>
+
+      <div class="eyebrow mb4">Exercise 03</div>
+      <div class="section-title mb4">Decode 5 Real Purchases</div>
+      <p class="body-text mb10">Think back to 5 purchases from the last 2–4 weeks — bought or nearly bought. For each
+        one, identify the trigger (what set it off) and the core driver (the emotional need underneath). The driver is
+        the real answer.</p>
+      <br>
+      <div class="callout-blue mb12">
+        <p class="body-text-sm"><strong>Core drivers reference:</strong> relief · reward · escape · comfort · validation
+          · excitement · connection · control · identity · FOMO· numbing · hope</p>
+      </div>
+      <br>
+      <table class="decode-table" style="margin-bottom:12px;">
+        <thead>
+          <tr>
+            <th style="width:22%;">Item / Purchase</th>
+            <th style="width:18%;">Bought or Resisted?</th>
+            <th style="width:22%;">Trigger</th>
+            <th style="width:22%;">Core Driver</th>
+            <th style="width:16%;">How you felt after</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" placeholder="e.g. ASOS order" /></td>
+            <td><input type="text" placeholder="bought" /></td>
+            <td><input type="text" placeholder="e.g. late night" /></td>
+            <td><input type="text" placeholder="e.g. escape" /></td>
+            <td><input type="text" placeholder="e.g. hollow" /></td>
+          </tr>
+          <tr>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+          </tr>
+          <tr>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+          </tr>
+          <tr>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+          </tr>
+          <tr>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+          </tr>
+          <tr>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+            <td><input type="text" placeholder="" /></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br>
+      <div class="grid-2 mb12">
+        <div>
+          <label class="field-label">Looking at your 5 decoded items — what pattern do you notice?</label>
+          <textarea rows="6"
+            placeholder="e.g. Most of mine were triggered by late-night scrolling and the driver was escape. I was always avoiding something."></textarea>
+        </div>
+        <div>
+          <label class="field-label">Which core driver appeared most often?</label>
+          <input type="text" class="line-field" placeholder="e.g. escape" />
+          <label class="field-label" style="margin-top:10px;">Does this surprise you? Why or why not?</label>
+          <textarea rows="3" placeholder=""></textarea>
+        </div>
+      </div>
+      <br>
+      <div class="callout-sage">
+        <p class="body-text-sm"><strong>The key shift:</strong> Once you can name "I was buying for escape, not because
+          I needed the thing" — you've broken the automatic loop. The urge doesn't disappear, but it stops being
+          invisible.</p>
+      </div>
+
+      <img src="assets/washi-dots.png" alt="Dots pattern"
+        style="height:100px; width:300px; display:block; margin:0 auto;" />
+
+      <div class="page-footer">
+        <div class="page-footer-text">futuresanctuary. · impulse spending workbook</div>
+        <div class="page-num">5</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     PAGE 6 — EXERCISE 4: Core Driver Deep Dive
+     ============================================================ -->
+  <div class="page page-sand">
+    <div class="accent-strip accent-strip-blush"></div>
+    <div class="page-inner">
+      <div class="page-header">
+        <div class="page-header-logo">futuresanctuary<span>.</span></div>
+        <div class="page-header-meta">Exercise 04 · Core Driver Deep Dive</div>
+      </div>
+
+      <div class="eyebrow eyebrow-blush mb4">Exercise 04</div>
+      <div class="section-title mb4">Your Core Driver — Going Deeper</div>
+      <p class="body-text mb14">Your most frequent core driver is the emotional need that your spending keeps trying to
+        answer. Understanding it more fully — where it comes from, what else it responds to — is where lasting change
+        lives.</p>
+      <br>
+
+      <!-- Illustration placeholder 
+      <div class="illustration"
+        style="height:80px; margin-bottom:14px; flex-direction:row; padding:0 20px; gap:16px; background: var(--bg);">
+        <div class="illustration-icon">◎</div>
+        <div class="illustration-label">Infographic placeholder<br />Suggested: Wheel of 10 core drivers (relief,
+          reward, escape, comfort, validation, excitement, connection, control, identity, FOMO) in a circular diagram
+          with subtle segment shading<br />Palette: slate blue on linen, blush accents</div>
+      </div>-->
+      <img src="assets/your-core-driver.png" alt="Wheel of 10 core drivers"
+        style="height:200px; margin-bottom:14px; display:block;" />
+      <br>
+      <div class="grid-2 mb14">
+        <div class="mb14">
+          <label class="field-label">My most frequent core driver (from Exercise 3):</label>
+          <textarea rows="2" placeholder="e.g. escape"></textarea>
+        </div>
+
+        <div class="mb14">
+          <label class="field-label">In your own words, what does this need actually feel like when it arises?</label>
+          <textarea rows="4"
+            placeholder="e.g. It feels like I need to be somewhere else mentally, even just for a few minutes."></textarea>
+        </div>
+      </div>
+
+      <div class="grid-2 mb14">
+        <div>
+          <label class="field-label">What other (healthier) things in your life also meet this need?</label>
+          <input type="text" class="line-field" placeholder="e.g. going for a walk, calling a friend" />
+          <input type="text" class="line-field" />
+          <input type="text" class="line-field" />
+
+        </div>
+        <div>
+          <label class="field-label">When the need arises, what would it actually take to genuinely meet it?</label>
+          <textarea rows="5"
+            placeholder="Think beyond just the urge — what is your nervous system really asking for here?"></textarea>
+        </div>
+      </div>
+      <br>
+      <div class="mb14">
+        <label class="field-label">Is there a pattern around when this need feels strongest? (time, context, emotional
+          state)</label>
+        <textarea rows="3"
+          placeholder="e.g. It's strongest when I've had a hard day and I'm alone in the evening. The need feels less urgent on days when I've exercised or seen a friend."></textarea>
+      </div>
+
+      <div class="callout-blue">
+        <div class="eyebrow mb4">Reflection</div>
+        <p class="body-text-sm">The need itself is never the problem. <strong>Relief, escape, comfort,
+            connection</strong> — these are all legitimate human needs. The question isn't "how do I stop needing this?"
+          It's "what would genuinely meet this need, in a way I'll feel good about tomorrow?"</p>
+      </div>
+
+      <div class="page-footer">
+        <div class="page-footer-text">futuresanctuary. · impulse spending workbook</div>
+        <div class="page-num">6</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     PAGE 7 — EXERCISE 5: Trigger × Need Matrix
+     ============================================================ -->
+  <div class="page page-light">
+    <div class="accent-strip"></div>
+    <div class="page-inner">
+      <div class="page-header">
+        <div class="page-header-logo">futuresanctuary<span>.</span></div>
+        <div class="page-header-meta">Exercise 05 · Trigger × Need Matrix</div>
+      </div>
+
+      <div class="eyebrow mb4">Exercise 05</div>
+      <div class="section-title mb4">Your Trigger × Core Driver Map</div>
+      <p class="body-text mb14">Not every trigger connects to the same need — and not every need gets activated by the
+        same trigger. This matrix helps you see which <em>combinations</em> are most live for you. Click any cell that
+        represents a real pairing you've experienced.</p>
+      <br>
+
+      <div class="mb4" style="font-size:10px;color:var(--hint);letter-spacing:0.8px;">COLUMNS = CORE DRIVERS
+        &nbsp;·&nbsp; ROWS = TRIGGERS &nbsp;·&nbsp; Click any cell that applies to you</div>
+      <br>
+      <br>
+      <div class="matrix-grid mb16">
+        <!-- Header row -->
+        <div class="mg-header" style="background:transparent; color:var(--hint);"></div>
+        <div class="mg-header"><span>relief/</span><span>numbing</span></div>
+        <div class="mg-header"><span>escape/</span><span>comfort</span></div>
+        <div class="mg-header"><span>reward/</span><span>excitement</span></div>
+        <div class="mg-header"><span>validation/</span><span>connection</span></div>
+        <div class="mg-header"><span>control/</span><span>identity</span></div>
+        <div class="mg-header"><span>FOMO/</span><span>optimism</span></div>
+
+
+        <!-- Row 1 -->
+        <div class="mg-row-label">fatigue / low energy - late night, boredom</div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <!-- Row 2 -->
+        <div class="mg-row-label">emotional load - stress, low mood / sadness</div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <!-- Row 3 -->
+        <div class="mg-row-label">passive consumption - browsing / scrolling, habit / autopilot</div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <!-- Row 4 -->
+        <div class="mg-row-label">external prompotion - advertising, email promotions</div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <!-- Row 5 -->
+        <div class="mg-row-label">social influence - social </div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <!-- Row 6 -->
+        <div class="mg-row-label">event based spending - payday, sale / discount, celebration / good news</div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+        <div class="mg-cell" onclick="toggleMatrix(this)"></div>
+      </div>
+
+      <div class="grid-2 mb14">
+        <div>
+          <label class="field-label">My strongest combination (the one that fires most reliably) is:</label>
+          <input type="text" class="line-field" placeholder="e.g. Late night + Escape" />
+          <label class="field-label" style="margin-top:10px;">How long have you been aware of this
+            combination?</label>
+          <input type="text" class="line-field" placeholder="e.g. I've noticed it for years but never named it" />
+        </div>
+        <div>
+          <label class="field-label">What typically happens in the 30 minutes before this combination fires?</label>
+          <textarea rows="4" placeholder="Walk me through the typical sequence of events..."></textarea>
+        </div>
+      </div>
+      <br>
+      <div class="callout-ochre">
+        <p class="body-text-sm"><strong>This combination is the target.</strong> In Exercises 7 and 8, you'll build a
+          specific protocol and if-then plan designed exactly for this trigger × driver pairing. The more specific the
+          plan, the more effective it is.</p>
+      </div>
+
+
+      <div class="page-footer">
+        <div class="page-footer-text">futuresanctuary. · impulse spending workbook</div>
+        <div class="page-num">7</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     PAGE 8 — EXERCISE 6: Spending Environment Audit
+     ============================================================ -->
+  <div class="page page-sand">
+    <div class="accent-strip accent-strip-blush"></div>
+    <div class="page-inner">
+      <div class="page-header">
+        <div class="page-header-logo">futuresanctuary<span>.</span></div>
+        <div class="page-header-meta">Exercise 06 · Environment Audit</div>
+      </div>
+
+      <div class="eyebrow eyebrow-blush mb4">Exercise 06</div>
+      <div class="section-title mb4">Your Spending Environment Audit</div>
+      <p class="body-text mb14">Environment shapes behaviour as much as intention does. This exercise helps you map
+        the
+        specific contexts, apps, times, and emotional states that raise your spending risk — so you can make small
+        environmental changes that have outsized impact.</p>
+      <br>
+
+      <div class="mb14">
+        <label class="field-label">High-risk apps & platforms (tick the ones that most often lead you to
+          spend)</label>
+        <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap: 6px;">
+          <div class="check-row"><input type="checkbox" id="e1" /><label for="e1">Instagram</label></div>
+          <div class="check-row"><input type="checkbox" id="e2" /><label for="e2">TikTok</label></div>
+          <div class="check-row"><input type="checkbox" id="e3" /><label for="e3">Pinterest</label></div>
+          <div class="check-row"><input type="checkbox" id="e4" /><label for="e4">Email inbox</label></div>
+          <div class="check-row"><input type="checkbox" id="e5" /><label for="e5">ASOS/Zara/Shein</label></div>
+          <div class="check-row"><input type="checkbox" id="e6" /><label for="e6">Amazon</label></div>
+          <div class="check-row"><input type="checkbox" id="e7" /><label for="e7">Temu</label></div>
+          <div class="check-row"><input type="checkbox" id="e8" /><label for="e8">eBay</label></div>
+          <div class="check-row"><input type="checkbox" id="e9" /><label for="e9">Etsy</label></div>
+          <div class="check-row"><input type="checkbox" id="e10" /><label for="e10">Vinted</label></div>
+          <div class="check-row"><input type="checkbox" id="e11" /><label for="e11">YouTube</label></div>
+          <div class="check-row"><input type="checkbox" id="e12" /><label for="e12">Other:</label></div>
+          <div class="check-row"><input type="checkbox" id="e13" /><label for="e13">Other:</label></div>
+          <div class="check-row"><input type="checkbox" id="e14" /><label for="e14">Other:</label></div>
+        </div>
+      </div>
+      <br>
+
+      <div class="mb14">
+        <label class="field-label">High-risk times of day — rate each on a 1–5 risk scale (1 = low risk, 5 = high
+          risk)</label>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap: 8px;">
+          <div class="progress-row"><span class="progress-label" style="font-size:11px;">Morning (6–10am)</span><input
+              type="range" min="1" max="5" value="1" oninput="this.nextElementSibling.textContent=this.value"
+              style="flex:1;" /><span class="progress-val">1</span></div>
+          <div class="progress-row"><span class="progress-label" style="font-size:11px;">Afternoon
+              (12–5pm)</span><input type="range" min="1" max="5" value="1"
+              oninput="this.nextElementSibling.textContent=this.value" style="flex:1;" /><span
+              class="progress-val">1</span></div>
+          <div class="progress-row"><span class="progress-label" style="font-size:11px;">Evening (5–9pm)</span><input
+              type="range" min="1" max="5" value="1" oninput="this.nextElementSibling.textContent=this.value"
+              style="flex:1;" /><span class="progress-val">1</span></div>
+          <div class="progress-row"><span class="progress-label" style="font-size:11px;">Late night
+              (9pm+)</span><input type="range" min="1" max="5" value="1"
+              oninput="this.nextElementSibling.textContent=this.value" style="flex:1;" /><span
+              class="progress-val">1</span></div>
+        </div>
+      </div>
+
+      <br>
+      <div class="grid-2 mb14">
+        <div>
+          <label class="field-label">High-risk emotional states (tick all that apply)</label>
+          <div class="check-row"><input type="checkbox" id="em1" /><label for="em1">After a stressful or difficult
+              day</label></div>
+          <div class="check-row"><input type="checkbox" id="em2" /><label for="em2">When I'm lonely or
+              disconnected</label></div>
+          <div class="check-row"><input type="checkbox" id="em3" /><label for="em3">When I'm tired or depleted</label>
+          </div>
+          <div class="check-row"><input type="checkbox" id="em4" /><label for="em4">When I'm procrastinating
+              something</label></div>
+          <div class="check-row"><input type="checkbox" id="em5" /><label for="em5">After seeing others' purchases
+              online</label></div>
+          <div class="check-row"><input type="checkbox" id="em6" /><label for="em6">On payday or after receiving
+              money</label></div>
+          <div class="check-row"><input type="checkbox" id="em7" /><label for="em7">Other: </label><input type="text"
+              class="line-field" /></div>
+          <div class="check-row"><input type="checkbox" id="em8" /><label for="em8">Other: </label><input type="text"
+              class="line-field" /></div>
+
+        </div>
+        <div>
+          <label class="field-label">One small environmental change I could make right now:</label>
+          <textarea rows="5"
+            placeholder="e.g. Put my phone on charge in the kitchen at 9pm instead of by my bed. Unsubscribe from 3 sale newsletters this week."></textarea>
+          <label class="field-label" style="margin-top:10px;">One app I could move off my phone's home screen:</label>
+          <input type="text" class="line-field" placeholder="e.g. ASOS app → buried in a folder" />
+          <input type="text" class="line-field" />
+        </div>
+      </div>
+
+      <div class="callout-blue">
+        <p class="body-text-sm"><strong>Small friction = big results.</strong> Moving a shopping app one folder
+          deeper,
+          charging your phone outside the bedroom, or setting a 9pm screen-off habit can reduce high-risk exposure by
+          more than 50% without requiring any willpower at all.</p>
+      </div>
+
+      <img src="assets/washi-dots.png" alt="Dots pattern"
+        style="height:100px; width:300px; display:block; margin:0 auto;" />
+
+      <div class="page-footer">
+        <div class="page-footer-text">futuresanctuary. · impulse spending workbook</div>
+        <div class="page-num">8</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     PAGE 9 — EXERCISE 7: The 30-Minute Pause Protocol
+     ============================================================ -->
+  <div class="page page-light">
+    <div class="accent-strip"></div>
+    <div class="page-inner">
+      <div class="page-header">
+        <div class="page-header-logo">futuresanctuary<span>.</span></div>
+        <div class="page-header-meta">Exercise 07 · The Pause Protocol</div>
+      </div>
+
+      <div class="eyebrow mb4">Exercise 07</div>
+      <div class="section-title mb4">Your 30-Minute Pause Protocol</div>
+      <p class="body-text mb14">The "wait 30 minutes" advice is useless without knowing what to do <em>during</em>
+        those
+        30 minutes. This exercise helps you build a personalised interrupt protocol — specific to your trigger, your
+        environment, and your core driver.</p>
+      <br>
+
+      <!-- Illustration placeholder 
+      <div class="illustration"
+        style="height:72px; margin-bottom:14px; flex-direction:row; padding:0 20px; gap:16px; background: #EBF0F3; border-style:solid; border-color:#C8D8E0;">
+        <div class="illustration-icon" style="font-size:22px; opacity:0.5;">⏸</div>
+        <div class="illustration-label" style="text-align:left;">Illustration placeholder · Suggested: A "pause
+          button"
+          receipt-style graphic listing the 5 steps of the protocol<br />Style: Receipt format, typewriter font, muted
+          blue stamp mark</div>
+      </div> -->
+
+      <img src="assets/30-minute-pause-protocol.png" alt="30 minute pause protocol"
+        style="height:150x; width: 660px;" />
+      <br>
+
+      <div class="mb14">
+        <label class="field-label">When the urge hits, what do I notice first in my body or mind? (the signal to
+          activate the protocol)</label>
+        <input type="text" class="line-field"
+          placeholder="e.g. A restless feeling, opening an app without thinking, sudden interest in checking prices..." />
+        <input type="text" class="line-field" />
+      </div>
+
+      <div class="mb14">
+        <label class="field-label">Build your personal 5-step pause protocol — make each step concrete and specific to
+          you:</label>
+
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">NOTICE — Name what you're feeling out
+              loud
+              or in writing</div>
+            <input type="text" class="line-field"
+              placeholder="e.g. I'll say to myself: 'I'm feeling the urge to browse. This is the escape pattern.'" />
+            <input type="text" class="line-field" />
+          </div>
+        </div>
+
+        <div class="grid-2 mb14">
+          <div class="step-row">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">PAUSE — Exit the environment (close the
+                app, put down the phone, change rooms)</div>
+              <input type="text" class="line-field"
+                placeholder="e.g. I'll close the app and put my phone face-down on the other side of the room." />
+              <input type="text" class="line-field" />
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">MEET THE NEED — Do something that
+                addresses the core driver directly</div>
+              <input type="text" class="line-field"
+                placeholder="e.g. Make a cup of tea and watch one episode of something I already enjoy. (Escape → met differently)" />
+              <input type="text" class="line-field" />
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2 mb14">
+          <div class="step-row">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">LOG — Write the item on a wishlist to
+                review in 48 hours, not to buy</div>
+              <input type="text" class="line-field"
+                placeholder="e.g. I'll add it to my Notes wishlist. If I still want it in 48 hours, I'll consider it consciously." />
+
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">REFLECT — After the 30 minutes, check
+                in:
+                has the urge changed?</div>
+              <input type="text" class="line-field"
+                placeholder="e.g. I'll ask myself: Do I still want this, or did the feeling just need somewhere to go?" />
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout-sage">
+        <p class="body-text-sm"><strong>This protocol becomes automatic with repetition.</strong> The first few times
+          will feel effortful. By the 5th or 6th time, your brain will start running it before you consciously decide
+          to. That's the habit forming.</p>
+      </div>
+
+      <div class="page-footer">
+        <div class="page-footer-text">futuresanctuary. · impulse spending workbook</div>
+        <div class="page-num">9</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     PAGE 10 — EXERCISE 8: Your If–Then Plan
+     ============================================================ -->
+  <div class="page page-sand">
+    <div class="accent-strip accent-strip-gradient"></div>
+    <div class="page-inner">
+      <div class="page-header">
+        <div class="page-header-logo">futuresanctuary<span>.</span></div>
+        <div class="page-header-meta">Exercise 08 · Your If–Then Plan</div>
+      </div>
+
+      <div class="eyebrow mb4">Exercise 08</div>
+      <div class="section-title mb4">Write Your If–Then Plan</div>
+      <p class="body-text mb14">An if-then plan is a single sentence that pre-decides your response to a specific
+        trigger. Research consistently shows that people who write if-then plans are significantly more likely to
+        follow
+        through than those who rely on motivation alone. The key is <em>specificity</em>.</p>
+      <br>
+      <div class="callout-blue mb14">
+        <div class="eyebrow mb4">The formula</div>
+        <p class="body-text-sm"
+          style="font-family:'Gochi Hand',cursive; font-style:italic; font-size:14px; color:var(--text);">
+          If [trigger + context], then I will [specific action that meets the need differently]."</p>
+      </div>
+      <br>
+      <div class="mb14">
+        <div class="grid-2" style="gap:12px;">
+          <div class="callout">
+            <div class="eyebrow mb4" style="color:var(--muted);">Good if-then plan ✓</div>
+            <p class="body-text-sm">"If I'm in bed after 10pm and feel an urge to open a shopping app, then I'll put
+              my
+              phone on charge, make a drink, and write one thing I'm looking forward to tomorrow."</p>
+          </div>
+          <div class="callout">
+            <div class="eyebrow mb4" style="color:var(--hint);">Too vague ✗</div>
+            <p class="body-text-sm">"If I want to buy something impulsively, then I'll wait 30 minutes." (No specific
+              context has been identified. No specific action. There is nothing to anchor the habit to.)
+              <br>
+            </p>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="mb14">
+        <label class="field-label">My primary if-then plan (based on my top trigger × driver from Ex 5):</label>
+        <div class="plan-card">
+          <div class="plan-card-label">IF ...</div>
+          <input type="text" class="line-field"
+            placeholder="trigger + context: e.g. it's after 9pm and I'm in bed scrolling and I feel the urge to browse..." />
+
+          <div class="plan-card-label" style="margin-top:12px;">THEN I WILL ...</div>
+          <input type="text" class="line-field"
+            placeholder="e.g. close all shopping apps, put phone on charge and spend 5 min writing my to-do list instead." />
+
+        </div>
+      </div>
+      <label class="field-label">Write 2 more if-then plans for your other common triggers:</label>
+      <div class="grid-2 mb14">
+        <div class="plan-card mb8">
+          <div class="plan-card-label">IF ...</div>
+          <input type="text" class="line-field" placeholder="second trigger context..." />
+          <div class="plan-card-label" style="margin-top:8px;">THEN I WILL ...</div>
+          <input type="text" class="line-field" placeholder="specific action..." />
+        </div>
+        <div class="plan-card">
+          <div class="plan-card-label">IF ...</div>
+          <input type="text" class="line-field" placeholder="third trigger context..." />
+          <div class="plan-card-label" style="margin-top:8px;">THEN I WILL ...</div>
+          <input type="text" class="line-field" placeholder="specific action..." />
+
+        </div>
+      </div>
+
+
+
+
+
+
+
+      <br>
+      <div class="callout-blush">
+        <p class="body-text-sm"><strong>The Pause app generates an if-then plan automatically</strong> from your
+          decoded
+          data after you've logged at least 5 impulse items. Compare yours here with the one the app generates —
+          they'll
+          often point to the same core truth.</p>
+      </div>
+
+      <div class="page-footer">
+        <div class="page-footer-text">futuresanctuary. · impulse spending workbook</div>
+        <div class="page-num">10</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     PAGE 11 — EXERCISE 9: 7-Day Awareness Tracker
+     ============================================================ -->
+  <div class="page page-light">
+    <div class="accent-strip"></div>
+    <div class="page-inner">
+      <div class="page-header">
+        <div class="page-header-logo">futuresanctuary<span>.</span></div>
+        <div class="page-header-meta">Exercise 09 · 7-Day Awareness Tracker</div>
+      </div>
+
+      <div class="eyebrow mb4">Exercise 09</div>
+      <div class="section-title mb4">7-Day Awareness Tracker</div>
+      <p class="body-text mb10">Use this grid for the next 7 days. Each evening, tick what applies. You're not aiming
+        for a perfect week — you're aiming for an honest one. Pattern recognition is the goal here, not performance.
+      </p>
+      <br>
+      <div class="habit-grid mb14" id="habit-grid">
+        <!-- Header -->
+        <div class="hg-cell header">Habit</div>
+        <div class="hg-cell header">Mon</div>
+        <div class="hg-cell header">Tue</div>
+        <div class="hg-cell header">Wed</div>
+        <div class="hg-cell header">Thu</div>
+        <div class="hg-cell header">Fri</div>
+        <div class="hg-cell header">Sat</div>
+        <div class="hg-cell header">Sun</div>
+        <!-- Row 1 -->
+        <div class="hg-cell row-label">No-spend day</div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <!-- Row 2 -->
+        <div class="hg-cell row-label">Impulse urge arose</div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <!-- Row 3 -->
+        <div class="hg-cell row-label">Used pause protocol</div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <!-- Row 4 -->
+        <div class="hg-cell row-label">Resisted a purchase</div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <!-- Row 5 -->
+        <div class="hg-cell row-label">Decoded an item</div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <!-- Row 6 -->
+        <div class="hg-cell row-label">Used if-then plan</div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+        <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+      </div>
+      <br>
+      <div class="grid-2 mb14">
+        <div>
+          <label class="field-label">Day of the week where spending is hardest:</label>
+          <input type="text" class="line-field" placeholder="e.g. Friday evenings" />
+          <input type="text" class="line-field" />
+          <label class="field-label" style="margin-top:10px;">What made the easiest day easier?</label>
+          <textarea rows="4" placeholder="Notice what was different..."></textarea>
+        </div>
+        <div>
+          <label class="field-label">How many times did I feel the urge vs act on it this week?</label>
+          <div class="grid-2" style="gap:8px;">
+            <div><label class="field-label" style="color:var(--muted);">Urges felt</label><input type="text"
+                class="line-field" /></div>
+            <div><label class="field-label" style="color:var(--muted);">Acted on</label><input type="text"
+                class="line-field" /></div>
+          </div>
+          <label class="field-label" style="margin-top:10px;">What surprised me most this week?</label>
+          <textarea rows="4" placeholder=""></textarea>
+        </div>
+      </div>
+      <br>
+
+      <img src="assets/washi-dots.png" alt="Dots pattern"
+        style="height:100px; width:300px; display:block; margin:0 auto;" />
+      <br>
+      <div class="callout-sage">
+        <p class="body-text-sm"><strong>The Pause app makes this automatic.</strong> Once you're logging daily, your
+          streak, no-spend days, and resisted items are tracked and charted for you — so this manual grid becomes a
+          full
+          insights panel over time.</p>
+      </div>
+
+      <div class="page-footer">
+        <div class="page-footer-text">futuresanctuary. · impulse spending workbook</div>
+        <div class="page-num">11</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     PAGE 12 — EXERCISE 10: Weekly Reflection Prompts + Next Steps
+     ============================================================ -->
+  <div class="page page-sand">
+    <div class="accent-strip accent-strip-blush"></div>
+    <div class="page-inner-wide">
+      <div class="page-header">
+        <div class="page-header-logo">futuresanctuary<span>.</span></div>
+        <div class="page-header-meta">Exercise 10 · Weekly Reflection</div>
+      </div>
+
+      <div class="eyebrow eyebrow-blush mb4">Exercise 10</div>
+      <div class="section-title mb4">Weekly Reflection — 8 Prompts</div>
+      <p class="body-text mb14">These 8 prompts close out the workbook — and are the same ones inside the Pause app's
+        Weekly Reflection tab. Return to them once a week. Honest, regular reflection is how short-term awareness
+        becomes long-term change.</p>
+      <br>
+      <div class="grid-2 mb12" style="gap:12px;">
+        <div class="prompt-box">
+          <div class="prompt-q">1. What were my 2–3 biggest spending moments this week?</div>
+          <textarea rows="3"
+            placeholder="Don't just list what you bought — note how it felt before and after."></textarea>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-q">2. Which trigger appeared most often this week?</div>
+          <textarea rows="3" placeholder="Was this the same as last week, or did something shift?"></textarea>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-q">3. What need was I most often reaching for through spending?</div>
+          <textarea rows="3"
+            placeholder="Was this need actually met by the purchase, or did you need something else?"></textarea>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-q">4. What was my hardest moment of resistance this week?</div>
+          <textarea rows="3" placeholder="What made it hard? What helped you (or what would have helped)?"></textarea>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-q">5. Did my spending this week reflect my values?</div>
+          <textarea rows="3"
+            placeholder="Not a judgement — just a check-in. What would alignment look like?"></textarea>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-q">6. What am I proud of from this week?</div>
+          <textarea rows="3"
+            placeholder="Even the smallest thing counts — a moment of awareness, a urge you caught."></textarea>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-q">7. What would I do differently next week?</div>
+          <textarea rows="3" placeholder="One specific, small, actionable change for next week only."></textarea>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-q">8. What is one thing I want to remember from this week?</div>
+          <textarea rows="3" placeholder="An insight, a feeling, a realisation — something worth keeping."></textarea>
+        </div>
+      </div>
+
+
+      <!-- Next Steps -->
+      <div class="callout-blue" style="border-left-width:3px; display:flex; gap:20px; align-items:flex-start;">
+        <div style="flex:1;">
+          <div class="eyebrow mb4">Your next step</div>
+          <p class="body-text-sm mb8">You've completed all 10 exercises. You now have a clearer picture of your
+            triggers, your core drivers, and a personalised plan. <strong>Pause</strong> — the free browser-based app
+            this workbook is built around — is where you take these insights and build them into a daily practice.
+            Open
+            it in any browser. No login. No download. Start with the Daily Log.</p>
+          <p
+            style="font-family:'Gochi Hand',cursive; font-size:13px; color:var(--blue); font-style:italic; margin-top:6px;">
+            <a href="https://inre27.github.io/future-sanctuary/pause-waitlist.html" target="_blank"
+              style="color:inherit; text-decoration:none;">
+              pause.futuresanctuary.co
+            </a>
+            &nbsp;·&nbsp; free to use
+          </p>
+        </div>
+        <div style="text-align:center; flex-shrink:0; width:120px;">
+          <!-- QR placeholder -->
+          <img src="assets/pause-qr-code.png" alt="Scan to open Pause"
+            style="width:100px;height:100px;border-radius:6px; margin-top:10px" />
+          <div
+            style="font-size:9px; color:var(--hint); margin-top:6px; letter-spacing:0.5px; text-transform:uppercase;">
+            scan to open Pause</div>
+        </div>
+      </div>
+
+      <br>
+      <br>
+
+
+      <div class="page-footer" style="margin-top:12px;">
+        <div class="page-footer-text">futuresanctuary. · impulse spending workbook</div>
+        <div class="page-num">12</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     SAVE / PRINT BAR (shown below pages, hidden on print)
+     ============================================================ -->
+  <div class="save-bar">
+    <div>
+      <div style="font-family:'Gochi Hand',cursive; font-size:16px; color:#111111; margin-bottom:4px;">
+        futuresanctuary<span style="color:#7597a7;">.</span></div>
+      <div class="save-note" id="save-note">Your answers auto-save to this browser. Export a JSON backup to keep or move
+        them elsewhere.</div>
+    </div>
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+      <button class="save-btn" onclick="openSaveModal()">💾 Save/ Print/ Export</button>
+      <button class="save-btn" onclick="document.getElementById('import-file-input').click()"
+        style="background:#a2b188;">📤 Import Answers</button>
+      <input type="file" id="import-file-input" accept="application/json" style="display:none;"
+        onchange="handleImportFile(event)" />
+      <button class="save-btn" onclick="clearSavedAnswers()" style="background:#c7997a; ">❎ Clear/ Reset</button>
+    </div>
+  </div>
+
+  <!-- SAVE / EXPORT MODAL -->
+  <div class="modal-backdrop" id="save-modal" onclick="if(event.target===this) closeSaveModal()">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeSaveModal()" aria-label="Close">×</button>
+      <div class="modal-title">Save your workbook</div>
+
+      <div class="modal-option">
+        <div class="modal-option-title">🖨 Print / Save as PDF</div>
+        <label class="modal-checkbox-row">
+          <input type="checkbox" id="tint-toggle"
+            onchange="document.body.classList.toggle('keep-tint', this.checked)" />
+          keep paper tint (nicer for a digital PDF, uses more ink on paper)
+        </label>
+        <p class="modal-option-desc" style="margin-top:-6px;">Tip: your browser may add its own page title, URL, and
+          date. Look for "Headers and footers" under "More settings" in the print dialog and switch it off for a cleaner
+          page.</p>
+        <button class="modal-action-btn" onclick="window.print()">Continue to print dialog →</button>
+      </div>
+
+      <div class="modal-divider"></div>
+
+      <div class="modal-option">
+        <div class="modal-option-title">📄 Export as JSON</div>
+        <p class="modal-option-desc">A backup file with all your answers — re-import it later on this device or another.
+        </p>
+        <button class="modal-action-btn" onclick="saveAnswers(); closeSaveModal();">Export answers →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openSaveModal() {
+      document.getElementById('save-modal').classList.add('open');
+    }
+    function closeSaveModal() {
+      document.getElementById('save-modal').classList.remove('open');
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeSaveModal();
+    });
+  </script>
+
+  <script>
+    // ============================================================
+    // INTERACTION HANDLERS (selection UI)
+    // ============================================================
+
+    // ---- Scale selector ----
+    function selectScale(groupId, cell) {
+      const group = document.getElementById(groupId);
+      group.querySelectorAll('.scale-cell').forEach(c => c.classList.remove('selected'));
+      cell.classList.add('selected');
+      scheduleAutosave();
+    }
+
+    // ---- Tag toggler ----
+    function toggleTag(el, color) {
+      if (color === 'blue') {
+        el.classList.toggle('selected');
+      } else {
+        el.classList.toggle('sel-blush');
+      }
+      scheduleAutosave();
+    }
+
+    // ---- Matrix cell toggler ----
+    function toggleMatrix(el) {
+      el.classList.toggle('active');
+      scheduleAutosave();
+    }
+
+    // ---- Habit tracker toggler ----
+    function toggleHabit(el) {
+      el.classList.toggle('marked');
+      scheduleAutosave();
+    }
+
+    // ---- Star rating ----
+    function initStars() {
+      document.querySelectorAll('.star-row').forEach(row => {
+        const stars = row.querySelectorAll('.star');
+        stars.forEach((star, i) => {
+          star.addEventListener('click', () => {
+            stars.forEach((s, j) => {
+              s.classList.toggle('lit', j <= i);
+            });
+            scheduleAutosave();
+          });
+        });
+      });
+    }
+    initStars();
+
+    // ============================================================
+    // FIELD KEY MAPPING
+    // Every fillable element gets a stable key: its own id if it
+    // has one, otherwise a position within its page + widget type.
+    // This means saved/exported JSON always maps back to the
+    // right field, without needing to edit the workbook markup.
+    // ============================================================
+    function buildFieldKeys() {
+      const keys = new Map();
+      const pages = Array.from(document.querySelectorAll('.page'));
+      pages.forEach((page, pageIdx) => {
+        let fi = 0, ci = 0, mi = 0, tgi = 0, sti = 0;
+
+        page.querySelectorAll('input[type="text"], textarea').forEach(el => {
+          keys.set(el, `p${pageIdx}_field${fi++}`);
+        });
+        page.querySelectorAll('input[type="checkbox"]').forEach(el => {
+          keys.set(el, el.id ? `id_${el.id}` : `p${pageIdx}_check${ci++}`);
+        });
+        page.querySelectorAll('.scale-track').forEach(el => {
+          keys.set(el, el.id ? `id_${el.id}` : `p${pageIdx}_scale${sti++}`);
+        });
+        page.querySelectorAll('.matrix-grid').forEach((grid, gIdx) => {
+          const gridKey = grid.id ? `id_${grid.id}` : `p${pageIdx}_matrix${gIdx}`;
+          grid.querySelectorAll('.mg-cell').forEach((cell, cIdx) => {
+            keys.set(cell, `${gridKey}_cell${cIdx}`);
+          });
+        });
+        page.querySelectorAll('.tag-grid').forEach((grid, gIdx) => {
+          const gridKey = grid.id ? `id_${grid.id}` : `p${pageIdx}_taggrid${gIdx}`;
+          grid.querySelectorAll('.tag-btn').forEach((tag, tIdx) => {
+            keys.set(tag, `${gridKey}_tag${tIdx}`);
+          });
+        });
+        page.querySelectorAll('.habit-grid').forEach((grid, gIdx) => {
+          const gridKey = grid.id ? `id_${grid.id}` : `p${pageIdx}_habitgrid${gIdx}`;
+          grid.querySelectorAll('.hg-cell.data').forEach((cell, cIdx) => {
+            keys.set(cell, `${gridKey}_cell${cIdx}`);
+          });
+        });
+        page.querySelectorAll('.star-row').forEach((row, rIdx) => {
+          keys.set(row, `p${pageIdx}_stars${rIdx}`);
+        });
+      });
+      return keys;
+    }
+
+    // ---- Collect current answers into a plain object ----
+    function collectAnswers() {
+      const keys = buildFieldKeys();
+      const data = {};
+      keys.forEach((key, el) => {
+        if (el.matches('input[type="text"], textarea')) {
+          if (el.value.trim()) data[key] = el.value.trim();
+        } else if (el.matches('input[type="checkbox"]')) {
+          if (el.checked) data[key] = true;
+        } else if (el.classList.contains('scale-track')) {
+          const sel = el.querySelector('.scale-cell.selected');
+          if (sel) {
+            const cells = Array.from(el.querySelectorAll('.scale-cell'));
+            data[key] = cells.indexOf(sel);
+          }
+        } else if (el.classList.contains('mg-cell')) {
+          if (el.classList.contains('active')) data[key] = true;
+        } else if (el.classList.contains('tag-btn')) {
+          if (el.classList.contains('selected')) data[key] = 'selected';
+          else if (el.classList.contains('sel-blush')) data[key] = 'sel-blush';
+        } else if (el.classList.contains('hg-cell')) {
+          if (el.classList.contains('marked')) data[key] = true;
+        } else if (el.classList.contains('star-row')) {
+          const lit = el.querySelectorAll('.star.lit').length;
+          if (lit) data[key] = lit;
+        }
+      });
+      return data;
+    }
+
+    // ---- Apply a saved/imported answers object back onto the page ----
+    function applyAnswers(data) {
+      if (!data || typeof data !== 'object') return;
+      const keys = buildFieldKeys();
+      keys.forEach((key, el) => {
+        if (!(key in data)) return;
+        const val = data[key];
+        if (el.matches('input[type="text"], textarea')) {
+          el.value = val;
+        } else if (el.matches('input[type="checkbox"]')) {
+          el.checked = !!val;
+        } else if (el.classList.contains('scale-track')) {
+          const cells = Array.from(el.querySelectorAll('.scale-cell'));
+          cells.forEach((c, i) => c.classList.toggle('selected', i === val));
+        } else if (el.classList.contains('mg-cell')) {
+          el.classList.toggle('active', !!val);
+        } else if (el.classList.contains('tag-btn')) {
+          el.classList.toggle('selected', val === 'selected');
+          el.classList.toggle('sel-blush', val === 'sel-blush');
+        } else if (el.classList.contains('hg-cell')) {
+          el.classList.toggle('marked', !!val);
+        } else if (el.classList.contains('star-row')) {
+          const stars = el.querySelectorAll('.star');
+          stars.forEach((s, i) => s.classList.toggle('lit', i < val));
+        }
+      });
+    }
+
+    // ============================================================
+    // AUTOSAVE (localStorage) — survives closing the tab, but is
+    // specific to this browser/device.
+    // ============================================================
+    const STORAGE_KEY = 'futuresanctuary_impulse_spending_workbook_v1';
+    let autosaveTimer = null;
+
+    function scheduleAutosave() {
+      clearTimeout(autosaveTimer);
+      autosaveTimer = setTimeout(() => {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(collectAnswers()));
+          flashSaveNote('Saved to this browser just now.');
+        } catch (e) {
+          flashSaveNote('Could not autosave — try exporting a JSON backup instead.');
+        }
+      }, 500);
+    }
+
+    function restoreFromLocalStorage() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        applyAnswers(JSON.parse(raw));
+        flashSaveNote('Restored your answers from this browser.');
+      } catch (e) {
+        // ignore corrupted storage
+      }
+    }
+
+    function clearSavedAnswers() {
+      if (!confirm('Clear all saved answers from this browser? This cannot be undone. Export a JSON backup first if you want to keep them.')) return;
+      localStorage.removeItem(STORAGE_KEY);
+      document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+      document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
+      document.querySelectorAll('.scale-cell.selected').forEach(el => el.classList.remove('selected'));
+      document.querySelectorAll('.mg-cell.active').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tag-btn.selected, .tag-btn.sel-blush').forEach(el => el.classList.remove('selected', 'sel-blush'));
+      document.querySelectorAll('.hg-cell.marked').forEach(el => el.classList.remove('marked'));
+      document.querySelectorAll('.star.lit').forEach(el => el.classList.remove('lit'));
+      flashSaveNote('Cleared. This browser no longer has any saved answers.');
+    }
+
+    function flashSaveNote(msg) {
+      const note = document.getElementById('save-note');
+      if (!note) return;
+      note.textContent = msg;
+    }
+
+    // Autosave on any typing, checkbox change, etc.
+    document.addEventListener('input', scheduleAutosave);
+    document.addEventListener('change', scheduleAutosave);
+
+    // Restore whatever was last saved. This script runs at the end of
+    // <body>, so the DOM is already parsed — call directly rather than
+    // waiting on DOMContentLoaded, which has likely already fired.
+    restoreFromLocalStorage();
+
+    // ============================================================
+    // EXPORT / IMPORT (JSON file) — for backups and moving your
+    // answers to a different browser or device.
+    // ============================================================
+    function saveAnswers() {
+      const data = collectAnswers();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'impulse-spending-workbook-answers.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      flashSaveNote('Exported. Keep this file somewhere safe, or import it later on any device.');
+    }
+
+    function handleImportFile(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          applyAnswers(data);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(collectAnswers()));
+          flashSaveNote('Imported successfully — your answers are filled back in.');
+        } catch (err) {
+          flashSaveNote('That file could not be read. Make sure it\'s a JSON export from this workbook.');
+        }
+        event.target.value = '';
+      };
+      reader.readAsText(file);
+    }
+  </script>
+</body>
+
+</html>
