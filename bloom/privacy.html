@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Privacy — Bloom</title>
+<meta name="description" content="What Bloom stores, where it lives, and who sees it."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --accent:#aaa17c; --accent-dark:#8f886a; --accent-pale:#EFECE0;
+    --pill-length:#DFB8A2; --pill-length-dark:#c99a86;
+    --blush:#E2BBAA; --blush-light:#F5EAE4;
+    --sage:#8A9E8C; --sage-light:#EAF0EA;
+    --ochre:#C9A96E; --ochre-light:#FAF3E0; --warm:#F0C767;
+    --spent:#B5896E;
+    --text:#111111; --muted:#7A6E65; --hint:#A89D95;
+    --bg:#FBFAF5; --bg-box:#F5F3EB; --border:#E8E0D2;
+    --dot-nospend:var(--accent); --dot-resisted:#CBCCC6; --dot-spent:#DFB8A2;
+    --log-a-day-bg:#E7E4D6;
+    /* site-only additions */
+    --page:#D8D2C6; --panel:#FFFFFF; --ink:#2B2724; --link:#6F6950; --muted-ink:#6A5F57;
+  }
+html{scroll-behavior:smooth;}
+body{font-family:'JetBrains Mono',monospace;font-weight:400;background:var(--bg);color:var(--ink);line-height:1.7;font-size:15px;}
+h1,h2,h3,.brand{font-family:'Gochi Hand',cursive;font-weight:400;}
+a{color:var(--link);}
+nav{background:var(--bg-box);border-bottom:1px solid var(--border);padding:16px 5%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;gap:16px;}
+.nav-logo{font-family:'Gochi Hand',cursive;font-size:26px;color:var(--ink);text-decoration:none;white-space:nowrap;}
+.nav-logo span{color:var(--spent);}
+.nav-back{font-size:13px;color:var(--muted-ink);text-decoration:none;}
+.nav-back:hover{color:var(--ink);}
+footer{background:var(--bg-box);border-top:1px solid var(--border);padding:28px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.footer-logo{font-family:'Gochi Hand',cursive;font-size:20px;color:var(--ink);}
+.footer-logo span{color:var(--spent);}
+.footer-links{display:flex;gap:18px;font-size:11px;flex-wrap:wrap;}
+.footer-links a{color:var(--muted-ink);text-decoration:none;}
+.footer-links a:hover{color:var(--ink);}
+.footer-note{font-size:10px;color:var(--muted);}
+.wrap{max-width:720px;margin:0 auto;padding:56px 5% 72px;}
+.label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent-dark);margin-bottom:12px;}
+h1{font-size:clamp(30px,4vw,42px);margin-bottom:8px;}
+.updated{font-size:12px;color:var(--muted);margin-bottom:36px;}
+h2{font-size:21px;margin:36px 0 10px;color:var(--ink);}
+p{font-size:14px;color:var(--muted-ink);margin-bottom:14px;}
+ul{margin:0 0 14px 20px;}
+li{font-size:14px;color:var(--muted-ink);margin-bottom:6px;}
+.callout{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:20px 0;font-size:14px;color:var(--muted-ink);}
+.callout strong{color:var(--ink);font-family:'Gochi Hand',cursive;font-size:16px;font-weight:400;}
+code{background:var(--bg-box);padding:2px 6px;border-radius:4px;font-size:13px;word-break:break-all;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:26px 28px;margin:28px 0;}
+.card-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.card-email{font-family:'Gochi Hand',cursive;font-size:24px;color:var(--accent-dark);word-break:break-all;}
+.reasons{margin:0 0 8px 0;list-style:none;}
+.reasons li{padding:8px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;margin-bottom:0;}
+.reasons li:last-child{border-bottom:none;}
+.reasons li::before{content:'\00b7';color:var(--accent-dark);flex-shrink:0;}
+.email-btn{background:var(--accent-dark);color:#fff;padding:12px 22px;border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:13px;text-decoration:none;transition:background .2s;display:inline-block;margin-top:10px;}
+.email-btn:hover{background:#6F6950;}
+
+</style>
+</head>
+<body>
+<nav>
+  <a href="bloom-landing.html" class="nav-logo">bloom<span>.</span></a>
+  <a href="bloom-landing.html" class="nav-back">&larr; back to bloom</a>
+</nav>
+
+<div class="wrap">
+  <div class="label">legal</div>
+  <h1>privacy policy</h1>
+  <p class="updated">Last updated: 8 October 2026</p>
+
+  <p>Bloom is a single, self-contained app that runs in your browser. This page explains what data exists, where it lives, and who (if anyone) sees it.</p>
+
+  <h2>the short version</h2>
+  <div class="callout"><strong>Your garden never leaves your device.</strong> Everything you enter &mdash; your goal, the days you log, notes, reflections and settings &mdash; is stored only in your own browser's local storage. It isn't sent to me, to a server, or to any third party. I have no way to see it.</div>
+
+  <h2>what's stored, and where</h2>
+  <p>When you use Bloom, the app saves your challenge length and goal, the categories you're resisting, your reward, the days you log (no spend, resisted or spent) with any notes, your journal reflections, and your reminder and display settings in your browser's <code>localStorage</code> &mdash; a storage area built into your browser, tied to your device only.</p>
+  <ul>
+    <li>It is not uploaded anywhere automatically.</li>
+    <li>It stays put if you close the tab or restart your device, but is lost if you clear your browser's site data, use a different browser or device, or use a private/incognito window.</li>
+    <li>You can export a backup (JSON, or CSV for your log and journal) from Settings at any time, and re-import the JSON later or on another device.</li>
+  </ul>
+  <p>The app does not connect to your bank, and it never asks for account numbers, card details or the amounts you spend.</p>
+
+  <h2>buying bloom</h2>
+  <p>Payment is handled by a third-party checkout provider, who acts as the merchant of record for the sale. They process your payment details and email address in order to complete the purchase, issue a receipt, and deliver the file to you &mdash; I don't see or store your card details at any point. Their own privacy policy governs how they handle that information.</p>
+
+  <h2>feedback</h2>
+  <p>If you use the &ldquo;share feedback&rdquo; option in the app, only what you choose to write and send is shared with me. Nothing is sent unless you send it.</p>
+
+  <h2>joining the mailing list</h2>
+  <p>If you sign up for updates or a free download via the email form on this site, your email address is stored by our email provider (Kit) so that we can send you those emails. You can unsubscribe at any time using the link in any email you receive.</p>
+
+  <h2>cookies and tracking</h2>
+  <p>This site does not use analytics or advertising cookies. The only thing stored in your browser by the app itself is the <code>localStorage</code> data described above, which exists to make the app work for you, not to track you. The email sign-up form is provided by Kit and may set its own cookies when it loads.</p>
+
+  <h2>your rights</h2>
+  <p>Under UK GDPR, you have the right to ask what personal data (if any) is held about you, to have it corrected or deleted, and to object to how it's used. Because your garden data lives only on your own device, most of this simply means: it's already entirely in your control, and you can delete it yourself at any time by clearing your browser data or using the reset option in Settings.</p>
+  <p>For anything relating to a purchase, the checkout provider's own privacy policy and support channels apply directly.</p>
+
+  <h2>changes to this policy</h2>
+  <p>If anything here changes &mdash; a new provider, a new feature that stores data differently &mdash; this page will be updated and the date at the top will change.</p>
+
+  <h2>contact</h2>
+  <p>Questions about this policy or your data can be sent to: <code>future.sanctuary00@gmail.com</code>.</p>
+</div>
+<footer>
+  <div class="footer-logo">bloom<span>.</span></div>
+  <div class="footer-links"><a href="bloom-landing.html">back to bloom</a><a href="terms.html">terms</a><a href="contact.html">contact</a></div>
+  <div class="footer-note">&copy; 2026 bloom</div>
+</footer>
+
+</body>
+</html>

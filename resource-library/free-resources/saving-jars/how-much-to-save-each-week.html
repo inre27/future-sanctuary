@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How Much Should You Save Each Week? — Saving Jars</title>
+    <meta name="description"
+        content="Work out exactly how much to save each week to reach any goal by your target date. Try the calculator or print a weekly progress sheet." />
+    <meta property="og:title" content="How Much Should You Save Each Week to Hit Your Goal?" />
+    <meta property="og:description" content="Turn any savings goal into one simple weekly number." />
+    <meta property="og:type" content="article" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display:ital@0;1&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg-cream: #FBFAF5;
+            --bg-cream-dark: #F5F3EB;
+            --bg-cream-border: #E8E0D2;
+            --grid-blue: #7597a7;
+            --grid-blue-light: #c8d5dc;
+            --terracotta: #E2BBAA;
+            --terracotta-light: #F5EAE4;
+            --sage: #8AADA7;
+            --sage-light: #e4eded;
+            --sand-light: #f7f4ed;
+            --text: #111111;
+            --muted: #7A6E65;
+            --hint: #A89D95;
+            --max-width: 850px;
+            --font-body: 'Space Mono', monospace;
+            --font-heading: 'Gochi Hand', cursive;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-cream);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        nav {
+            background: var(--bg-cream-dark);
+            border-bottom: 1px solid var(--bg-cream-border);
+            padding: 14px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .nav-logo span {
+            color: var(--grid-blue);
+        }
+
+        .nav-cta {
+            background: var(--grid-blue);
+            color: #fff !important;
+            padding: 7px 18px;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .ip-header {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 40px 6% 0;
+            text-align: center;
+        }
+
+        .ip-label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--grid-blue);
+            margin-bottom: 10px;
+        }
+
+        .ip-title {
+            font-family: var(--font-heading);
+            font-size: clamp(28px, 6vw, 42px);
+            line-height: 1.15;
+            margin-bottom: 10px;
+        }
+
+        .ip-subhead {
+            font-size: 14px;
+            color: var(--muted);
+            max-width: 440px;
+            margin: 0 auto;
+        }
+
+        .ip-hero {
+            max-width: var(--max-width);
+            margin: 28px auto;
+            padding: 0 6%;
+        }
+
+        .ip-hero svg {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 420px;
+        }
+
+        .ip-hero-caption {
+            text-align: center;
+            font-size: 11px;
+            color: var(--hint);
+            margin-top: 8px;
+        }
+
+        .ip-body {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 6% 64px;
+        }
+
+        .ip-body p {
+            margin-bottom: 18px;
+        }
+
+        .ip-body h2,
+        .ip-section-heading {
+            font-family: var(--font-heading);
+            font-size: clamp(19px, 4vw, 23px);
+            color: var(--text);
+            margin: 30px 0 12px;
+            line-height: 1.2;
+        }
+
+        .ip-body strong {
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .step-list {
+            list-style: none;
+            margin: 20px 0;
+            counter-reset: steps;
+        }
+
+        .step-list li {
+            counter-increment: steps;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .step-num {
+            background: var(--grid-blue);
+            color: #fff;
+            font-family: var(--font-heading);
+            font-size: 15px;
+            min-width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .step-content {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.65;
+        }
+
+        .callout {
+            border-radius: 12px;
+            padding: 20px 22px;
+            margin: 28px 0;
+            font-size: 13.5px;
+            line-height: 1.65;
+        }
+
+        .callout-insight {
+            background: var(--sand-light);
+            border: 1px solid var(--bg-cream-border);
+            border-left: 12px solid var(--grid-blue);
+        }
+
+        .callout-label {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--hint);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .tool-box {
+            background: #FFFFFF;
+            border: 1px solid var(--bg-cream-border);
+            border-radius: 14px;
+            padding: 24px;
+            margin: 26px 0;
+        }
+
+        .tool-label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--grid-blue);
+            margin-bottom: 8px;
+        }
+
+        .tool-title {
+            font-family: var(--font-heading);
+            font-size: clamp(19px, 4vw, 23px);
+            margin-bottom: 8px;
+        }
+
+        .tool-sub {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 18px;
+            line-height: 1.65;
+        }
+
+        .tool-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .tool-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+            min-width: 140px;
+        }
+
+        .tool-field label {
+            font-size: 11px;
+            color: var(--hint);
+        }
+
+        .tool-field input {
+            font-family: var(--font-body);
+            font-size: 13px;
+            padding: 10px 12px;
+            border: 1px solid var(--bg-cream-border);
+            border-radius: 8px;
+            background: var(--bg-cream);
+            color: var(--text);
+        }
+
+        .tool-field input:focus {
+            outline: none;
+            border-color: var(--grid-blue);
+        }
+
+        .tool-email-row {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed var(--bg-cream-border);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .tool-email-row .tool-field {
+            max-width: 260px;
+            width: 100%;
+        }
+
+        .tool-email-row .tool-results-note {
+            margin: 0;
+            font-size: 11px;
+            line-height: 1.4;
+            white-space: nowrap;
+        }
+
+        .tool-btn {
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-body);
+            white-space: nowrap;
+            margin-top: 18px;
+        }
+
+        .cta-btn {
+            background: var(--grid-blue);
+            color: #fff;
+            padding: 11px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .tool-error {
+            font-size: 12px;
+            color: #B0503C;
+            margin-top: 12px;
+        }
+
+        .tool-results {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--bg-cream-border);
+        }
+
+        .tool-result-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .tool-result-pill {
+            display: inline-block;
+            background: var(--terracotta-light);
+            border: 1px solid var(--grid-blue);
+            border-radius: 10px;
+            padding: 9px 16px;
+            font-family: var(--font-heading);
+            font-size: 17px;
+            color: var(--text);
+        }
+
+        .tool-result-pill-date {
+            background: var(--sage-light);
+        }
+
+        .tool-result-pill:empty {
+            display: none;
+        }
+
+        .tool-results-note {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .date-achieved-box {
+            grid-column: 1 / -1;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            transform: none !important;
+            background: var(--terracotta-light) !important;
+            border: 1.5px dashed var(--grid-blue) !important;
+            text-align: left;
+            gap: 6px !important;
+        }
+
+        .date-achieved-box label {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .date-achieved-box input[type="date"] {
+            font-family: var(--font-body);
+            font-size: 13px;
+            padding: 8px 10px;
+            border: 1px solid var(--bg-cream-border);
+            border-radius: 6px;
+            background: #fff;
+            color: var(--text);
+        }
+
+        .ip-checklist {
+            list-style: none;
+            margin: 4px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .ip-checklist li {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 13px;
+            background: var(--sand-light);
+            border: 1px solid var(--bg-cream-border);
+            border-radius: 8px;
+            padding: 8px 10px;
+        }
+
+        .ip-checklist input[type="checkbox"] {
+            margin-top: 1px;
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--grid-blue);
+        }
+
+        /* a slight tint cycling through the palette, plus a hand-set tilt, so the
+           sheet feels a little less like a spreadsheet */
+        .ip-checklist li:nth-child(3n+1) {
+            background: var(--sand-light);
+        }
+
+        .ip-checklist li:nth-child(3n+2) {
+            background: var(--terracotta-light);
+        }
+
+        .ip-checklist li:nth-child(3n+3) {
+            background: var(--sage-light);
+        }
+
+        .ip-checklist li:nth-child(4n+1) {
+            transform: rotate(-1.1deg);
+        }
+
+        .ip-checklist li:nth-child(4n+2) {
+            transform: rotate(0.8deg);
+        }
+
+        .ip-checklist li:nth-child(4n+3) {
+            transform: rotate(-0.6deg);
+        }
+
+        .ip-checklist li:nth-child(4n) {
+            transform: rotate(1deg);
+        }
+
+        .ip-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .ip-action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-cream);
+            border: 1px solid var(--grid-blue);
+            color: var(--grid-blue);
+            padding: 9px 16px;
+            border-radius: 9px;
+            font-size: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            font-family: var(--font-body);
+        }
+
+        .ip-action-btn:hover {
+            background: var(--grid-blue);
+            color: #fff;
+        }
+
+        .ip-cta {
+            background: var(--bg-cream-dark);
+            border: 1px solid var(--bg-cream-border);
+            border-radius: 14px;
+            padding: 30px;
+            margin: 40px 0 8px;
+            text-align: center;
+        }
+
+        .ip-cta-label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--grid-blue);
+            margin-bottom: 10px;
+        }
+
+        .ip-cta-title {
+            font-family: var(--font-heading);
+            font-size: clamp(20px, 4vw, 26px);
+            margin-bottom: 8px;
+        }
+
+        .ip-cta-sub {
+            font-size: 13px;
+            color: var(--muted);
+            max-width: 420px;
+            margin: 0 auto 20px;
+        }
+
+        .ip-cta-btn {
+            display: inline-block;
+            background: var(--grid-blue);
+            color: #fff;
+            padding: 12px 26px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        footer {
+            background: var(--bg-cream-dark);
+            border-top: 1px solid var(--bg-cream-border);
+            padding: 24px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: 19px;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .footer-logo span {
+            color: var(--grid-blue);
+        }
+
+        .footer-note {
+            font-size: 11px;
+            color: var(--hint);
+        }
+
+        @page {
+            margin: 12mm;
+        }
+
+        @media print {
+
+            /* Printing prints only the progress sheet itself: its title, the weekly
+               average, and the boxes, all inside one rounded card — nothing else
+               on the page. */
+            nav,
+            footer,
+            .ip-cta,
+            .ip-actions,
+            .ip-header,
+            .ip-hero,
+            .ip-hero-caption,
+            .ip-body>p,
+            .ip-section-heading,
+            .step-list,
+            .callout,
+            #calc-tool-box,
+            #sheet-tool-box .tool-label,
+            #sheet-tool-box .tool-sub,
+            #sheet-tool-box form,
+            #sheet-error,
+            #sheet-cap-note,
+            #sheet-persist-note {
+                display: none !important;
+            }
+
+            body {
+                background: #fff;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .ip-body {
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+
+            #sheet-tool-box {
+                border: 1.5px solid var(--grid-blue);
+                border-radius: 10px;
+                padding: 10mm;
+                margin: 0;
+                height: 265mm;
+                display: flex;
+                flex-direction: column;
+            }
+
+            #sheet-tool-box .tool-title {
+                display: block !important;
+                text-align: center;
+                font-size: 26px;
+                margin-bottom: 4mm;
+            }
+
+            #sheet-results {
+                margin-top: 0;
+                padding-top: 0;
+                border-top: none;
+                display: flex !important;
+                flex-direction: column;
+                flex: 1;
+                min-height: 0;
+            }
+
+            .tool-result-row {
+                justify-content: center;
+                margin: 0 auto 8mm;
+            }
+
+            .tool-result-pill {
+                font-size: 18px;
+            }
+
+            #sheet-boxes {
+                display: grid;
+                grid-template-columns: repeat(var(--sheet-cols, 4), 1fr);
+                grid-auto-rows: 1fr;
+                gap: 8px;
+                flex: 1;
+                min-height: 0;
+            }
+
+            .ip-checklist li {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                border-width: 1.5px;
+                font-size: 13px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .date-achieved-box label {
+                display: none;
+            }
+        }
+
+        @media(max-width:480px) {
+            .tool-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .tool-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="../../../index.html" class="nav-logo">futuresanctuary<span>.</span></a>
+        <a href="../../../saving-jars/index.html" class="nav-cta">Saving Jars</a>
+    </nav>
+
+    <header class="ip-header">
+        <div class="ip-label">saving jars</div>
+        <h1 class="ip-title">How much should you save each week to hit your goal?</h1>
+        <p class="ip-subhead">Work out your number, then watch the weeks add up.</p>
+    </header>
+
+    <div class="ip-hero">
+        <svg viewBox="0 0 400 460" role="img"
+            aria-label="Illustration of a calendar with one day marked and a coin resting against the corner">
+            <rect x="70" y="90" width="260" height="230" rx="18" fill="var(--bg-cream-dark)" stroke="var(--grid-blue)"
+                stroke-width="4" />
+            <rect x="70" y="90" width="260" height="52" rx="18" fill="var(--grid-blue)" />
+            <rect x="70" y="118" width="260" height="24" fill="var(--grid-blue)" />
+            <rect x="118" y="64" width="16" height="46" rx="8" fill="var(--hint)" />
+            <rect x="266" y="64" width="16" height="46" rx="8" fill="var(--hint)" />
+            <g stroke="var(--bg-cream-border)" stroke-width="2">
+                <line x1="70" y1="200" x2="330" y2="200" />
+                <line x1="70" y1="258" x2="330" y2="258" />
+                <line x1="152" y1="142" x2="152" y2="320" />
+                <line x1="217" y1="142" x2="217" y2="320" />
+                <line x1="282" y1="142" x2="282" y2="320" />
+            </g>
+            <circle cx="184" cy="229" r="16" fill="var(--terracotta)" />
+            <circle cx="330" cy="345" r="58" fill="var(--terracotta)" stroke="var(--grid-blue)" stroke-width="4" />
+            <text x="330" y="363" font-family="var(--font-heading)" font-size="52" fill="var(--text)"
+                text-anchor="middle">£</text>
+            <path d="M50 360 Q60 350 70 360" stroke="var(--hint)" stroke-width="3" fill="none" stroke-linecap="round" />
+            <path d="M50 375 Q60 365 70 375" stroke="var(--hint)" stroke-width="3" fill="none" stroke-linecap="round" />
+        </svg>
+        <div class="ip-hero-caption">one small square a week, until the date you picked</div>
+    </div>
+
+    <div class="ip-body">
+
+        <p>A savings goal can feel huge until you break it into weeks. £500 sounds like a lot to find all at once. £50 a
+            week for ten weeks sounds like something you can actually do without much fuss.</p>
+
+        <p>Most goals fall apart not because the total is unreasonable, but because nobody worked out what it actually
+            means week to week. A number with no shape attached to it is easy to put off; a number that fits into an
+            ordinary week is much easier to just start.</p>
+
+        <p>The maths behind it is simple. You need three things: how much you're saving for, how much (if anything)
+            you've already put aside, and the date you'd like to reach it by. Everything else follows from those three:
+            the weekly number, and the weeks left to get there.</p>
+
+        <p>Say the goal is £500 and the date is ten weeks away, with nothing saved yet, that works out to £50 a week.
+            Add in £120 already saved and the number drops to £38 a week for the same target. The date and the starting
+            point matter just as much as the total.</p>
+
+        <p>Weekly works well because it matches how a lot of budgeting already happens: a bit put aside from what's left
+            over, checked in on every few days rather than once a month. It's also just easier to picture: setting
+            something aside for one week ahead is a far smaller ask than staring down a target that's months away.</p>
+
+        <p>No fixed date yet? Pick a rough one anyway. Even a loose target date is enough to turn "save more" into an
+            actual number, and it's easy to adjust later if life moves the goalposts.</p>
+
+        <p>None of this needs to be complicated. It's four numbers and one division sum: the kind of maths that takes
+            longer to explain than it does to actually do. Here's the whole thing laid out, step by step, no calculator
+            required (though there's one below if you'd rather skip straight to the answer):</p>
+
+        <h2 class="ip-section-heading">Finding your number</h2>
+
+        <ol class="step-list">
+            <li><span class="step-num">1</span><span class="step-content">Write down your goal amount and today's date,
+                    so you've got a clear starting point to work from.</span></li>
+            <li><span class="step-num">2</span><span class="step-content">Decide on the date you'd like to reach your
+                    goal by: something realistic, not just hopeful.</span></li>
+            <li><span class="step-num">3</span><span class="step-content">Count the number of weeks between today and
+                    that date, rounding to the nearest whole week.</span></li>
+            <li><span class="step-num">4</span><span class="step-content">Subtract anything you've already saved so far
+                    from the total goal amount.</span></li>
+            <li><span class="step-num">5</span><span class="step-content">Divide what's left by the number of weeks.
+                    That's roughly what to aim for each week.</span></li>
+        </ol>
+
+        <div class="callout callout-insight">
+            <span class="callout-label">worth considering</span>
+            The number you land on doesn't need to be exact to be useful. Round it to something that fits comfortably
+            into your week, and let a slightly bigger week make up for a smaller one later on if you need to. A rough
+            weekly number you actually stick to beats a precise one that never gets looked at again.
+        </div>
+
+        <div class="tool-box" id="calc-tool-box">
+            <div class="tool-label">mini tool</div>
+            <div class="tool-title">Weekly Amount Calculator</div>
+            <p class="tool-sub">Rather skip the maths? Enter your goal, what you've saved so far, and your target date,
+                and we'll work out your weekly amount instantly.</p>
+
+            <form id="calc-form">
+                <div class="tool-form">
+                    <div class="tool-field">
+                        <label for="calc-goal">Goal amount (£)</label>
+                        <input type="number" id="calc-goal" min="0" step="0.01" placeholder="500" required />
+                    </div>
+                    <div class="tool-field">
+                        <label for="calc-saved">Already saved (£)</label>
+                        <input type="number" id="calc-saved" min="0" step="0.01" placeholder="0" />
+                    </div>
+                    <div class="tool-field">
+                        <label for="calc-date">Target date</label>
+                        <input type="date" id="calc-date" required />
+                    </div>
+                </div>
+
+                <!-- EMAIL GATE — to make this tool free, delete this whole .tool-email-row block
+                     and remove the "|| !email" check + submitToKit() call in the script below. -->
+                <div class="tool-email-row">
+                    <div class="tool-field">
+                        <label for="calc-email">Email</label>
+                        <input type="email" id="calc-email" placeholder="you@email.com" required />
+                    </div>
+                    <p class="tool-results-note">Occasional updates from Saving Jars, nothing else. Unsubscribe anytime.
+                    </p>
+                </div>
+
+                <button type="submit" class="cta-btn tool-btn">Show my weekly amount</button>
+            </form>
+
+            <div class="tool-error" id="calc-error" style="display:none;"></div>
+
+            <div class="tool-results" id="calc-results" style="display:none;">
+                <div class="tool-result-pill" id="calc-result-pill"></div>
+            </div>
+        </div>
+
+        <div class="tool-box" id="sheet-tool-box">
+            <div class="tool-label">printable tracker</div>
+            <div class="tool-title">Weekly Savings Progress Sheet</div>
+            <p class="tool-sub">Pop in the same goal amount and target date and we'll build a printable sheet: one box
+                per week, already filled in with the amount, ready to tick off as you go.</p>
+
+            <form id="sheet-form">
+                <div class="tool-form">
+                    <div class="tool-field">
+                        <label for="sheet-goal">Goal amount (£)</label>
+                        <input type="number" id="sheet-goal" min="0" step="0.01" placeholder="500" required />
+                    </div>
+                    <div class="tool-field">
+                        <label for="sheet-date">Target date</label>
+                        <input type="date" id="sheet-date" required />
+                    </div>
+                </div>
+
+                <!-- EMAIL GATE — to make this tool free, delete this whole .tool-email-row block
+                     and remove the "|| !email" check + submitToKit() call in the script below. -->
+                <div class="tool-email-row">
+                    <div class="tool-field">
+                        <label for="sheet-email">Email</label>
+                        <input type="email" id="sheet-email" placeholder="you@email.com" required />
+                    </div>
+                    <p class="tool-results-note">Occasional updates from Saving Jars, nothing else. Unsubscribe anytime.
+                    </p>
+                </div>
+
+                <button type="submit" class="cta-btn tool-btn">Show my weekly boxes</button>
+            </form>
+
+            <div class="tool-error" id="sheet-error" style="display:none;"></div>
+
+            <div class="tool-results" id="sheet-results" style="display:none;">
+                <div class="tool-result-row">
+                    <div class="tool-result-pill" id="sheet-result-pill"></div>
+                    <div class="tool-result-pill tool-result-pill-date" id="sheet-target-pill"></div>
+                </div>
+                <p class="tool-results-note" id="sheet-cap-note" style="display:none;">This sheet covers up to 52 weeks.
+                    For a longer goal, print a fresh one partway through.</p>
+                <p class="tool-results-note" id="sheet-persist-note">Tick boxes as you go: ticks are saved in this
+                    browser, so they'll still be here next time you open this page on this device (though not if you
+                    switch devices or clear your browsing data). Prefer paper? Print this, or use your browser's "Save
+                    as PDF" option to keep a copy for your journal or the fridge.</p>
+                <ul class="ip-checklist" id="sheet-boxes" style="margin-top:16px;"></ul>
+                <p class="tool-results-note" id="sheet-encourage-note">Fallen behind? Just tick a box once you've
+                    actually saved that amount, whenever that is. There's nothing to feel bad about if a few weeks don't
+                    go to plan.</p>
+                <div class="ip-actions">
+                    <button class="ip-action-btn" onclick="window.print()" type="button">Print this</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="ip-cta">
+            <div class="ip-cta-label">saving jars</div>
+            <div class="ip-cta-title">Want more help with this?</div>
+            <div class="ip-cta-sub">Saving Jars keeps your goal visible the whole way through, with your weekly number
+                already built into the picture so you're not doing this maths more than once.</div>
+            <a class="ip-cta-btn" href="../../../saving-jars/index.html">Try Saving Jars</a>
+        </div>
+
+    </div>
+
+    <footer>
+        <a href="../../../index.html" class="footer-logo">futuresanctuary<span>.</span></a>
+        <div class="footer-note">© 2026 Future Sanctuary · one small step</div>
+    </footer>
+
+    <script>
+        // ---- shared plan calculation ----
+        function computePlan(goal, saved, targetDateStr) {
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
+            var target = new Date(targetDateStr + 'T00:00:00');
+            var msPerWeek = 7 * 24 * 60 * 60 * 1000;
+            var weeks = Math.round((target - today) / msPerWeek);
+            if (weeks < 1) weeks = 1;
+            var remaining = Math.max(0, goal - (saved || 0));
+            var weekly = remaining / weeks;
+            return { weeks: weeks, remaining: remaining, weekly: weekly };
+        }
+
+        function fmtMoney(n) {
+            return '£' + n.toFixed(2).replace(/\.00$/, '');
+        }
+
+        // Picks a column count that keeps the printed grid close to square,
+        // so the boxes grow or shrink to fill a full A4/US Letter page
+        // (via grid-auto-rows: 1fr in the print stylesheet) whether there
+        // are 4 boxes or 52 of them.
+        function pickColumns(n) {
+            if (n <= 4) return 2;
+            if (n <= 9) return 3;
+            if (n <= 16) return 4;
+            if (n <= 25) return 5;
+            if (n <= 36) return 6;
+            return 7;
+        }
+
+        function submitToKit(email, tagId) {
+            try {
+                var formData = new FormData();
+                formData.append('email_address', email);
+                formData.append('tags[]', tagId);
+                fetch('https://app.kit.com/forms/9934586/subscriptions', {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                }).catch(function (err) {
+                    console.warn('Kit submission error (result shown regardless):', err);
+                });
+            } catch (err) {
+                console.warn('Kit submission error (result shown regardless):', err);
+            }
+        }
+
+        // ---- Weekly Amount Calculator ----
+        (function () {
+            var form = document.getElementById('calc-form');
+            if (!form) return;
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var errorEl = document.getElementById('calc-error');
+                var resultsEl = document.getElementById('calc-results');
+                errorEl.style.display = 'none';
+                resultsEl.style.display = 'none';
+
+                var goal = parseFloat(document.getElementById('calc-goal').value);
+                var saved = parseFloat(document.getElementById('calc-saved').value) || 0;
+                var dateVal = document.getElementById('calc-date').value;
+                var email = document.getElementById('calc-email').value;
+
+                if (!goal || !dateVal || !email) { // EMAIL GATE: drop "|| !email" here if this tool goes free
+                    errorEl.textContent = 'Just one little thing is missing.';
+                    errorEl.style.display = 'block';
+                    return;
+                }
+
+                var plan = computePlan(goal, saved, dateVal);
+                var pill = document.getElementById('calc-result-pill');
+                pill.textContent = fmtMoney(plan.weekly) + ' a week for the next ' + plan.weeks + (plan.weeks === 1 ? ' week' : ' weeks');
+                resultsEl.style.display = 'block';
+
+                submitToKit(email, '23831692'); // EMAIL GATE: delete this line if this tool goes free
+            });
+        })();
+
+        // ---- Weekly Savings Progress Sheet ----
+        var SHEET_STORAGE_KEY = 'fsSavingJarsProgressSheet';
+
+        // Works out the plan once, up front — the box count, the amount per box,
+        // and the rounding-remainder box — so a later page reload just replays
+        // this same plan rather than recalculating "weeks remaining" against a
+        // new "today" and changing which box is which without you noticing.
+        function computeSheetPlan(goal, dateVal) {
+            var base = computePlan(goal, 0, dateVal);
+            var totalWeeks = base.weeks;
+            var boxWeeks = Math.min(totalWeeks, 52);
+
+            // Split the goal evenly across every week (not just the printed ones),
+            // rounded down to the penny, with the final printed box absorbing
+            // whatever rounding leftover there is so the boxes stay honest about
+            // what they add up to.
+            var baseAmount = Math.floor((goal / totalWeeks) * 100) / 100;
+            var runningTotal = baseAmount * (boxWeeks - 1);
+            var lastBoxAmount = Math.round((goal * (boxWeeks / totalWeeks) - runningTotal) * 100) / 100;
+            if (boxWeeks === totalWeeks) {
+                lastBoxAmount = Math.round((goal - baseAmount * (boxWeeks - 1)) * 100) / 100;
+            }
+            return { totalWeeks: totalWeeks, boxWeeks: boxWeeks, baseAmount: baseAmount, lastBoxAmount: lastBoxAmount, targetDate: dateVal };
+        }
+
+        var MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        function formatDateNice(dateStr) {
+            if (!dateStr) return '';
+            var d = new Date(dateStr + 'T00:00:00');
+            return d.getDate() + ' ' + MONTH_NAMES[d.getMonth()] + ' ' + d.getFullYear();
+        }
+
+        function renderSheet(plan, checkedWeeks, achievedDate) {
+            var sheetPill = document.getElementById('sheet-result-pill');
+            sheetPill.textContent = fmtMoney(plan.baseAmount) + ' a week for ' + plan.totalWeeks + (plan.totalWeeks === 1 ? ' week' : ' weeks');
+
+            var targetPill = document.getElementById('sheet-target-pill');
+            targetPill.textContent = plan.targetDate ? ('Target date: ' + formatDateNice(plan.targetDate)) : '';
+
+            var capNote = document.getElementById('sheet-cap-note');
+            capNote.style.display = plan.totalWeeks > 52 ? 'block' : 'none';
+
+            var checkedSet = {};
+            (checkedWeeks || []).forEach(function (w) { checkedSet[w] = true; });
+
+            var boxesEl = document.getElementById('sheet-boxes');
+            boxesEl.innerHTML = '';
+            boxesEl.style.setProperty('--sheet-cols', pickColumns(plan.boxWeeks));
+            for (var i = 1; i <= plan.boxWeeks; i++) {
+                var amount = (i === plan.boxWeeks) ? plan.lastBoxAmount : plan.baseAmount;
+                var li = document.createElement('li');
+                var cb = document.createElement('input');
+                cb.type = 'checkbox';
+                cb.id = 'week-' + i;
+                if (checkedSet[i]) cb.checked = true;
+                cb.addEventListener('change', function () { saveSheetState(plan); });
+                var label = document.createElement('label');
+                label.setAttribute('for', 'week-' + i);
+                label.textContent = 'Week ' + i + ' · ' + fmtMoney(amount);
+                li.appendChild(cb);
+                li.appendChild(label);
+                boxesEl.appendChild(li);
+            }
+
+            // A final box for the date the goal was actually reached — not part
+            // of the week count, just somewhere to note it once it happens.
+            var achievedLi = document.createElement('li');
+            achievedLi.className = 'date-achieved-box';
+            var achievedLabel = document.createElement('label');
+            achievedLabel.setAttribute('for', 'date-achieved-input');
+            achievedLabel.textContent = 'Goal achieved on';
+            var achievedInput = document.createElement('input');
+            achievedInput.type = 'date';
+            achievedInput.id = 'date-achieved-input';
+            if (achievedDate) achievedInput.value = achievedDate;
+            achievedInput.addEventListener('change', function () { saveSheetState(plan); });
+            achievedLi.appendChild(achievedLabel);
+            achievedLi.appendChild(achievedInput);
+            boxesEl.appendChild(achievedLi);
+
+            document.getElementById('sheet-results').style.display = 'block';
+        }
+
+        // Ticks (and the achieved date) are remembered in this browser only
+        // (localStorage) — not synced to any account, not sent anywhere, and
+        // gone if this browser's site data is cleared or the sheet is opened
+        // on a different device.
+        function saveSheetState(plan) {
+            try {
+                var checked = [];
+                document.querySelectorAll('#sheet-boxes input[type="checkbox"]').forEach(function (cb, idx) {
+                    if (cb.checked) checked.push(idx + 1);
+                });
+                var achievedInput = document.getElementById('date-achieved-input');
+                var achievedDate = achievedInput ? achievedInput.value : '';
+                localStorage.setItem(SHEET_STORAGE_KEY, JSON.stringify({ plan: plan, checked: checked, achievedDate: achievedDate }));
+            } catch (err) {
+                // private browsing or storage disabled — the sheet still works, ticks just won't be remembered
+            }
+        }
+
+        function restoreSheetState() {
+            try {
+                var raw = localStorage.getItem(SHEET_STORAGE_KEY);
+                if (!raw) return;
+                var state = JSON.parse(raw);
+                if (!state || !state.plan) return;
+                renderSheet(state.plan, state.checked || [], state.achievedDate || '');
+            } catch (err) {
+                // nothing usable saved — leave the sheet as a fresh form
+            }
+        }
+
+        (function () {
+            var form = document.getElementById('sheet-form');
+            if (!form) return;
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var errorEl = document.getElementById('sheet-error');
+                var resultsEl = document.getElementById('sheet-results');
+                errorEl.style.display = 'none';
+                resultsEl.style.display = 'none';
+
+                var goal = parseFloat(document.getElementById('sheet-goal').value);
+                var dateVal = document.getElementById('sheet-date').value;
+                var email = document.getElementById('sheet-email').value;
+
+                if (!goal || !dateVal || !email) { // EMAIL GATE: drop "|| !email" here if this tool goes free
+                    errorEl.textContent = 'Just one little thing is missing.';
+                    errorEl.style.display = 'block';
+                    return;
+                }
+
+                var plan = computeSheetPlan(goal, dateVal);
+                renderSheet(plan, []);
+                saveSheetState(plan);
+                submitToKit(email, '23831692'); // EMAIL GATE: delete this line if this tool goes free
+            });
+
+            // Restore a previously generated sheet (and its ticks) on reopen,
+            // without asking for the email again — it's the same browser.
+            restoreSheetState();
+        })();
+    </script>
+
+</body>
+
+</html>

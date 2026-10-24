@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saving Goal Calculator — Saving Jars</title>
+    <meta name="description"
+        content="Enter your saving target and what you've saved so far. Already saving? Get a real finish date. Starting from scratch? We'll work out the pace you need." />
+    <meta property="og:title" content="Saving Goal Calculator" />
+    <meta property="og:description"
+        content="Enter your saving target and what you've saved so far. Already saving? Get a real finish date. Starting from scratch? We'll work out the pace you need." />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Space+Mono:wght@400;700&family=DM+Serif+Display:ital@0;1&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --ink: #474642;
+            --cream: #FBFAF5;
+            --teal: #9EB5C0;
+            --sage: #A8AF82;
+            --deep-moss: #2A3638;
+            --terracotta: #E2BBAA;
+            --olive: #CFCBA9;
+            --sand: #F9E5C6;
+            --steel: #5E747F;
+            --bg: #FBFAF5;
+            --bg-card: #FFFFFF;
+            --border: rgba(71, 70, 66, 0.12);
+            --muted: rgba(71, 70, 66, 0.58);
+
+            --font-mono: 'Space Mono', 'Courier New', monospace;
+            --font-serif: 'DM Serif Display', Georgia, serif;
+            --font-hand: 'Gochi Hand', cursive;
+
+            --transition: 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: var(--font-mono);
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.65;
+            font-size: 15px;
+        }
+
+        .stage {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .progress-track {
+            height: 4px;
+            width: 100%;
+            background: var(--border);
+            flex-shrink: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--teal), var(--sage));
+            transition: width 0.5s ease;
+        }
+
+        .screen-wrap {
+            position: relative;
+            flex: 1;
+        }
+
+        .screen {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 32px 24px 28px;
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity var(--transition), transform var(--transition);
+            pointer-events: none;
+            overflow-y: auto;
+        }
+
+        .screen.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: all;
+        }
+
+        .screen.exit {
+            opacity: 0;
+            transform: translateX(-40px);
+        }
+
+        .screen-inner {
+            width: 100%;
+            max-width: 560px;
+            margin: auto auto 0;
+            text-align: center;
+        }
+
+        @media (min-height: 700px) {
+            .screen {
+                padding: 48px 32px 36px;
+            }
+        }
+
+        .screen-footer {
+            width: 100%;
+            max-width: 560px;
+            margin: auto auto 0;
+            padding-top: 12px;
+            text-align: center;
+            font-size: 9px;
+            color: rgba(71, 70, 66, 0.45);
+            letter-spacing: 0.12em;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .brand-wordmark {
+            font-family: var(--font-hand);
+            font-size: 22px;
+            text-transform: none;
+            letter-spacing: normal;
+            font-weight: 400;
+            vertical-align: middle;
+            color: var(--ink);
+        }
+
+        .brand-dot {
+            color: var(--terracotta);
+            font-size: 18px;
+            vertical-align: middle;
+        }
+
+        .screen-footer a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .screen-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--steel);
+            margin-bottom: 14px;
+        }
+
+        .icon-wrap {
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .icon-wrap svg {
+            width: 96px;
+            height: auto;
+            display: block;
+        }
+
+        h1.screen-title {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-weight: 400;
+            font-size: clamp(26px, 6vw, 34px);
+            line-height: 1.2;
+            margin-bottom: 12px;
+            color: var(--ink);
+        }
+
+        h1.screen-title em {
+            font-style: normal;
+            color: var(--terracotta);
+        }
+
+        .screen-sub {
+            font-size: 14px;
+            color: rgba(71, 70, 66, 0.7);
+            max-width: 420px;
+            margin: 0 auto 26px;
+        }
+
+        .trust-chips {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--ink);
+        }
+
+        .trust-chips span {
+            background: rgba(226, 187, 170, 0.15);
+            border: 1px solid rgba(226, 187, 170, 0.3);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        .btn {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            padding: 14px 28px;
+            transition: opacity 0.2s ease, transform 0.15s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background: var(--deep-moss);
+            color: var(--cream);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-primary.loading {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--ink);
+            border: 1.5px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--muted);
+            font-size: 12px;
+            text-decoration: underline;
+            padding: 8px;
+        }
+
+        .q-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .q-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .q-field label {
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .q-input-row {
+            display: flex;
+            align-items: stretch;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .q-input-row .currency,
+        .q-amount-input .currency {
+            font-size: 20px;
+            color: var(--ink);
+        }
+
+        .q-amount-input {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1 1 200px;
+            min-width: 0;
+        }
+
+        .q-field input[type="number"],
+        .q-field input[type="date"] {
+            font-family: var(--font-mono);
+            font-size: 20px;
+            padding: 12px 14px;
+            width: 100%;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg);
+            color: var(--ink);
+            height: 52px;
+            box-sizing: border-box;
+        }
+
+        .q-input-row input[type="number"],
+        .q-amount-input input[type="number"] {
+            flex: 1;
+            min-width: 0;
+            width: auto;
+        }
+
+        .q-field input:focus {
+            outline: none;
+            border-color: var(--teal);
+        }
+
+
+        .freq-pills {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .freq-pill {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 1.5px solid var(--border);
+            font-size: 13px;
+            background: var(--bg);
+        }
+
+        .freq-pill.selected {
+            background: var(--deep-moss);
+            color: var(--cream);
+            border-color: var(--deep-moss);
+        }
+
+        .zero-toggle {
+            flex: 1 1 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 16px;
+            white-space: nowrap;
+            height: 52px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            border: 1.5px solid var(--border);
+            background: var(--bg);
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--ink);
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .zero-toggle:hover {
+            border-color: var(--teal);
+        }
+
+        .zero-toggle.selected {
+            background: var(--deep-moss);
+            color: var(--cream);
+            border-color: var(--deep-moss);
+        }
+
+        @media (max-width: 420px) {
+
+            .q-amount-input,
+            .zero-toggle {
+                flex: 1 1 100%;
+            }
+        }
+
+        .q-hint {
+            font-size: 12px;
+            color: rgba(71, 70, 66, 0.6);
+            margin-top: 10px;
+        }
+
+        .q-error {
+            font-size: 12px;
+            color: #B0503C;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .btn-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* email screen */
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 4px 0 4px;
+        }
+
+        .email-field input[type="email"] {
+            font-family: var(--font-mono);
+            font-size: 15px;
+            padding: 13px 16px;
+            width: 100%;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-card);
+            color: var(--ink);
+        }
+
+        .email-field input:focus {
+            outline: none;
+            border-color: var(--terracotta);
+        }
+
+        .email-note {
+            font-size: 11px;
+            color: rgba(71, 70, 66, 0.6);
+            margin-top: 8px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* result screen */
+        .result-badge {
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .badge-complete {
+            background: rgba(168, 175, 130, 0.2);
+            color: var(--sage);
+            border: 1px solid rgba(168, 175, 130, 0.35);
+        }
+
+        .badge-ahead {
+            background: rgba(158, 181, 192, 0.15);
+            color: var(--teal);
+            border: 1px solid rgba(158, 181, 192, 0.3);
+        }
+
+        .badge-ontrack {
+            background: rgba(158, 181, 192, 0.15);
+            color: var(--teal);
+            border: 1px solid rgba(158, 181, 192, 0.3);
+        }
+
+        .badge-behind {
+            background: rgba(226, 187, 170, 0.15);
+            color: var(--terracotta);
+            border: 1px solid rgba(226, 187, 170, 0.3);
+        }
+
+        .badge-projection {
+            background: rgba(158, 181, 192, 0.15);
+            color: var(--teal);
+            border: 1px solid rgba(158, 181, 192, 0.3);
+        }
+
+        .badge-plan {
+            background: rgba(158, 181, 192, 0.15);
+            color: var(--teal);
+            border: 1px solid rgba(158, 181, 192, 0.3);
+        }
+
+        .result-body {
+            font-size: 15px;
+            color: var(--ink);
+            text-align: left;
+            margin-bottom: 22px;
+        }
+
+        .result-body p {
+            margin-bottom: 12px;
+        }
+
+        .result-body strong {
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .result-actions-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px 22px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .result-actions-label {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        .result-action-list {
+            list-style: none;
+            counter-reset: actions;
+        }
+
+        .result-action-list li {
+            counter-increment: actions;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            font-size: 13.5px;
+            margin-bottom: 12px;
+            line-height: 1.55;
+        }
+
+        .result-action-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .result-action-list li::before {
+            content: counter(actions);
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--teal);
+            color: var(--deep-moss);
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1px;
+        }
+
+        .result-cta-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .result-meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 4px;
+        }
+
+        .result-meta-row button {
+            background: none;
+            border: none;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--muted);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .share-confirm {
+            font-size: 11px;
+            color: var(--steel);
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="stage">
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="screen-wrap" id="screenWrap">
+
+            <!-- WELCOME -->
+            <div class="screen active" id="screen-welcome">
+                <div class="screen-inner">
+                    <div class="eyebrow">Saving Jars</div>
+                    <div class="icon-wrap" id="welcomeIcon"></div>
+                    <h1 class="screen-title">Saving Goal <em>Calculator</em></h1>
+                    <p class="screen-sub">Enter your target and what's saved so far. Already saving? You'll get a finish
+                        date reflecting your current progress. Starting from scratch? We'll work out the pace you need
+                        instead.</p>
+                    <div class="trust-chips">
+                        <span>4 quick steps</span><span>Instant result</span><span>Real finish date</span>
+                    </div>
+                    <br>
+                    <button class="btn btn-primary" onclick="goToScreen('screen-q1')">START →</button>
+                </div>
+            </div>
+
+            <!-- Q1: TARGET -->
+            <div class="screen" id="screen-q1">
+                <div class="screen-inner">
+                    <div class="eyebrow">Step 1 of 4</div>
+                    <h1 class="screen-title">What's your saving target?</h1>
+                    <p class="screen-sub">The full amount you're saving towards.</p>
+                    <div class="q-card">
+                        <div class="q-field">
+                            <label for="q1-target">Saving target</label>
+                            <div class="q-input-row">
+                                <span class="currency">£</span>
+                                <input type="number" id="q1-target" min="0" step="1" placeholder="500"
+                                    inputmode="decimal" />
+                            </div>
+                        </div>
+                        <div class="q-error" id="q1-error">Just one little thing is missing.</div>
+                    </div>
+                    <div class="btn-row">
+                        <button class="btn btn-primary" onclick="submitQ1()">CONTINUE →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q2: SAVED SO FAR -->
+            <div class="screen" id="screen-q2">
+                <div class="screen-inner">
+                    <div class="eyebrow">Step 2 of 4</div>
+                    <h1 class="screen-title">How much have you saved so far?</h1>
+                    <p class="screen-sub">A rough figure is fine. Nothing yet? That's fine too, we can plan from zero.
+                    </p>
+                    <div class="q-card">
+                        <div class="q-field">
+                            <label for="q2-saved">Saved so far</label>
+                            <div class="q-input-row">
+                                <div class="q-amount-input">
+                                    <span class="currency">£</span>
+                                    <input type="number" id="q2-saved" min="0" step="1" placeholder="200"
+                                        inputmode="decimal" />
+                                </div>
+                                <button type="button" class="zero-toggle" id="zeroToggleBtn"
+                                    onclick="setNothingSavedYet()">Nothing yet</button>
+                            </div>
+                        </div>
+                        <div class="q-error" id="q2-error">Just one little thing is missing.</div>
+                    </div>
+                    <div class="btn-row">
+                        <button class="btn btn-primary" onclick="submitQ2()">CONTINUE →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q3: PACE (or, for a from-scratch saver, a choice of what to solve for) -->
+            <div class="screen" id="screen-q3">
+                <div class="screen-inner">
+                    <div class="eyebrow">Step 3 of 4</div>
+
+                    <div id="q3-choice">
+                        <h1 class="screen-title">What do you already know?</h1>
+                        <p class="screen-sub">Tell us the one you're sure of, and we'll work out the other.</p>
+                        <div class="q-card">
+                            <div class="btn-row">
+                                <button type="button" class="btn btn-primary" onclick="chooseKnowPace()">I know how much
+                                    I can save →</button>
+                                <button type="button" class="btn btn-secondary" onclick="chooseWorkItOut()">I know my
+                                    deadline, work out my pace →</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="q3-normal" class="hidden">
+                        <h1 class="screen-title">How much do you usually add?</h1>
+                        <p class="screen-sub">Whatever you typically move across, weekly or monthly.</p>
+                        <div class="q-card">
+                            <div class="q-field">
+                                <label for="q3-pace">Usual amount</label>
+                                <div class="q-input-row">
+                                    <span class="currency">£</span>
+                                    <input type="number" id="q3-pace" min="0" step="1" placeholder="15"
+                                        inputmode="decimal" />
+                                </div>
+                            </div>
+                            <div class="freq-pills" id="freqPills">
+                                <div class="freq-pill selected" data-freq="weekly" onclick="selectFreq('weekly')">Weekly
+                                </div>
+                                <div class="freq-pill" data-freq="monthly" onclick="selectFreq('monthly')">Monthly</div>
+                            </div>
+                            <div class="q-error" id="q3-error">Just one little thing is missing.</div>
+                        </div>
+                        <div class="btn-row">
+                            <button class="btn btn-primary" onclick="submitQ3()">CONTINUE →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q4: TARGET DATE (optional if pace is known, required if we're solving for pace) -->
+            <div class="screen" id="screen-q4">
+                <div class="screen-inner">
+                    <div class="eyebrow">Step 4 of 4</div>
+                    <h1 class="screen-title" id="q4-heading">Have you got a date in mind?</h1>
+                    <p class="screen-sub" id="q4-sub">Optional. If you have one, we'll check your pace against it.</p>
+                    <div class="q-card">
+                        <div class="q-field">
+                            <label for="q4-date" id="q4-label">Target date (optional)</label>
+                            <input type="date" id="q4-date" />
+                        </div>
+                        <div class="q-error" id="q4-error">Just one little thing is missing.</div>
+                    </div>
+                    <div class="btn-row">
+                        <button class="btn btn-primary" onclick="submitQ4()">CONTINUE →</button>
+                        <button class="btn btn-ghost" id="q4-skip-btn" onclick="skipQ4()">I don't have a date, skip
+                            this</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EMAIL / REVEAL -->
+            <div class="screen" id="screen-email">
+                <div class="screen-inner">
+                    <div class="icon-wrap" id="sparkleIcon"></div>
+                    <h1 class="screen-title">Your result is ready.</h1>
+                    <p class="screen-sub">Enter your email below to reveal your finish date instantly.</p>
+                    <form id="emailForm" novalidate class="email-form">
+                        <div class="email-field">
+                            <input type="email" id="emailInput" placeholder="you@email.com" />
+                        </div>
+                        <div class="q-error" id="emailError">Please enter a valid email address.</div>
+                        <button type="submit" class="btn btn-primary" id="emailSubmitBtn">Reveal my result →</button>
+                        <p class="email-note">Occasional updates. Unsubscribe anytime.</p>
+                    </form>
+                </div>
+            </div>
+
+            <!-- RESULT -->
+            <div class="screen" id="screen-result">
+                <div class="screen-inner">
+                    <div class="icon-wrap" id="resultIcon"></div>
+                    <div class="result-badge" id="resultBadge"></div>
+                    <h1 class="screen-title" id="resultHeadline"></h1>
+                    <div class="result-body" id="resultBody"></div>
+                    <div class="result-actions-box">
+                        <div class="result-actions-label">This week</div>
+                        <ol class="result-action-list" id="resultActionList"></ol>
+                    </div>
+                    <div class="result-cta-row">
+                        <a class="btn btn-primary" href="../../../saving-jars/index.html">EXPLORE SAVING JARS →</a>
+                    </div>
+                    <div class="result-meta-row">
+                        <button onclick="retake()">Start over</button>
+                        <button id="shareBtn" onclick="shareResult()">Share result</button>
+                    </div>
+                    <div class="share-confirm hidden" id="shareConfirm">Copied to clipboard.</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // ---------- screen navigation ----------
+        var currentScreen = 'screen-welcome';
+        var PROGRESS_SCREENS = ['screen-q1', 'screen-q2', 'screen-q3', 'screen-q4', 'screen-email'];
+
+        function goToScreen(nextId) {
+            var current = document.getElementById(currentScreen);
+            var next = document.getElementById(nextId);
+            if (!next) return;
+
+            current.classList.remove('active');
+            current.classList.add('exit');
+
+            setTimeout(function () {
+                current.classList.remove('exit');
+            }, 450);
+
+            next.classList.add('active');
+            currentScreen = nextId;
+            document.getElementById('screenWrap').scrollTop = 0;
+
+            updateProgress(nextId);
+        }
+
+        function updateProgress(screenId) {
+            var idx = PROGRESS_SCREENS.indexOf(screenId);
+            var pct = idx === -1 ? 0 : ((idx + 1) / PROGRESS_SCREENS.length) * 100;
+            document.getElementById('progressFill').style.width = pct + '%';
+        }
+
+        // ---------- answers ----------
+        var answers = { target: null, saved: null, pace: null, freq: 'weekly', targetDate: null, startingFresh: false, solveForPace: false };
+
+        function selectFreq(freq) {
+            answers.freq = freq;
+            document.querySelectorAll('.freq-pill').forEach(function (p) {
+                p.classList.toggle('selected', p.dataset.freq === freq);
+            });
+        }
+
+        function submitQ1() {
+            var val = parseFloat(document.getElementById('q1-target').value);
+            var errorEl = document.getElementById('q1-error');
+            if (!val || val <= 0) { errorEl.style.display = 'block'; return; }
+            errorEl.style.display = 'none';
+            answers.target = val;
+            goToScreen('screen-q2');
+        }
+
+        function setNothingSavedYet() {
+            document.getElementById('q2-saved').value = '0';
+            syncZeroToggle();
+        }
+
+        function syncZeroToggle() {
+            var val = document.getElementById('q2-saved').value;
+            document.getElementById('zeroToggleBtn').classList.toggle('selected', val === '0');
+        }
+        document.getElementById('q2-saved').addEventListener('input', syncZeroToggle);
+
+        function submitQ2() {
+            var val = document.getElementById('q2-saved').value;
+            var errorEl = document.getElementById('q2-error');
+            if (val === '' || parseFloat(val) < 0 || isNaN(parseFloat(val))) { errorEl.style.display = 'block'; return; }
+            errorEl.style.display = 'none';
+            answers.saved = parseFloat(val);
+            answers.startingFresh = answers.saved === 0;
+
+            // A from-scratch saver gets a choice of what to solve for; someone
+            // already saving goes straight to the usual pace question.
+            document.getElementById('q3-choice').classList.toggle('hidden', !answers.startingFresh);
+            document.getElementById('q3-normal').classList.toggle('hidden', answers.startingFresh);
+            goToScreen('screen-q3');
+        }
+
+        function chooseKnowPace() {
+            answers.solveForPace = false;
+            document.getElementById('q3-choice').classList.add('hidden');
+            document.getElementById('q3-normal').classList.remove('hidden');
+        }
+
+        function chooseWorkItOut() {
+            answers.solveForPace = true;
+            answers.pace = null;
+            prepareQ4();
+            goToScreen('screen-q4');
+        }
+
+        function submitQ3() {
+            var val = parseFloat(document.getElementById('q3-pace').value);
+            var errorEl = document.getElementById('q3-error');
+            if (!val || val <= 0) { errorEl.style.display = 'block'; return; }
+            errorEl.style.display = 'none';
+            answers.pace = val;
+            answers.solveForPace = false;
+            prepareQ4();
+            goToScreen('screen-q4');
+        }
+
+        function prepareQ4() {
+            var required = answers.solveForPace;
+            document.getElementById('q4-heading').textContent = required
+                ? 'When do you want to reach it by?'
+                : 'Have you got a date in mind?';
+            document.getElementById('q4-sub').textContent = required
+                ? "We'll work out how much to set aside each week to get there."
+                : "Optional. If you have one, we'll check your pace against it.";
+            document.getElementById('q4-label').textContent = required ? 'Target date' : 'Target date (optional)';
+            document.getElementById('q4-skip-btn').classList.toggle('hidden', required);
+            document.getElementById('q4-error').style.display = 'none';
+        }
+
+        function submitQ4() {
+            var val = document.getElementById('q4-date').value;
+            var errorEl = document.getElementById('q4-error');
+
+            if (answers.solveForPace) {
+                if (!val) {
+                    errorEl.textContent = 'Pick a date to work this out.';
+                    errorEl.style.display = 'block';
+                    return;
+                }
+                var chosen = new Date(val);
+                var todayMidnight = new Date();
+                todayMidnight.setHours(0, 0, 0, 0);
+                if (chosen <= todayMidnight) {
+                    errorEl.textContent = "Pick a date that's still ahead of you.";
+                    errorEl.style.display = 'block';
+                    return;
+                }
+            }
+            errorEl.style.display = 'none';
+            answers.targetDate = val || null;
+            goToScreen('screen-email');
+        }
+
+        function skipQ4() {
+            answers.targetDate = null;
+            goToScreen('screen-email');
+        }
+
+        // ---------- projection maths ----------
+        var WEEKS_PER_MONTH = 4.345;
+
+        function toWeeklyRate(amount, freq) {
+            return freq === 'monthly' ? amount / WEEKS_PER_MONTH : amount;
+        }
+
+        function addWeeks(date, weeks) {
+            var d = new Date(date.getTime());
+            d.setDate(d.getDate() + Math.round(weeks * 7));
+            return d;
+        }
+
+        function formatDate(d) {
+            return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+
+        function pickIncrement(weeklyRate) {
+            if (weeklyRate < 20) return 5;
+            if (weeklyRate < 50) return 10;
+            return 20;
+        }
+
+        function computeResult() {
+            var target = answers.target;
+            var saved = answers.saved;
+            var today = new Date();
+
+            if (saved >= target) {
+                return { type: 'complete' };
+            }
+
+            if (answers.solveForPace) {
+                var targetDateForPlan = new Date(answers.targetDate);
+                var remainingForPlan = target - saved;
+                var weeksAvailable = (targetDateForPlan.getTime() - today.getTime()) / (1000 * 60 * 60 * 24 * 7);
+                if (weeksAvailable < 1) weeksAvailable = 1;
+                var requiredWeekly = remainingForPlan / weeksAvailable;
+                var requiredMonthly = requiredWeekly * WEEKS_PER_MONTH;
+                return {
+                    type: 'plan',
+                    target: target, saved: saved,
+                    targetDate: formatDate(targetDateForPlan),
+                    weeklyRate: Math.round(requiredWeekly),
+                    monthlyRate: Math.round(requiredMonthly),
+                    weeksAvailable: Math.round(weeksAvailable)
+                };
+            }
+
+            var weeklyRate = toWeeklyRate(answers.pace, answers.freq);
+            var remaining = target - saved;
+            var weeksToFinish = remaining / weeklyRate;
+            var projectedDate = addWeeks(today, weeksToFinish);
+
+            var increment = pickIncrement(weeklyRate);
+            var altRate = weeklyRate + increment;
+            var altWeeks = remaining / altRate;
+            var weeksSooner = Math.max(1, Math.round(weeksToFinish - altWeeks));
+
+            var currentPct = (saved / target) * 100;
+            var nextMilestonePct = Math.min(100, Math.ceil((currentPct + 0.0001) / 25) * 25);
+            if (nextMilestonePct <= currentPct) nextMilestonePct = Math.min(100, nextMilestonePct + 25);
+            var nextMilestoneAmount = Math.round((target * nextMilestonePct) / 100);
+            var amountToMilestone = nextMilestoneAmount - saved;
+            var weeksToMilestone = amountToMilestone / weeklyRate;
+            var milestoneDate = addWeeks(today, weeksToMilestone);
+
+            var shared = {
+                target: target, saved: saved, weeklyRate: Math.round(weeklyRate),
+                projectedDate: formatDate(projectedDate),
+                increment: increment, weeksSooner: weeksSooner,
+                nextMilestonePct: nextMilestonePct, nextMilestoneAmount: nextMilestoneAmount,
+                milestoneDate: formatDate(milestoneDate)
+            };
+
+            if (!answers.targetDate) {
+                return Object.assign({ type: 'projection' }, shared);
+            }
+
+            var targetDateObj = new Date(answers.targetDate);
+            var diffWeeks = (targetDateObj.getTime() - projectedDate.getTime()) / (1000 * 60 * 60 * 24 * 7);
+            var targetDateFormatted = formatDate(targetDateObj);
+
+            if (diffWeeks >= 1) {
+                return Object.assign({ type: 'ahead', targetDate: targetDateFormatted, weeksAhead: Math.round(diffWeeks) }, shared);
+            }
+            if (diffWeeks <= -1) {
+                return Object.assign({ type: 'behind', targetDate: targetDateFormatted, weeksLate: Math.round(Math.abs(diffWeeks)) }, shared);
+            }
+            return Object.assign({ type: 'ontrack', targetDate: targetDateFormatted }, shared);
+        }
+
+        // ---------- result copy ----------
+        function buildResultContent(r) {
+            var badgeClass = 'badge-' + r.type;
+            var badgeLabel, headline, bodyHtml, actions;
+
+            if (r.type === 'plan') {
+                badgeLabel = 'Your plan';
+                headline = 'Here’s what it takes.';
+                bodyHtml = '<p>To reach your <strong>£' + r.target + ' goal</strong> by <strong>' + r.targetDate + '</strong>, set aside about <strong>£' + r.weeklyRate + ' a week</strong>, or around £' + r.monthlyRate + ' a month.</p>' +
+                    '<p>That is roughly ' + r.weeksAvailable + ' weeks of saving from today.</p>';
+                actions = [
+                    'Set up a standing amount of £' + r.weeklyRate + ' a week, or £' + r.monthlyRate + ' a month, toward this goal.',
+                    'If that pace feels like a stretch, moving the date back or lowering the target now is easier than catching up later.',
+                    'Once you have started saving, come back and re-run this to check the pace still fits.'
+                ];
+            } else if (r.type === 'complete') {
+                badgeLabel = 'Goal reached';
+                headline = 'You’ve reached your goal.';
+                bodyHtml = '<p>Every pound you set out to save is right there, saved. However long it took, it is done.</p>' +
+                    '<p>Most people either start saving toward something new straight away, or let this one sit for a moment before deciding what is next.</p>';
+                actions = [
+                    'Note down what this saving was actually for, and check it against what you are about to do with the money.',
+                    'If there is a next goal in mind, start saving toward it separately rather than folding it into this one.',
+                    'Give yourself a minute to actually notice you did this, before moving on to the next thing.'
+                ];
+            } else if (r.type === 'ahead') {
+                badgeLabel = 'Ahead of target';
+                headline = 'You’re ahead of where you need to be.';
+                bodyHtml = '<p>At <strong>£' + r.weeklyRate + ' a week</strong>, your <strong>£' + r.target + ' goal</strong> is on track to be met by <strong>' + r.projectedDate + '</strong>, ' + r.weeksAhead + ' weeks before your ' + r.targetDate + ' target.</p>' +
+                    '<p>Whatever is driving that pace, it is working.</p>';
+                actions = [
+                    'Decide whether to keep the pace as is, or ease off slightly now the target is well covered.',
+                    'If there is spare pace to spend, put the extra toward a second saving goal rather than letting it drift.',
+                    'Check back closer to ' + r.targetDate + ' to confirm the pace still fits.'
+                ];
+            } else if (r.type === 'ontrack') {
+                badgeLabel = 'On pace';
+                headline = 'You’re on pace.';
+                bodyHtml = '<p>At <strong>£' + r.weeklyRate + ' a week</strong>, your <strong>£' + r.target + ' goal</strong> is met right around <strong>' + r.targetDate + '</strong>. That is close enough to call it bang on target.</p>' +
+                    '<p>Adding just £' + r.increment + ' more a week would still finish it ' + r.weeksSooner + ' weeks earlier, if that is doable.</p>';
+                actions = [
+                    'Keep the current amount going. Nothing needs to change.',
+                    'If a tighter week throws the pace off, you can still finish on time with one bigger top-up.',
+                    'Revisit this once you are at ' + r.nextMilestonePct + '%, just to confirm the pace is still holding.'
+                ];
+            } else if (r.type === 'behind') {
+                badgeLabel = 'Behind target';
+                headline = 'At this pace, you’ll finish later than planned.';
+                bodyHtml = '<p><strong>£' + r.weeklyRate + ' a week</strong> gets you to your <strong>£' + r.target + ' goal</strong> by <strong>' + r.projectedDate + '</strong>, about ' + r.weeksLate + ' weeks after your ' + r.targetDate + ' target.</p>' +
+                    '<p>Add just £' + r.increment + ' more a week and you would finish ' + r.weeksSooner + ' weeks sooner, landing much closer to plan.</p>';
+                actions = [
+                    'Find £' + r.increment + ' a week somewhere and add it to your saving, even temporarily.',
+                    'Or move the target date back by ' + r.weeksLate + ' weeks instead. Moving the date does not undo the progress already made.',
+                    'Check back in a few weeks once the new pace has had a chance to settle.'
+                ];
+            } else {
+                badgeLabel = 'Your projection';
+                headline = 'Here’s your finish line.';
+                bodyHtml = '<p>At <strong>£' + r.weeklyRate + ' a week</strong>, your <strong>£' + r.target + ' goal</strong> is met by <strong>' + r.projectedDate + '</strong>.</p>' +
+                    '<p>The next milestone, ' + r.nextMilestonePct + '% or £' + r.nextMilestoneAmount + ', arrives around ' + r.milestoneDate + '. Add just £' + r.increment + ' more a week and you would finish ' + r.weeksSooner + ' weeks sooner.</p>';
+                actions = [
+                    'Set ' + r.projectedDate + ' as an informal target, so there is something to check progress against.',
+                    'If £' + r.increment + ' more a week is doable, add it and watch the date move up.',
+                    'Come back and re-run this once the saved amount changes. The projection updates with it.'
+                ];
+            }
+
+            document.getElementById('resultIcon').innerHTML = RESULT_ICONS[r.type];
+            var badgeEl = document.getElementById('resultBadge');
+            badgeEl.textContent = badgeLabel;
+            badgeEl.className = 'result-badge ' + badgeClass;
+            document.getElementById('resultHeadline').textContent = headline;
+            document.getElementById('resultBody').innerHTML = bodyHtml;
+
+            var listEl = document.getElementById('resultActionList');
+            listEl.innerHTML = '';
+            actions.forEach(function (text) {
+                var li = document.createElement('li');
+                li.textContent = text;
+                listEl.appendChild(li);
+            });
+
+            currentResultType = r.type;
+        }
+
+        var currentResultType = null;
+
+        function showResult() {
+            var r = computeResult();
+            buildResultContent(r);
+            goToScreen('screen-result');
+        }
+
+        function retake() {
+            answers = { target: null, saved: null, pace: null, freq: 'weekly', targetDate: null, startingFresh: false, solveForPace: false };
+            document.getElementById('q1-target').value = '';
+            document.getElementById('q2-saved').value = '';
+            syncZeroToggle();
+            document.getElementById('q3-pace').value = '';
+            document.getElementById('q4-date').value = '';
+            selectFreq('weekly');
+            document.getElementById('q3-choice').classList.add('hidden');
+            document.getElementById('q3-normal').classList.remove('hidden');
+            prepareQ4();
+            document.getElementById('emailInput').value = '';
+            goToScreen('screen-welcome');
+        }
+
+        // ---------- Kit email capture ----------
+        var KIT_FORM_ID = '9934586';
+        var KIT_TAG_ID = '23871921';
+
+        var activeSubmission = null;
+
+        function handleEmailSubmit(e) {
+            e.preventDefault();
+            var email = document.getElementById('emailInput').value.trim();
+            var btn = document.getElementById('emailSubmitBtn');
+            var errorEl = document.getElementById('emailError');
+
+            if (!email) return;
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                errorEl.style.display = 'block';
+                return;
+            }
+            errorEl.style.display = 'none';
+
+            if (activeSubmission) activeSubmission.abort();
+            var thisSubmission = new AbortController();
+            activeSubmission = thisSubmission;
+
+            btn.classList.add('loading');
+            btn.textContent = 'Submitting';
+
+            var timeoutId = setTimeout(function () { thisSubmission.abort(); }, 4000);
+
+            var kitFormData = new FormData();
+            kitFormData.append('email_address', email);
+            kitFormData.append('tags[]', KIT_TAG_ID);
+
+            fetch('https://app.kit.com/forms/' + KIT_FORM_ID + '/subscriptions', {
+                method: 'POST',
+                body: kitFormData,
+                headers: { 'Accept': 'application/json' },
+                signal: thisSubmission.signal
+            }).then(function () {
+                showResult();
+            }).catch(function (err) {
+                if (activeSubmission !== thisSubmission) return;
+                console.warn('Kit submission error (result shown regardless):', err);
+                showResult();
+            }).finally(function () {
+                clearTimeout(timeoutId);
+                if (activeSubmission === thisSubmission) {
+                    activeSubmission = null;
+                    btn.classList.remove('loading');
+                    btn.textContent = 'Reveal my result →';
+                }
+            });
+        }
+
+        document.getElementById('emailForm').addEventListener('submit', handleEmailSubmit);
+
+        // ---------- share ----------
+        function shareResult() {
+            var labelMap = {
+                complete: 'reached my goal',
+                ahead: 'ahead of target',
+                ontrack: 'on pace',
+                behind: 'behind target',
+                projection: 'got my finish date',
+                plan: 'worked out my saving pace'
+            };
+            var label = labelMap[currentResultType] || 'my result';
+            var text = 'I just worked out my saving goal date with Saving Jars: ' + label + '. Find out yours \u{1F447}';
+            var url = window.location.href;
+            var shareText = text + '\n' + url;
+            var btn = document.getElementById('shareBtn');
+
+            var isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+
+            if (isTouchDevice && navigator.share) {
+                navigator.share({ title: 'Saving Goal Calculator', text: text, url: url }).then(function () {
+                    return;
+                }).catch(function (err) {
+                    if (err && err.name === 'AbortError') return;
+                    fallbackCopy(shareText, btn);
+                });
+                return;
+            }
+            fallbackCopy(shareText, btn);
+        }
+
+        function fallbackCopy(shareText, btn) {
+            try {
+                if (!navigator.clipboard || !navigator.clipboard.writeText) {
+                    throw new Error('Clipboard API unavailable');
+                }
+                navigator.clipboard.writeText(shareText).then(function () {
+                    confirmCopied(btn);
+                }).catch(function () {
+                    window.prompt('Copy your result to share:', shareText);
+                });
+            } catch (err) {
+                window.prompt('Copy your result to share:', shareText);
+            }
+        }
+
+        function confirmCopied(btn) {
+            var note = document.getElementById('shareConfirm');
+            if (note) {
+                note.classList.remove('hidden');
+                setTimeout(function () { note.classList.add('hidden'); }, 6000);
+            }
+            if (!btn) return;
+            var original = btn.textContent;
+            btn.textContent = 'Copied!';
+            btn.disabled = true;
+            setTimeout(function () {
+                btn.textContent = original;
+                btn.disabled = false;
+            }, 6000);
+        }
+
+        // ---------- icons ----------
+        var WELCOME_ICON =
+            '<svg viewBox="0 0 120 140" width="96" height="112" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+            '<rect x="35" y="18" width="50" height="14" rx="4" fill="var(--olive)" stroke="var(--ink)" stroke-width="3"/>' +
+            '<path d="M30 34 H90 V112 a14 14 0 0 1 -14 14 H44 a14 14 0 0 1 -14 -14 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="3"/>' +
+            '<path d="M32 78 H88 V112 a12 12 0 0 1 -12 12 H44 a12 12 0 0 1 -12 -12 Z" fill="var(--terracotta)"/>' +
+            '<line x1="38" y1="78" x2="82" y2="78" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.4"/>' +
+            '</svg>';
+
+        var SPARKLE_ICON =
+            '<svg viewBox="0 0 80 80" width="64" height="64" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+            '<path d="M40 10 L46 34 L70 40 L46 46 L40 70 L34 46 L10 40 L34 34 Z" fill="var(--terracotta)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>' +
+            '</svg>';
+
+        var RESULT_ICONS = {
+            complete:
+                '<svg viewBox="0 0 120 140" width="96" height="112" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+                '<path d="M52 6 L56 16 L66 18 L56 20 L52 30 L48 20 L38 18 L48 16 Z" fill="var(--terracotta)" stroke="var(--ink)" stroke-width="1.5" stroke-linejoin="round"/>' +
+                '<rect x="35" y="30" width="50" height="14" rx="4" fill="var(--olive)" stroke="var(--ink)" stroke-width="3"/>' +
+                '<path d="M30 46 H90 V112 a14 14 0 0 1 -14 14 H44 a14 14 0 0 1 -14 -14 Z" fill="var(--terracotta)" stroke="var(--ink)" stroke-width="3"/>' +
+                '</svg>',
+            ahead:
+                '<svg viewBox="0 0 120 140" width="96" height="112" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+                '<rect x="35" y="18" width="50" height="14" rx="4" fill="var(--olive)" stroke="var(--ink)" stroke-width="3"/>' +
+                '<path d="M30 34 H90 V112 a14 14 0 0 1 -14 14 H44 a14 14 0 0 1 -14 -14 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="3"/>' +
+                '<path d="M32 74 H88 V112 a12 12 0 0 1 -12 12 H44 a12 12 0 0 1 -12 -12 Z" fill="var(--teal)"/>' +
+                '<line x1="94" y1="44" x2="94" y2="76" stroke="var(--ink)" stroke-width="2.5"/>' +
+                '<path d="M94 46 L112 52 L94 58 Z" fill="var(--teal)" stroke="var(--ink)" stroke-width="1.5" stroke-linejoin="round"/>' +
+                '</svg>',
+            ontrack:
+                '<svg viewBox="0 0 120 140" width="96" height="112" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+                '<rect x="35" y="18" width="50" height="14" rx="4" fill="var(--olive)" stroke="var(--ink)" stroke-width="3"/>' +
+                '<path d="M30 34 H90 V112 a14 14 0 0 1 -14 14 H44 a14 14 0 0 1 -14 -14 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="3"/>' +
+                '<path d="M32 84 H88 V112 a12 12 0 0 1 -12 12 H44 a12 12 0 0 1 -12 -12 Z" fill="var(--teal)"/>' +
+                '<line x1="106" y1="34" x2="106" y2="84" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.55"/>' +
+                '<circle cx="106" cy="34" r="6" fill="var(--teal)" stroke="var(--ink)" stroke-width="1.5"/>' +
+                '</svg>',
+            behind:
+                '<svg viewBox="0 0 120 140" width="96" height="112" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+                '<rect x="35" y="18" width="50" height="14" rx="4" fill="var(--olive)" stroke="var(--ink)" stroke-width="3"/>' +
+                '<path d="M30 34 H90 V112 a14 14 0 0 1 -14 14 H44 a14 14 0 0 1 -14 -14 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="3"/>' +
+                '<path d="M32 92 H88 V112 a12 12 0 0 1 -12 12 H44 a12 12 0 0 1 -12 -12 Z" fill="var(--terracotta)"/>' +
+                '<path d="M94 92 Q108 70 106 40" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="4 4" fill="none" opacity="0.55"/>' +
+                '<circle cx="106" cy="38" r="6" fill="var(--terracotta)" stroke="var(--ink)" stroke-width="1.5"/>' +
+                '</svg>',
+            projection:
+                '<svg viewBox="0 0 120 140" width="96" height="112" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+                '<rect x="30" y="18" width="42" height="14" rx="4" fill="var(--olive)" stroke="var(--ink)" stroke-width="3"/>' +
+                '<path d="M25 34 H77 V104 a12 12 0 0 1 -12 12 H37 a12 12 0 0 1 -12 -12 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="3"/>' +
+                '<path d="M27 72 H75 V104 a10 10 0 0 1 -10 10 H37 a10 10 0 0 1 -10 -10 Z" fill="var(--olive)"/>' +
+                '<rect x="80" y="60" width="34" height="30" rx="4" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="2.5"/>' +
+                '<line x1="80" y1="70" x2="114" y2="70" stroke="var(--ink)" stroke-width="2"/>' +
+                '<line x1="88" y1="55" x2="88" y2="64" stroke="var(--ink)" stroke-width="2"/>' +
+                '<line x1="106" y1="55" x2="106" y2="64" stroke="var(--ink)" stroke-width="2"/>' +
+                '<circle cx="97" cy="80" r="3" fill="var(--terracotta)"/>' +
+                '</svg>',
+            plan:
+                '<svg viewBox="0 0 120 140" width="96" height="112" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+                '<rect x="35" y="18" width="50" height="14" rx="4" fill="var(--olive)" stroke="var(--ink)" stroke-width="3"/>' +
+                '<path d="M30 34 H90 V112 a14 14 0 0 1 -14 14 H44 a14 14 0 0 1 -14 -14 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="3"/>' +
+                '<circle cx="60" cy="80" r="18" fill="none" stroke="var(--teal)" stroke-width="2" stroke-dasharray="3 3"/>' +
+                '<circle cx="60" cy="80" r="9" fill="none" stroke="var(--teal)" stroke-width="2" stroke-dasharray="3 3"/>' +
+                '<circle cx="60" cy="80" r="3" fill="var(--terracotta)"/>' +
+                '</svg>'
+        };
+
+        document.getElementById('welcomeIcon').innerHTML = WELCOME_ICON;
+        document.getElementById('sparkleIcon').innerHTML = SPARKLE_ICON;
+
+        // ---------- footer wordmark, sibling of .screen-inner on every screen ----------
+        document.addEventListener('DOMContentLoaded', function () {
+            var footerMarkup = '<a href="../../../saving-jars/index.html">' +
+                '<span class="brand-wordmark">saving jars</span><span class="brand-dot">.</span> — goal visuals that fill as you save' +
+                '</a>';
+            document.querySelectorAll('.screen').forEach(function (screen) {
+                var footer = document.createElement('div');
+                footer.className = 'screen-footer';
+                footer.innerHTML = footerMarkup;
+                screen.appendChild(footer);
+            });
+        });
+    </script>
+
+</body>
+
+</html>

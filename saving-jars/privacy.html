@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Saving Jars</title>
+  <meta name="description"
+    content="How Saving Jars handles your data: what's stored locally on your device, what payment processing involves, and your rights." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --page: #E6D5CF;
+      --bg: #FBF3EF;
+      --bg-box: #F1E2DC;
+      --border: #DEC7C1;
+      --panel: #FFFDFB;
+      --blue: #3B6372;
+      --blue-dark: #2E4E5B;
+      --blue-mid: #628190;
+      --blue-pale: #E1E8EB;
+      --blush: #DCB1A2;
+      --blush-light: #F2E0DB;
+      --sage: #94AAB5;
+      --sage-light: #E4EBEE;
+      --text: #3F3838;
+      --muted: #6B5852;
+      --hint: #A98F87;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 400;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    h1,
+    h2,
+    .brand {
+      font-family: 'Gochi Hand', cursive;
+      font-weight: 400;
+    }
+
+    a {
+      color: var(--blue);
+    }
+
+    /* NAV */
+    nav {
+      background: var(--bg-box);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 26px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--blue);
+    }
+
+    .nav-back {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .nav-back:hover {
+      color: var(--text);
+    }
+
+    /* CONTENT */
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px 5% 72px;
+    }
+
+    .label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(30px, 4vw, 42px);
+      margin-bottom: 8px;
+    }
+
+    .updated {
+      font-size: 12px;
+      color: var(--hint);
+      margin-bottom: 36px;
+    }
+
+    h2 {
+      font-size: 21px;
+      margin: 36px 0 10px;
+      color: var(--text);
+    }
+
+    p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    ul {
+      margin: 0 0 14px 20px;
+    }
+
+    li {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .callout {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .callout strong {
+      color: var(--text);
+      font-family: 'Gochi Hand', cursive;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    code {
+      background: var(--bg-box);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg-box);
+      border-top: 1px solid var(--border);
+      padding: 28px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .footer-logo {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 20px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .footer-logo span {
+      color: var(--blue);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      font-size: 11px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    .footer-note {
+      font-size: 10px;
+      color: var(--hint);
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">saving jars<span>.</span></a>
+    <a href="index.html" class="nav-back">&larr; back to saving jars</a>
+  </nav>
+
+  <div class="wrap">
+    <div class="label">legal</div>
+    <h1>privacy policy</h1>
+    <p class="updated">Last updated: 27 September 2026</p>
+
+    <p>Saving Jars is a single, self-contained app that runs in your browser. This page explains what data exists, where
+      it lives, and who (if anyone) sees it.</p>
+
+    <h2>the short version</h2>
+    <div class="callout"><strong>Your saving data never leaves your device.</strong> Everything you log &mdash; goals,
+      savings, habit tracker, journal entries &mdash; is stored only in your own browser's local storage. It isn't sent
+      to me, to a server, or to any third party. I have no way to see it.</div>
+
+    <h2>what's stored, and where</h2>
+    <p>When you use Saving Jars, the app saves your goals, logged savings, chosen palette, habit tracker entries and
+      journal reflections in your browser's <code>localStorage</code> &mdash; a storage area built into your browser,
+      tied to your device only.</p>
+    <ul>
+      <li>It is not uploaded anywhere automatically.</li>
+      <li>It stays put if you close the tab or restart your device, but is lost if you clear your browser's site data,
+        use a different browser or device, or use a private/incognito window.</li>
+      <li>You can export a backup file from Settings at any time, and re-import it later or on another device.</li>
+    </ul>
+
+    <h2>buying saving jars</h2>
+    <p>Payment is handled by a third-party checkout provider, who acts as the merchant of record for the sale. They
+      process your payment details and email address in order to complete the purchase, issue a receipt, and deliver the
+      file to you &mdash; I don't see or store your card details at any point. Their own privacy policy governs how they
+      handle that information.</p>
+
+    <h2>the feedback form</h2>
+    <p>If you choose to fill in the in-app feedback form, it's provided by a third-party form service (Tally), and
+      whatever you type is sent to them and passed on to me. It's entirely optional &mdash; the app works fully without
+      ever opening it.</p>
+
+    <h2>joining the mailing list</h2>
+    <p>If you sign up for updates or a free download via the email form on this site, your email address is stored by
+      our email provider (Kit) so that we can send you those emails. You can unsubscribe at any time using the link in
+      any email you receive.</p>
+
+    <h2>cookies and tracking</h2>
+    <p>This site does not use analytics or advertising cookies. The only thing stored in your browser is the app's own
+      <code>localStorage</code> data described above, which exists to make the app work for you, not to track you.
+    </p>
+
+    <h2>your rights</h2>
+    <p>Under UK GDPR, you have the right to ask what personal data (if any) is held about you, to have it corrected or
+      deleted, and to object to how it's used. Because saving data lives only on your own device, most of this simply
+      means: it's already entirely in your control, and you can delete it yourself at any time by clearing your browser
+      data or using the in-app reset option.</p>
+    <p>For anything relating to a purchase, the checkout provider's own privacy policy and support channels apply
+      directly.</p>
+
+    <h2>changes to this policy</h2>
+    <p>If anything here changes &mdash; a new provider, a new feature that stores data differently &mdash; this page
+      will be updated and the date at the top will change.</p>
+
+    <h2>contact</h2>
+    <p>Questions about this policy or your data can be sent to: <code>future.sanctuary00@gmail.com</code>.</p>
+  </div>
+
+  <footer>
+    <a href="index.html" class="footer-logo">saving jars<span>.</span></a>
+    <div class="footer-links">
+      <a href="index.html">back to saving jars</a>
+      <a href="terms.html">terms</a>
+      <a href="contact.html">contact</a>
+      <a href="../index.html">a future sanctuary tool - thoughtful tools for everyday life</a>
+    </div>
+    <div class="footer-note">&copy; 2026 futuresanctuary </div>
+  </footer>
+
+</body>
+
+</html>

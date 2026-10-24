@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Savings Journey Tracker — Future Sanctuary</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet" />
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+        rel="stylesheet" />
+    <style>
+        /* ============================================================
+       FUTURE SANCTUARY — SAVINGS JOURNEY TRACKER
+       Same brand system as the Pause Workbook.
+       Primary: #7597a7 (slate blue) · Accent: #E2BBAA (blush)
+       Text: #111111 · Bg: #FBFAF5 · Bg-box: #F5F3EB · Border: #E8E0D2
+       ============================================================ */
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --blue: #7597a7;
+            --blue-mid: #8AADA7;
+            --blush: #E2BBAA;
+            --blush-light: #F5EAE4;
+            --text: #111111;
+            --muted: #7A6E65;
+            --hint: #A89D95;
+            --bg: #FBFAF5;
+            --bg-box: #F5F3EB;
+            --border: #E8E0D2;
+            --sage: #8A9E8C;
+            --sage-light: #EAF0EA;
+            --ochre: #C9A96E;
+            --ochre-light: #FAF3E0;
+            --terracotta: #C4785A;
+        }
+
+        body {
+            background: #D0C9C0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* A4: 210mm × 297mm ≈ 794px × 1123px at 96dpi */
+        .page {
+            width: 794px;
+            min-height: 1123px;
+            height: 1123px;
+            background: var(--bg);
+            margin: 32px auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-cover {
+            background: #f4eee9;
+        }
+
+        .page-light {
+            background: var(--bg);
+        }
+
+        .page-sand {
+            background: var(--bg-box);
+        }
+
+        .page-inner {
+            padding: 52px 56px 44px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-inner-wide {
+            padding: 44px 48px 36px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-header-logo {
+            font-family: 'Gochi Hand', cursive;
+            font-size: 18px;
+            color: var(--muted);
+            letter-spacing: 0.02em;
+        }
+
+        .page-header-logo span {
+            color: var(--blue);
+        }
+
+        .page-header-meta {
+            font-size: 10px;
+            color: var(--hint);
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .page-footer {
+            margin-top: auto;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-footer-text {
+            font-size: 8px;
+            color: #111111;
+            letter-spacing: 0.8px;
+        }
+
+        .page-num {
+            font-size: 10px;
+            color: var(--hint);
+            font-family: 'Gochi Hand', cursive;
+        }
+
+        .accent-strip {
+            height: 3px;
+            background: var(--blue);
+            width: 100%;
+        }
+
+        .accent-strip-blush {
+            background: var(--blush);
+        }
+
+        .accent-strip-gradient {
+            background: linear-gradient(90deg, var(--blue), var(--blue-mid), var(--blush));
+        }
+
+        .display-title {
+            font-family: 'Gochi Hand', cursive;
+            font-size: 38px;
+            font-weight: 600;
+            line-height: 1.1;
+            color: #FBFAF5;
+        }
+
+        .display-title em {
+            color: var(--blush);
+            font-style: italic;
+        }
+
+        .section-title {
+            font-family: 'Gochi Hand', cursive;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .section-title-sm {
+            font-family: 'Gochi Hand', cursive;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.25;
+            margin-bottom: 4px;
+        }
+
+        .eyebrow {
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 8px;
+        }
+
+        .eyebrow-blush {
+            color: var(--blush);
+        }
+
+        .eyebrow-sage {
+            color: #3A6A65;
+        }
+
+        .eyebrow-muted {
+            color: var(--hint);
+        }
+
+        .body-text {
+            font-size: 12.5px;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .body-text strong {
+            color: var(--text);
+        }
+
+        .body-text-sm {
+            font-size: 11.5px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 18px 0;
+        }
+
+        .callout {
+            background: var(--bg-box);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            padding: 16px 20px;
+        }
+
+        .callout-blue {
+            background: #EBF0F3;
+            border-left: 3px solid var(--blue);
+            border-radius: 0 10px 10px 0;
+            padding: 14px 18px;
+        }
+
+        .callout-blush {
+            background: var(--blush-light);
+            border-left: 3px solid var(--blush);
+            border-radius: 0 10px 10px 0;
+            padding: 14px 18px;
+        }
+
+        .callout-sage {
+            background: var(--sage-light);
+            border-left: 3px solid var(--sage);
+            border-radius: 0 10px 10px 0;
+            padding: 14px 18px;
+        }
+
+        .callout-ochre {
+            background: var(--ochre-light);
+            border-left: 3px solid var(--ochre);
+            border-radius: 0 10px 10px 0;
+            padding: 14px 18px;
+        }
+
+        .field-label {
+            font-size: 9.5px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            font-family: 'Courier Prime', monospace;
+            font-size: 12.5px;
+            color: var(--text);
+            padding: 6px 2px;
+            resize: none;
+            outline: none;
+            transition: border-color 0.2s;
+            line-height: 1.6;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            border-bottom-color: var(--blue);
+        }
+
+        textarea {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            background: #FDFCF8;
+        }
+
+        textarea:focus {
+            border-color: var(--blue);
+        }
+
+        .line-field {
+            border-bottom: 1px solid var(--border);
+            min-height: 26px;
+            margin-bottom: 8px;
+            width: 100%;
+            font-size: 12.5px;
+            font-family: 'Courier Prime', monospace;
+            color: var(--text);
+            background: transparent;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            outline: none;
+            padding: 3px 2px;
+        }
+
+        .line-field:focus {
+            border-bottom-color: var(--blue);
+        }
+
+        .line-field-big {
+            font-size: 20px;
+            font-family: 'Gochi Hand', cursive;
+            color: var(--blue);
+            border-bottom: 2px solid var(--blue);
+        }
+
+        .check-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 9px;
+        }
+
+        .check-row input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            accent-color: var(--blue);
+            cursor: pointer;
+        }
+
+        .check-row label {
+            font-size: 12px;
+            color: var(--text);
+            line-height: 1.55;
+            cursor: pointer;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            align-items: start;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .illustration {
+            background: var(--bg-box);
+            border: 1.5px dashed var(--border);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--hint);
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            gap: 6px;
+        }
+
+        .illustration-icon {
+            font-size: 28px;
+            opacity: 0.45;
+        }
+
+        .illustration-label {
+            font-size: 9px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--hint);
+            text-align: center;
+        }
+
+        .style-illus {
+            display: none;
+        }
+
+        .style-illus.active {
+            display: flex;
+        }
+
+        .tag-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin: 8px 0;
+        }
+
+        .tag-btn {
+            font-family: 'Courier Prime', monospace;
+            font-size: 11px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--bg-box);
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.15s;
+            user-select: none;
+        }
+
+        .tag-btn:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+
+        .tag-btn.selected {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: white;
+        }
+
+        .tag-btn.sel-blush {
+            background: var(--blush);
+            border-color: var(--blush);
+            color: white;
+        }
+
+        /* progress visual */
+        .progress-amounts {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .progress-saved {
+            font-family: 'Gochi Hand', cursive;
+            font-size: 32px;
+            color: var(--blue);
+        }
+
+        .progress-of {
+            font-size: 13px;
+            color: var(--hint);
+        }
+
+        .progress-target {
+            font-family: 'Gochi Hand', cursive;
+            font-size: 22px;
+            color: var(--text);
+        }
+
+        .progress-bar-outer {
+            height: 22px;
+            background: var(--bg-box);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--sage), var(--blue));
+            transition: width 0.4s ease;
+            border-radius: 12px 0 0 12px;
+        }
+
+        .progress-meta-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10.5px;
+            color: var(--hint);
+            margin-bottom: 4px;
+        }
+
+        .progress-message {
+            font-family: 'Gochi Hand', cursive;
+            font-size: 15px;
+            color: var(--text);
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        /* milestone cards */
+        .milestone-card {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: #FDFCF8;
+            padding: 14px 16px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .milestone-pct {
+            font-family: 'Gochi Hand', cursive;
+            font-size: 26px;
+            color: var(--blue);
+            width: 56px;
+            flex-shrink: 0;
+        }
+
+        .milestone-amt {
+            font-family: 'Courier Prime', monospace;
+            font-size: 13px;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .milestone-fields {
+            flex: 1;
+        }
+
+        /* month table */
+        .month-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .month-table th {
+            font-size: 9px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--hint);
+            border-bottom: 1px solid var(--border);
+            padding: 6px 8px;
+            text-align: left;
+            font-weight: normal;
+        }
+
+        .month-table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid var(--border);
+            font-size: 11.5px;
+            vertical-align: top;
+        }
+
+        .month-table td input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            font-family: 'Courier Prime', monospace;
+            font-size: 11.5px;
+            color: var(--text);
+            outline: none;
+            padding: 2px 0;
+        }
+
+        .month-table td input:focus {
+            background: #EBF0F3;
+        }
+
+        .month-table td.month-label {
+            font-family: 'Gochi Hand', cursive;
+            font-size: 13px;
+            color: var(--text);
+            white-space: nowrap;
+        }
+
+        /* habit-style momentum grid */
+        .habit-grid {
+            display: grid;
+            grid-template-columns: 150px repeat(12, 1fr);
+            gap: 3px;
+        }
+
+        .hg-cell {
+            height: 26px;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: var(--hint);
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.1s;
+        }
+
+        .hg-cell.header {
+            background: var(--bg-box);
+            font-size: 8.5px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            cursor: default;
+            color: var(--muted);
+        }
+
+        .hg-cell.row-label {
+            font-size: 10px;
+            color: var(--text);
+            justify-content: flex-start;
+            padding-left: 4px;
+            cursor: default;
+            background: transparent;
+            border: none;
+        }
+
+        .hg-cell.data:hover {
+            background: #EBF0F3;
+        }
+
+        .hg-cell.marked {
+            background: var(--blue);
+            color: white;
+        }
+
+        .hg-cell.marked::after {
+            content: '✓';
+        }
+
+        .prompt-box {
+            margin-bottom: 14px;
+        }
+
+        .prompt-q {
+            font-family: 'Gochi Hand', cursive;
+            font-size: 13px;
+            color: var(--text);
+            margin-bottom: 6px;
+            font-style: italic;
+        }
+
+        .end-cta {
+            background: #EBF0F3;
+            border: 1px solid var(--blue-mid);
+            border-left: 3px solid var(--blue);
+            border-radius: 0 10px 10px 0;
+            padding: 16px 20px;
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+        }
+
+        .qr-placeholder {
+            width: 88px;
+            height: 88px;
+            border: 1.5px dashed var(--border);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: #fff;
+        }
+
+        .qr-placeholder-label {
+            font-size: 8px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--hint);
+            text-align: center;
+            line-height: 1.6;
+            padding: 0 6px;
+        }
+
+        /* save bar + modal (identical pattern to the Pause workbook) */
+        .save-bar {
+            background: var(--bg-box);
+            padding: 24px 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0 auto;
+            width: 794px;
+            margin-bottom: 40px;
+        }
+
+        .save-btn {
+            background: var(--blue);
+            color: white;
+            border: none;
+            font-family: 'Courier Prime', monospace;
+            font-size: 10px;
+            padding: 12px 28px;
+            border-radius: 6px;
+            cursor: pointer;
+            letter-spacing: 0.3px;
+            transition: background 0.2s;
+        }
+
+        .save-btn:hover {
+            background: #5a7a8a;
+        }
+
+        .save-note {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #888;
+        }
+
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(17, 17, 17, 0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+        }
+
+        .modal-card {
+            background: var(--bg);
+            border-radius: 14px;
+            width: 100%;
+            max-width: 420px;
+            padding: 28px 28px 24px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: var(--hint);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: var(--text);
+        }
+
+        .modal-title {
+            font-family: 'Gochi Hand', cursive;
+            font-size: 22px;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+
+        .modal-option {
+            padding: 16px 0;
+        }
+
+        .modal-option-title {
+            font-family: 'Gochi Hand', cursive;
+            font-size: 16px;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .modal-option-desc {
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .modal-checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 10.5px;
+            color: var(--muted);
+            cursor: pointer;
+            margin-bottom: 14px;
+        }
+
+        .modal-checkbox-row input {
+            cursor: pointer;
+            accent-color: var(--blue);
+        }
+
+        .modal-action-btn {
+            display: inline-block;
+            background: var(--blue);
+            color: white;
+            border: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .modal-action-btn:hover {
+            background: #5a7a8a;
+        }
+
+        .modal-divider {
+            border-top: 1px solid var(--border);
+            margin: 4px 0;
+        }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+
+            body {
+                background: white;
+            }
+
+            .page-cover,
+            .page-light,
+            .page-sand {
+                background: #ffffff !important;
+            }
+
+            body.keep-tint .page-cover {
+                background: #f4eee9 !important;
+            }
+
+            body.keep-tint .page-light {
+                background: var(--bg) !important;
+            }
+
+            body.keep-tint .page-sand {
+                background: var(--bg-box) !important;
+            }
+
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+                break-after: page;
+            }
+
+            .save-bar {
+                display: none;
+            }
+
+            .modal-backdrop {
+                display: none !important;
+            }
+
+            input,
+            textarea {
+                border-color: #ccc !important;
+            }
+        }
+
+        .cover-inner {
+            padding: 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cover-top {
+            padding: 44px 52px 0;
+            flex: 1;
+        }
+
+        .cover-tag {
+            font-size: 9px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 32px;
+        }
+
+        .cover-number {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 110px;
+            color: #1E1E1E;
+            line-height: 1;
+            margin-bottom: -8px;
+            font-weight: 600;
+        }
+
+        .cover-subtitle {
+            font-size: 12px;
+            color: #888;
+            line-height: 1.8;
+            max-width: 380px;
+            margin-top: 20px;
+        }
+
+        .cover-bottom {
+            padding: 28px 52px 36px;
+            border-top: 1px solid #2A2A2A;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .cover-brand {
+            font-family: 'Gochi Hand', cursive;
+            font-size: 16px;
+            color: #888;
+        }
+
+        .cover-brand span {
+            color: var(--blue);
+        }
+
+        .cover-product {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #555;
+        }
+
+        .cover-blush-strip {
+            height: 5px;
+            background: linear-gradient(90deg, var(--blue) 0%, var(--blue-mid) 50%, var(--blush) 100%);
+        }
+
+        .toc-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .toc-num {
+            font-size: 9px;
+            letter-spacing: 1px;
+            color: var(--blue);
+            width: 32px;
+            flex-shrink: 0;
+            text-transform: uppercase;
+        }
+
+        .toc-title {
+            font-family: 'Gochi Hand', cursive;
+            font-size: 14px;
+            color: var(--text);
+            flex: 1;
+        }
+
+        .toc-desc {
+            font-size: 11px;
+            color: var(--hint);
+            flex: 2;
+            padding-left: 8px;
+        }
+
+        .toc-pg {
+            font-size: 10px;
+            color: var(--hint);
+            width: 20px;
+            text-align: right;
+        }
+
+        .mb4 {
+            margin-bottom: 4px;
+        }
+
+        .mb8 {
+            margin-bottom: 8px;
+        }
+
+        .mb12 {
+            margin-bottom: 12px;
+        }
+
+        .mb14 {
+            margin-bottom: 14px;
+        }
+
+        .mb16 {
+            margin-bottom: 16px;
+        }
+
+        .mb20 {
+            margin-bottom: 20px;
+        }
+
+        .mt8 {
+            margin-top: 8px;
+        }
+
+        .mt12 {
+            margin-top: 12px;
+        }
+
+        .mt16 {
+            margin-top: 16px;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            font-size: 11px;
+            color: var(--hint);
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================
+       PAGE 1 — COVER
+       ============================================================ -->
+    <div class="page page-cover">
+        <div class="cover-blush-strip"></div>
+        <div class="cover-inner">
+            <div class="cover-top">
+                <div class="cover-tag">Future Sanctuary · Savings Journey Tracker</div>
+                <div class="cover-number">6</div>
+                <div style="margin-top:2px;">
+                    <div class="display-title" style="font-size:32px; color:#111111;">exercises to
+                        map<br /><em>your</em> savings journey</div>
+                </div>
+                <div class="cover-subtitle">
+                    A practical, fill-in tracker for setting a savings goal, watching your progress build, and staying
+                    motivated with milestones that actually mean something to you — free, from Future Sanctuary.
+                </div>
+                <br><br>
+                <div class="illustration"
+                    style="height:260px; margin-top:12px; background:#1A1A1A; border-color:#333; color:#555;">
+                    <div class="illustration-icon" style="font-size:48px; opacity:0.3;">◐</div>
+                    <div class="illustration-label" style="color:#444;">
+                        Illustration placeholder — cover<br />
+                        Suggested: plant/jar/build progress trio, dark bg, muted blue + blush ink<br />
+                        (swap in once your asset set is ready)
+                    </div>
+                </div>
+            </div>
+            <div class="cover-bottom">
+                <div>
+                    <div class="cover-brand">futuresanctuary<span>.</span></div>
+                    <div style="font-size:10px;color:#555;margin-top:3px;letter-spacing:0.5px;">the savings journey
+                        tracker</div>
+                </div>
+                <div class="cover-product">save · goal tracker</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+       PAGE 2 — TOC + HOW TO USE
+       ============================================================ -->
+    <div class="page page-light">
+        <div class="accent-strip"></div>
+        <div class="page-inner">
+            <div class="page-header">
+                <div class="page-header-logo">futuresanctuary<span>.</span></div>
+                <div class="page-header-meta">the savings journey tracker</div>
+            </div>
+
+            <div class="eyebrow mb8">Contents</div>
+            <div class="section-title mb16">What's inside</div>
+
+            <div class="toc-row">
+                <div class="toc-num">Ex 1</div>
+                <div class="toc-title">Define Your Goal</div>
+                <div class="toc-desc">Name your goal, set a target amount, and choose your currency</div>
+                <div class="toc-pg">p3</div>
+            </div>
+            <div class="toc-row">
+                <div class="toc-num">Ex 2</div>
+                <div class="toc-title">Your Progress Visual</div>
+                <div class="toc-desc">A live progress bar built from your saved and target amounts</div>
+                <div class="toc-pg">p4</div>
+            </div>
+            <div class="toc-row">
+                <div class="toc-num">Ex 3</div>
+                <div class="toc-title">Your Milestone Map</div>
+                <div class="toc-desc">Auto-calculated 25/50/75/100% milestones, with a small reward for each</div>
+                <div class="toc-pg">p5</div>
+            </div>
+            <div class="toc-row">
+                <div class="toc-num">Ex 4</div>
+                <div class="toc-title">Monthly Savings Log</div>
+                <div class="toc-desc">A 12-month table to track what actually went in, month by month</div>
+                <div class="toc-pg">p6</div>
+            </div>
+            <div class="toc-row">
+                <div class="toc-num">Ex 5</div>
+                <div class="toc-title">Momentum Tracker</div>
+                <div class="toc-desc">A 12-week grid to build the habit of putting something aside</div>
+                <div class="toc-pg">p7</div>
+            </div>
+            <div class="toc-row" style="border-bottom: none;">
+                <div class="toc-num">Ex 6</div>
+                <div class="toc-title">Reflection &amp; What's Next</div>
+                <div class="toc-desc">A quarterly check-in, plus where to go once your goal is met</div>
+                <div class="toc-pg">p8</div>
+            </div>
+
+            <hr class="divider" style="margin-top:16px;" />
+
+            <div class="callout-blue mt8">
+                <div class="eyebrow mb4">How to use this tracker</div>
+                <p class="body-text-sm">Fill it in <strong>browser</strong> (every field is interactive and your
+                    progress bar updates live), or print it and fill it in by hand. Start with Exercise 1 — your target
+                    amount feeds the progress bar and milestone amounts automatically, so it's worth setting that first.
+                    Come back to the monthly log and momentum tracker regularly as you save.</p>
+            </div>
+
+            <div class="callout-sage mt8">
+                <div class="eyebrow eyebrow-sage mb4">Your answers save automatically</div>
+                <p class="body-text-sm">If you're working in the browser version, your progress saves to this browser as
+                    you go — no need to press anything. It's tied to this device though, so if you switch devices or
+                    browsers, use the <strong>Save / Export</strong> button at the bottom of the page to download a JSON
+                    backup, then <strong>Import Answers</strong> to bring it back in later.</p>
+            </div>
+
+            <div class="page-footer">
+                <div class="page-footer-text">futuresanctuary. · the savings journey tracker</div>
+                <div class="page-num">2</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+       PAGE 3 — EXERCISE 1: DEFINE YOUR GOAL
+       ============================================================ -->
+    <div class="page page-light">
+        <div class="accent-strip"></div>
+        <div class="page-inner">
+            <div class="page-header">
+                <div class="page-header-logo">futuresanctuary<span>.</span></div>
+                <div class="page-header-meta">Exercise 01 · Define Your Goal</div>
+            </div>
+
+            <div class="eyebrow mb4">Exercise 01</div>
+            <div class="section-title mb4">Define Your Savings Goal</div>
+            <p class="body-text mb16">Start with the goal itself. Naming it clearly — and setting a real target amount —
+                is what makes the rest of this tracker actually work for you rather than being a generic spreadsheet.
+            </p>
+
+            <div class="mb16">
+                <label class="field-label">What are you saving for?</label>
+                <div class="tag-grid" id="goal-type-tags">
+                    <div class="tag-btn" onclick="toggleTag(this)">🏠 house deposit</div>
+                    <div class="tag-btn" onclick="toggleTag(this)">✈️ travel</div>
+                    <div class="tag-btn" onclick="toggleTag(this)">🛡️ emergency fund</div>
+                    <div class="tag-btn" onclick="toggleTag(this)">💍 wedding</div>
+                    <div class="tag-btn" onclick="toggleTag(this)">🚗 car</div>
+                    <div class="tag-btn" onclick="toggleTag(this)">🎁 something else</div>
+                </div>
+            </div>
+
+            <div class="grid-2 mb16">
+                <div>
+                    <label class="field-label">Name your goal</label>
+                    <input type="text" class="line-field"
+                        placeholder="e.g. Our Portugal trip, My first flat, The cushion fund..." />
+                </div>
+                <div>
+                    <label class="field-label">Currency</label>
+                    <div class="tag-grid" id="currency-tags" style="margin-top:2px;">
+                        <div class="tag-btn selected" onclick="selectSingleTag(this)">£ GBP</div>
+                        <div class="tag-btn" onclick="selectSingleTag(this)">$ USD</div>
+                        <div class="tag-btn" onclick="selectSingleTag(this)">€ EUR</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2 mb16">
+                <div>
+                    <label class="field-label">Target amount</label>
+                    <input type="text" class="line-field line-field-big" id="goal-target" placeholder="e.g. 2000" />
+                </div>
+                <div>
+                    <label class="field-label">Target date / timeframe</label>
+                    <input type="text" class="line-field" placeholder="e.g. by next August, or in 12 months" />
+                </div>
+            </div>
+
+            <div class="mb16">
+                <label class="field-label">Why this goal matters to you</label>
+                <textarea rows="3"
+                    placeholder="What will actually be different once you've reached it? Be specific — this is what you'll come back to on the harder weeks."></textarea>
+            </div>
+
+            <div class="callout-sage">
+                <p class="body-text-sm"><strong>No judgement about pace.</strong> A small target reached steadily beats
+                    a big one abandoned in week three. You can always come back and adjust the target amount later — the
+                    rest of this tracker will recalculate itself.</p>
+            </div>
+
+            <div class="page-footer">
+                <div class="page-footer-text">futuresanctuary. · the savings journey tracker</div>
+                <div class="page-num">3</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+       PAGE 4 — EXERCISE 2: YOUR PROGRESS VISUAL
+       ============================================================ -->
+    <div class="page page-light">
+        <div class="accent-strip accent-strip-blush"></div>
+        <div class="page-inner">
+            <div class="page-header">
+                <div class="page-header-logo">futuresanctuary<span>.</span></div>
+                <div class="page-header-meta">Exercise 02 · Your Progress Visual</div>
+            </div>
+
+            <div class="eyebrow eyebrow-blush mb4">Exercise 02</div>
+            <div class="section-title mb4">Your Progress Visual</div>
+            <p class="body-text mb16">Choose how you'd like to picture your progress, then update the amount you've
+                saved so far any time — the bar below updates automatically from your target on the previous page.</p>
+
+            <div class="mb16">
+                <label class="field-label">Choose your visual style</label>
+                <div class="tag-grid" id="style-tags">
+                    <div class="tag-btn selected" data-style="plant" onclick="selectStyle(this)">🌱 plant</div>
+                    <div class="tag-btn" data-style="jar" onclick="selectStyle(this)">🫙 jar</div>
+                    <div class="tag-btn" data-style="build" onclick="selectStyle(this)">🏗️ build</div>
+                    <div class="tag-btn" data-style="bar" onclick="selectStyle(this)">📊 simple bar</div>
+                </div>
+            </div>
+
+            <div class="illustration style-illus active" data-style="plant" style="height:200px; margin-bottom:16px;">
+                <div class="illustration-icon">🌱</div>
+                <div class="illustration-label">Illustration placeholder — plant progress (5 stages: seed → sprout →
+                    small plant → growing → full plant). Swap in your asset here.</div>
+            </div>
+            <div class="illustration style-illus" data-style="jar" style="height:200px; margin-bottom:16px;">
+                <div class="illustration-icon">🫙</div>
+                <div class="illustration-label">Illustration placeholder — jar progress (5 stages: empty → 25% → 50% →
+                    75% → full). Swap in your asset here.</div>
+            </div>
+            <div class="illustration style-illus" data-style="build" style="height:200px; margin-bottom:16px;">
+                <div class="illustration-icon">🏗️</div>
+                <div class="illustration-label">Illustration placeholder — build progress (5 stages: foundation → walls
+                    → roof → near complete → complete). Swap in your asset here.</div>
+            </div>
+            <div class="illustration style-illus" data-style="bar" style="height:200px; margin-bottom:16px;">
+                <div class="illustration-icon">📊</div>
+                <div class="illustration-label">No illustration needed — the progress bar below is the visual for this
+                    style.</div>
+            </div>
+
+            <div class="grid-2 mb16">
+                <div>
+                    <label class="field-label">How much have you saved so far?</label>
+                    <input type="text" class="line-field line-field-big" id="goal-saved" placeholder="e.g. 750" />
+                </div>
+                <div>
+                    <label class="field-label">Last updated</label>
+                    <input type="text" class="line-field" placeholder="e.g. today's date" />
+                </div>
+            </div>
+
+            <div class="callout mb12" style="background:#FDFCF8;">
+                <div class="progress-amounts">
+                    <span class="progress-saved" id="progress-saved-display">£0</span>
+                    <span class="progress-of">saved of</span>
+                    <span class="progress-target" id="progress-target-display">£0</span>
+                </div>
+                <div class="progress-bar-outer">
+                    <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                </div>
+                <div class="progress-meta-row">
+                    <span id="progress-percent-label">0% there</span>
+                    <span id="progress-remaining-label">£0 to go</span>
+                </div>
+                <div class="progress-message" id="progress-message">Set a target on the previous page to bring this to
+                    life.</div>
+            </div>
+
+            <div class="page-footer">
+                <div class="page-footer-text">futuresanctuary. · the savings journey tracker</div>
+                <div class="page-num">4</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+       PAGE 5 — EXERCISE 3: MILESTONE MAP
+       ============================================================ -->
+    <div class="page page-light">
+        <div class="accent-strip"></div>
+        <div class="page-inner">
+            <div class="page-header">
+                <div class="page-header-logo">futuresanctuary<span>.</span></div>
+                <div class="page-header-meta">Exercise 03 · Your Milestone Map</div>
+            </div>
+
+            <div class="eyebrow mb4">Exercise 03</div>
+            <div class="section-title mb4">Your Milestone Map</div>
+            <p class="body-text mb16">Big goals are easier to sustain when they're broken into smaller wins along the
+                way. These four milestones are calculated automatically from your target amount — give each one a small,
+                low-cost reward so reaching it actually feels like something.</p>
+
+            <div class="milestone-card">
+                <div class="milestone-pct">25%</div>
+                <div class="milestone-fields">
+                    <div class="milestone-amt" id="milestone-25">Set your target on p3 to see this amount</div>
+                    <div class="check-row" style="margin-bottom:6px;"><input type="checkbox" id="m1-reached" /><label
+                            for="m1-reached">Reached</label></div>
+                    <input type="text" class="line-field"
+                        placeholder="Small reward when I hit this: e.g. a nice coffee out, an evening off cooking..." />
+                </div>
+            </div>
+
+            <div class="milestone-card">
+                <div class="milestone-pct">50%</div>
+                <div class="milestone-fields">
+                    <div class="milestone-amt" id="milestone-50">Set your target on p3 to see this amount</div>
+                    <div class="check-row" style="margin-bottom:6px;"><input type="checkbox" id="m2-reached" /><label
+                            for="m2-reached">Reached</label></div>
+                    <input type="text" class="line-field" placeholder="Small reward when I hit this..." />
+                </div>
+            </div>
+
+            <div class="milestone-card">
+                <div class="milestone-pct">75%</div>
+                <div class="milestone-fields">
+                    <div class="milestone-amt" id="milestone-75">Set your target on p3 to see this amount</div>
+                    <div class="check-row" style="margin-bottom:6px;"><input type="checkbox" id="m3-reached" /><label
+                            for="m3-reached">Reached</label></div>
+                    <input type="text" class="line-field" placeholder="Small reward when I hit this..." />
+                </div>
+            </div>
+
+            <div class="milestone-card">
+                <div class="milestone-pct">100%</div>
+                <div class="milestone-fields">
+                    <div class="milestone-amt" id="milestone-100">Set your target on p3 to see this amount</div>
+                    <div class="check-row" style="margin-bottom:6px;"><input type="checkbox" id="m4-reached" /><label
+                            for="m4-reached">Goal reached!</label></div>
+                    <input type="text" class="line-field"
+                        placeholder="How I'll properly celebrate reaching the full goal..." />
+                </div>
+            </div>
+
+            <div class="callout-ochre">
+                <p class="body-text-sm"><strong>Why milestones work:</strong> a single distant target can feel abstract
+                    and easy to deprioritise. Four visible checkpoints — each with its own small reward — give your
+                    brain regular proof that the plan is working, long before the big goal itself is met.</p>
+            </div>
+
+            <div class="page-footer">
+                <div class="page-footer-text">futuresanctuary. · the savings journey tracker</div>
+                <div class="page-num">5</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+       PAGE 6 — EXERCISE 4: MONTHLY SAVINGS LOG
+       ============================================================ -->
+    <div class="page page-light">
+        <div class="accent-strip"></div>
+        <div class="page-inner-wide">
+            <div class="page-header">
+                <div class="page-header-logo">futuresanctuary<span>.</span></div>
+                <div class="page-header-meta">Exercise 04 · Monthly Savings Log</div>
+            </div>
+
+            <div class="eyebrow mb4">Exercise 04</div>
+            <div class="section-title mb4">Monthly Savings Log</div>
+            <p class="body-text mb12">A simple month-by-month record. It doesn't need to be a fixed amount every month —
+                the point is to see the pattern of what actually went in, not to judge any single month against another.
+            </p>
+
+            <table class="month-table mb12">
+                <thead>
+                    <tr>
+                        <th style="width:22%;">Month</th>
+                        <th style="width:26%;">Amount saved</th>
+                        <th style="width:52%;">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="month-label"><input type="text" placeholder="Month 1" /></td>
+                        <td><input type="text" placeholder="e.g. 150" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                    </tr>
+                    <tr>
+                        <td class="month-label"><input type="text" placeholder="Month 2" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                    </tr>
+                    <tr>
+                        <td class="month-label"><input type="text" placeholder="Month 3" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                    </tr>
+                    <tr>
+                        <td class="month-label"><input type="text" placeholder="Month 4" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                    </tr>
+                    <tr>
+                        <td class="month-label"><input type="text" placeholder="Month 5" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                    </tr>
+                    <tr>
+                        <td class="month-label"><input type="text" placeholder="Month 6" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                    </tr>
+                    <tr>
+                        <td class="month-label"><input type="text" placeholder="Month 7" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                    </tr>
+                    <tr>
+                        <td class="month-label"><input type="text" placeholder="Month 8" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                    </tr>
+                    <tr>
+                        <td class="month-label"><input type="text" placeholder="Month 9" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                    </tr>
+                    <tr>
+                        <td class="month-label"><input type="text" placeholder="Month 10" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                    </tr>
+                    <tr>
+                        <td class="month-label"><input type="text" placeholder="Month 11" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                    </tr>
+                    <tr>
+                        <td class="month-label"><input type="text" placeholder="Month 12" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                        <td><input type="text" placeholder="" /></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="callout-blue">
+                <p class="body-text-sm"><strong>Consistency matters more than amount.</strong> A £20 month is real data,
+                    not a failure — it tells you something about what was going on that month. Fill in every row you
+                    can, even the low ones, rather than skipping months that felt disappointing.</p>
+            </div>
+
+            <div class="page-footer">
+                <div class="page-footer-text">futuresanctuary. · the savings journey tracker</div>
+                <div class="page-num">6</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+       PAGE 7 — EXERCISE 5: MOMENTUM TRACKER
+       ============================================================ -->
+    <div class="page page-light">
+        <div class="accent-strip accent-strip-blush"></div>
+        <div class="page-inner-wide">
+            <div class="page-header">
+                <div class="page-header-logo">futuresanctuary<span>.</span></div>
+                <div class="page-header-meta">Exercise 05 · Momentum Tracker</div>
+            </div>
+
+            <div class="eyebrow eyebrow-blush mb4">Exercise 05</div>
+            <div class="section-title mb4">12-Week Momentum Tracker</div>
+            <p class="body-text mb12">A weekly view builds the habit faster than a monthly one. Tick each week you put
+                something aside, however small — and be honest about the weeks that felt hard, since those are the ones
+                worth understanding.</p>
+
+            <div class="habit-grid mb14" id="momentum-grid">
+                <div class="hg-cell header">Habit</div>
+                <div class="hg-cell header">W1</div>
+                <div class="hg-cell header">W2</div>
+                <div class="hg-cell header">W3</div>
+                <div class="hg-cell header">W4</div>
+                <div class="hg-cell header">W5</div>
+                <div class="hg-cell header">W6</div>
+                <div class="hg-cell header">W7</div>
+                <div class="hg-cell header">W8</div>
+                <div class="hg-cell header">W9</div>
+                <div class="hg-cell header">W10</div>
+                <div class="hg-cell header">W11</div>
+                <div class="hg-cell header">W12</div>
+
+                <div class="hg-cell row-label">Put something aside</div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+
+                <div class="hg-cell row-label">Felt tempted to dip in</div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+
+                <div class="hg-cell row-label">Stayed on track</div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+                <div class="hg-cell data" onclick="toggleHabit(this)"></div>
+            </div>
+
+            <div class="grid-2 mb14">
+                <div>
+                    <label class="field-label">What actually helps me stay consistent (tick all that apply)</label>
+                    <div class="check-row"><input type="checkbox" id="h1" /><label for="h1">An automatic transfer I
+                            don't have to think about</label></div>
+                    <div class="check-row"><input type="checkbox" id="h2" /><label for="h2">Seeing the visual progress
+                            on this tracker</label></div>
+                    <div class="check-row"><input type="checkbox" id="h3" /><label for="h3">Telling someone else about
+                            the goal</label></div>
+                    <div class="check-row"><input type="checkbox" id="h4" /><label for="h4">Reminding myself why the
+                            goal matters</label></div>
+                    <div class="check-row"><input type="checkbox" id="h5" /><label for="h5">Keeping the amount small
+                            enough to feel easy</label></div>
+                </div>
+                <div>
+                    <label class="field-label">If I feel like giving up, I will remind myself that...</label>
+                    <textarea rows="6"
+                        placeholder="Write this now, while you feel motivated — it's for the week you don't."></textarea>
+                </div>
+            </div>
+
+            <div class="callout-sage">
+                <p class="body-text-sm"><strong>A missed week isn't a failed plan.</strong> Look at the pattern across
+                    all twelve weeks rather than any single one — the goal is to notice what tends to make saving easier
+                    or harder for you, not to keep a perfect streak.</p>
+            </div>
+
+            <div class="page-footer">
+                <div class="page-footer-text">futuresanctuary. · the savings journey tracker</div>
+                <div class="page-num">7</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+       PAGE 8 — EXERCISE 6: REFLECTION + NEXT STEPS
+       ============================================================ -->
+    <div class="page page-sand">
+        <div class="accent-strip accent-strip-gradient"></div>
+        <div class="page-inner-wide">
+            <div class="page-header">
+                <div class="page-header-logo">futuresanctuary<span>.</span></div>
+                <div class="page-header-meta">Exercise 06 · Reflection &amp; What's Next</div>
+            </div>
+
+            <div class="eyebrow mb4">Exercise 06</div>
+            <div class="section-title mb4">Quarterly Reflection</div>
+            <p class="body-text mb14">Every few months, come back to these questions. Honest reflection — not judgement
+                — is what turns a savings goal into a habit that actually sticks.</p>
+
+            <div class="grid-2 mb12" style="gap:12px;">
+                <div class="prompt-box">
+                    <div class="prompt-q">1. Am I roughly on track for my target date?</div>
+                    <textarea rows="3"
+                        placeholder="Not a verdict — just an honest look at the numbers so far."></textarea>
+                </div>
+                <div class="prompt-box">
+                    <div class="prompt-q">2. What made saving easiest this quarter?</div>
+                    <textarea rows="3" placeholder="A routine, a reminder, a specific week — what worked?"></textarea>
+                </div>
+                <div class="prompt-box">
+                    <div class="prompt-q">3. What made it hardest?</div>
+                    <textarea rows="3"
+                        placeholder="Be specific — this is useful information, not a confession."></textarea>
+                </div>
+                <div class="prompt-box">
+                    <div class="prompt-q">4. Does my target or timeframe need adjusting?</div>
+                    <textarea rows="3"
+                        placeholder="It's fine to change the plan — go back to p3 and update it if so."></textarea>
+                </div>
+            </div>
+
+            <div class="end-cta mt8">
+                <div style="flex:1;">
+                    <div class="eyebrow mb4">While you're saving, keep spending mindful</div>
+                    <p class="body-text-sm" style="margin-bottom:8px;">Pause is a free browser-based app built for the
+                        other side of this — decoding the impulse spending that quietly works against a savings goal.
+                        Daily log, impulse decoder, and a personalised if-then plan. No download, no login.</p>
+                    <div style="font-family:'Gochi Hand',cursive; font-size:14px; color:var(--blue);">
+                        futuresanctuary.co/pause</div>
+                </div>
+                <div style="text-align:center; flex-shrink:0;">
+                    <div class="qr-placeholder">
+                        <div class="qr-placeholder-label">QR code<br />placeholder</div>
+                    </div>
+                    <div
+                        style="font-size:8px; color:var(--hint); margin-top:5px; letter-spacing:0.5px; text-transform:uppercase;">
+                        scan to open Pause</div>
+                </div>
+            </div>
+
+            <div class="page-footer" style="margin-top:14px;">
+                <div class="page-footer-text">futuresanctuary. · the savings journey tracker · free to use · free to
+                    share</div>
+                <div class="page-num">8</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+       SAVE / PRINT BAR
+       ============================================================ -->
+    <div class="save-bar">
+        <div>
+            <div style="font-family:'Gochi Hand',cursive; font-size:16px; color:#111111; margin-bottom:4px;">
+                futuresanctuary<span style="color:#7597a7;">.</span></div>
+            <div class="save-note" id="save-note">Your answers auto-save to this browser. Export a JSON backup to keep
+                or move them elsewhere.</div>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+            <button class="save-btn" onclick="openSaveModal()">💾 Save / Export ▾</button>
+            <button class="save-btn" onclick="document.getElementById('import-file-input').click()"
+                style="background:#8A9E8C;">📤 Import Answers</button>
+            <input type="file" id="import-file-input" accept="application/json" style="display:none;"
+                onchange="handleImportFile(event)" />
+            <button class="save-btn" onclick="clearSavedAnswers()"
+                style="background:transparent; color:#A89D95; border:1px solid #A89D95; box-shadow:none;">clear saved
+                answers</button>
+        </div>
+    </div>
+
+    <!-- SAVE / EXPORT MODAL -->
+    <div class="modal-backdrop" id="save-modal" onclick="if(event.target===this) closeSaveModal()">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeSaveModal()" aria-label="Close">×</button>
+            <div class="modal-title">Save your tracker</div>
+
+            <div class="modal-option">
+                <div class="modal-option-title">🖨 Print / Save as PDF</div>
+                <label class="modal-checkbox-row">
+                    <input type="checkbox" id="tint-toggle"
+                        onchange="document.body.classList.toggle('keep-tint', this.checked)" />
+                    keep paper tint (nicer for a digital PDF, uses more ink on paper)
+                </label>
+                <p class="modal-option-desc" style="margin-top:-6px;">Tip: your browser may add its own page title, URL,
+                    and date. Look for "Headers and footers" under "More settings" in the print dialog and switch it off
+                    for a cleaner page.</p>
+                <button class="modal-action-btn" onclick="window.print()">Continue to print dialog →</button>
+            </div>
+
+            <div class="modal-divider"></div>
+
+            <div class="modal-option">
+                <div class="modal-option-title">📄 Export as JSON</div>
+                <p class="modal-option-desc">A backup file with all your answers — re-import it later on this device or
+                    another.</p>
+                <button class="modal-action-btn" onclick="saveAnswers(); closeSaveModal();">Export answers →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openSaveModal() { document.getElementById('save-modal').classList.add('open'); }
+        function closeSaveModal() { document.getElementById('save-modal').classList.remove('open'); }
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSaveModal(); });
+    </script>
+
+    <script>
+        // ============================================================
+        // INTERACTION HANDLERS
+        // ============================================================
+
+        function toggleTag(el) {
+            el.classList.toggle('selected');
+            scheduleAutosave();
+        }
+
+        // single-select tag group (e.g. currency)
+        function selectSingleTag(el) {
+            el.parentElement.querySelectorAll('.tag-btn').forEach(t => t.classList.remove('selected'));
+            el.classList.add('selected');
+            scheduleAutosave();
+        }
+
+        // progress-visual style picker: single-select + swap placeholder illustration
+        function selectStyle(el) {
+            el.parentElement.querySelectorAll('.tag-btn').forEach(t => t.classList.remove('selected'));
+            el.classList.add('selected');
+            const style = el.getAttribute('data-style');
+            document.querySelectorAll('.style-illus').forEach(div => {
+                div.classList.toggle('active', div.getAttribute('data-style') === style);
+            });
+            scheduleAutosave();
+        }
+
+        function toggleHabit(el) {
+            el.classList.toggle('marked');
+            scheduleAutosave();
+        }
+
+        // ---- Live progress bar + milestone calculation ----
+        function parseAmount(str) {
+            if (!str) return 0;
+            const cleaned = str.replace(/[^0-9.]/g, '');
+            const val = parseFloat(cleaned);
+            return isNaN(val) ? 0 : val;
+        }
+
+        function currentSymbol() {
+            const sel = document.querySelector('#currency-tags .tag-btn.selected');
+            if (!sel) return '£';
+            return sel.textContent.trim().split(' ')[0];
+        }
+
+        function updateProgress() {
+            const symbol = currentSymbol();
+            const targetEl = document.getElementById('goal-target');
+            const savedEl = document.getElementById('goal-saved');
+            const target = parseAmount(targetEl ? targetEl.value : '');
+            const saved = parseAmount(savedEl ? savedEl.value : '');
+
+            const savedDisplay = document.getElementById('progress-saved-display');
+            const targetDisplay = document.getElementById('progress-target-display');
+            const fill = document.getElementById('progress-bar-fill');
+            const pctLabel = document.getElementById('progress-percent-label');
+            const remLabel = document.getElementById('progress-remaining-label');
+            const msg = document.getElementById('progress-message');
+
+            if (savedDisplay) savedDisplay.textContent = symbol + Math.round(saved).toLocaleString();
+            if (targetDisplay) targetDisplay.textContent = symbol + Math.round(target).toLocaleString();
+
+            let pct = 0;
+            if (target > 0) pct = Math.max(0, Math.min(100, (saved / target) * 100));
+
+            if (fill) fill.style.width = pct + '%';
+            if (pctLabel) pctLabel.textContent = Math.round(pct) + '% there';
+
+            const remaining = Math.max(0, target - saved);
+            if (remLabel) remLabel.textContent = symbol + Math.round(remaining).toLocaleString() + ' to go';
+
+            if (msg) {
+                if (target <= 0) {
+                    msg.textContent = 'Set a target on the previous page to bring this to life.';
+                } else if (pct <= 0) {
+                    msg.textContent = "Every journey starts with the first amount in — even a small one counts.";
+                } else if (pct < 30) {
+                    msg.textContent = "You're just getting started — momentum builds quicker than it feels right now.";
+                } else if (pct < 70) {
+                    msg.textContent = "You're making steady progress. Keep going.";
+                } else if (pct < 100) {
+                    msg.textContent = "You're close now — final stretch.";
+                } else {
+                    msg.textContent = "Goal reached! Time to celebrate properly, then decide what's next.";
+                }
+            }
+
+            // milestones
+            const milestoneEls = {
+                25: document.getElementById('milestone-25'),
+                50: document.getElementById('milestone-50'),
+                75: document.getElementById('milestone-75'),
+                100: document.getElementById('milestone-100')
+            };
+            Object.keys(milestoneEls).forEach(key => {
+                const el = milestoneEls[key];
+                if (!el) return;
+                if (target > 0) {
+                    const amt = Math.round(target * (parseInt(key, 10) / 100));
+                    el.textContent = symbol + amt.toLocaleString();
+                } else {
+                    el.textContent = 'Set your target on p3 to see this amount';
+                }
+            });
+        }
+
+        document.addEventListener('input', (e) => {
+            if (e.target && (e.target.id === 'goal-target' || e.target.id === 'goal-saved')) {
+                updateProgress();
+            }
+        });
+
+        // ============================================================
+        // FIELD KEY MAPPING — stable keys for autosave/export/import
+        // ============================================================
+        function buildFieldKeys() {
+            const keys = new Map();
+            const pages = Array.from(document.querySelectorAll('.page'));
+            pages.forEach((page, pageIdx) => {
+                let fi = 0, ci = 0, tgi = 0;
+
+                page.querySelectorAll('input[type="text"], textarea').forEach(el => {
+                    keys.set(el, el.id ? `id_${el.id}` : `p${pageIdx}_field${fi++}`);
+                });
+                page.querySelectorAll('input[type="checkbox"]').forEach(el => {
+                    keys.set(el, el.id ? `id_${el.id}` : `p${pageIdx}_check${ci++}`);
+                });
+                page.querySelectorAll('.tag-grid').forEach((grid, gIdx) => {
+                    const gridKey = grid.id ? `id_${grid.id}` : `p${pageIdx}_taggrid${gIdx}`;
+                    grid.querySelectorAll('.tag-btn').forEach((tag, tIdx) => {
+                        keys.set(tag, `${gridKey}_tag${tIdx}`);
+                    });
+                });
+                page.querySelectorAll('.habit-grid').forEach((grid, gIdx) => {
+                    const gridKey = grid.id ? `id_${grid.id}` : `p${pageIdx}_habitgrid${gIdx}`;
+                    grid.querySelectorAll('.hg-cell.data').forEach((cell, cIdx) => {
+                        keys.set(cell, `${gridKey}_cell${cIdx}`);
+                    });
+                });
+            });
+            // style picker illustration state (which style is active) is derived from
+            // the tag-grid selection itself, so no separate key needed.
+            return keys;
+        }
+
+        function collectAnswers() {
+            const keys = buildFieldKeys();
+            const data = {};
+            keys.forEach((key, el) => {
+                if (el.matches('input[type="text"], textarea')) {
+                    if (el.value.trim()) data[key] = el.value.trim();
+                } else if (el.matches('input[type="checkbox"]')) {
+                    if (el.checked) data[key] = true;
+                } else if (el.classList.contains('tag-btn')) {
+                    if (el.classList.contains('selected')) data[key] = 'selected';
+                } else if (el.classList.contains('hg-cell')) {
+                    if (el.classList.contains('marked')) data[key] = true;
+                }
+            });
+            return data;
+        }
+
+        function applyAnswers(data) {
+            if (!data || typeof data !== 'object') return;
+            const keys = buildFieldKeys();
+            keys.forEach((key, el) => {
+                if (!(key in data)) return;
+                const val = data[key];
+                if (el.matches('input[type="text"], textarea')) {
+                    el.value = val;
+                } else if (el.matches('input[type="checkbox"]')) {
+                    el.checked = !!val;
+                } else if (el.classList.contains('tag-btn')) {
+                    el.classList.toggle('selected', val === 'selected');
+                } else if (el.classList.contains('hg-cell')) {
+                    el.classList.toggle('marked', !!val);
+                }
+            });
+            // re-sync the visible style illustration to whichever style tag is selected
+            const activeStyleTag = document.querySelector('#style-tags .tag-btn.selected');
+            if (activeStyleTag) {
+                const style = activeStyleTag.getAttribute('data-style');
+                document.querySelectorAll('.style-illus').forEach(div => {
+                    div.classList.toggle('active', div.getAttribute('data-style') === style);
+                });
+            }
+        }
+
+        // ============================================================
+        // AUTOSAVE (localStorage)
+        // ============================================================
+        const STORAGE_KEY = 'futuresanctuary_savings_tracker_v1';
+        let autosaveTimer = null;
+
+        function scheduleAutosave() {
+            clearTimeout(autosaveTimer);
+            autosaveTimer = setTimeout(() => {
+                try {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(collectAnswers()));
+                    flashSaveNote('Saved to this browser just now.');
+                } catch (e) {
+                    flashSaveNote('Could not autosave — try exporting a JSON backup instead.');
+                }
+            }, 500);
+        }
+
+        function restoreFromLocalStorage() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return;
+                applyAnswers(JSON.parse(raw));
+                flashSaveNote('Restored your answers from this browser.');
+            } catch (e) { /* ignore corrupted storage */ }
+        }
+
+        function clearSavedAnswers() {
+            if (!confirm('Clear all saved answers from this browser? This cannot be undone. Export a JSON backup first if you want to keep them.')) return;
+            localStorage.removeItem(STORAGE_KEY);
+            document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+            document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
+            document.querySelectorAll('.tag-btn.selected').forEach(el => el.classList.remove('selected'));
+            document.querySelectorAll('.hg-cell.marked').forEach(el => el.classList.remove('marked'));
+            // restore sensible defaults
+            const gbp = document.querySelector('#currency-tags .tag-btn');
+            if (gbp) gbp.classList.add('selected');
+            const plant = document.querySelector('#style-tags .tag-btn[data-style="plant"]');
+            if (plant) plant.classList.add('selected');
+            document.querySelectorAll('.style-illus').forEach(div => {
+                div.classList.toggle('active', div.getAttribute('data-style') === 'plant');
+            });
+            updateProgress();
+            flashSaveNote('Cleared. This browser no longer has any saved answers.');
+        }
+
+        function flashSaveNote(msg) {
+            const note = document.getElementById('save-note');
+            if (!note) return;
+            note.textContent = msg;
+        }
+
+        document.addEventListener('input', scheduleAutosave);
+        document.addEventListener('change', scheduleAutosave);
+
+        // ============================================================
+        // EXPORT / IMPORT (JSON file)
+        // ============================================================
+        function saveAnswers() {
+            const data = collectAnswers();
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'savings-journey-tracker-answers.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            flashSaveNote('Exported. Keep this file somewhere safe, or import it later on any device.');
+        }
+
+        function handleImportFile(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    applyAnswers(data);
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(collectAnswers()));
+                    updateProgress();
+                    flashSaveNote('Imported successfully — your answers are filled back in.');
+                } catch (err) {
+                    flashSaveNote('That file could not be read. Make sure it\'s a JSON export from this tracker.');
+                }
+                event.target.value = '';
+            };
+            reader.readAsText(file);
+        }
+
+        // Restore whatever was last saved, then compute the live progress bar.
+        restoreFromLocalStorage();
+        updateProgress();
+    </script>
+</body>
+
+</html>

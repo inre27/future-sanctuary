@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12-Week Savings Journey Generator — Future Sanctuary</title>
+  <meta name="description"
+    content="A printable workbook to design, visualize, and commit to your next savings goal. Set your target, choose your visual style, and walk through 12 weeks." />
+  <meta name="keywords"
+    content="savings tracker, financial goals, printable workbook, 12-week savings plan, money tracking" />
+  <meta property="og:title" content="12-Week Savings Journey Generator" />
+  <meta property="og:description"
+    content="A printable workbook to design, visualize, and commit to your next savings goal. Simple, visual, and no account needed." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ============================================================
+   FUTURE SANCTUARY — SAVINGS JOURNEY GENERATOR
+   Brand: clean, archival, muted. Not warm-terracotta-heavy.
+   Primary: #7597a7 (slate blue)
+   Accent: #E2BBAA (soft blush/terracotta)
+   Text: #111111
+   Background pages: #FBFAF5 (near-white linen)
+   Muted bg boxes: #F5F3EB
+   Dividers: #E8E0D2
+   ============================================================ */
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+    :root{
+      --blue:#7597a7;--blue-mid:#8AADA7;--light-blue:#d2d8da;
+      --blush:#E2BBAA;--blush-light:#F5EAE4;
+      --text:#111111;--muted:#7A6E65;--hint:#A89D95;
+      --bg:#FBFAF5;--bg-box:#F5F3EB;--border:#E8E0D2;
+      --sage:#8A9E8C;--sage-light:#EAF0EA;
+      --ochre:#C9A96E;--ochre-light:#FAF3E0;
+      --terracotta:#C4785A;
+      --font-body:'JetBrains Mono',monospace;
+      --font-heading:'Gochi Hand',cursive;
+    }
+
+    body{background:#D0C9C0;font-family:var(--font-body);font-size:13px;color:var(--text);line-height:1.6}
+
+    /* ---- PAGE ---- */
+    .page{width:794px;min-height:1123px;height:1123px;background:var(--bg);margin:32px auto;position:relative;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.18);display:flex;flex-direction:column}
+    .page-cover{background:#f4eee9}
+    .page-light{background:var(--bg)}
+    .page-sand{background:var(--bg-box)}
+
+    .page-inner{padding:52px 56px 44px;flex:1;display:flex;flex-direction:column}
+    .page-inner-wide{padding:44px 48px 36px;flex:1;display:flex;flex-direction:column}
+
+    /* ---- HEADER ---- */
+    .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+    .page-header-logo{font-family:var(--font-heading);font-size:18px;color:var(--muted);letter-spacing:.02em}
+    .page-header-logo span{color:var(--blue)}
+    .page-header-meta{font-size:10px;color:var(--hint);letter-spacing:1.2px;text-transform:uppercase}
+
+    /* ---- FOOTER ---- */
+    .page-footer{margin-top:auto;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+    .page-footer-text{font-size:8px;color:#111;letter-spacing:.8px}
+    .page-num{font-size:10px;color:var(--hint);font-family:var(--font-heading)}
+
+    /* ---- ACCENT STRIPS ---- */
+    .accent-strip{height:3px;background:var(--blue);width:100%}
+    .accent-strip-blush{background:var(--blush)}
+    .accent-strip-gradient{background:linear-gradient(90deg,var(--blue),var(--blue-mid),var(--blush))}
+
+    /* ---- TYPOGRAPHY ---- */
+    .display-title{font-family:var(--font-heading);font-size:38px;font-weight:600;line-height:1.1;color:#FBFAF5}
+    .display-title em{color:var(--blush);font-style:italic}
+    .section-title{font-family:var(--font-heading);font-size:22px;font-weight:600;color:var(--text);line-height:1.2;margin-bottom:6px}
+    .section-title-sm{font-family:var(--font-heading);font-size:17px;font-weight:600;color:var(--text);line-height:1.25;margin-bottom:4px}
+    .eyebrow{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+    .eyebrow-blush{color:var(--blush)}
+    .eyebrow-muted{color:var(--hint)}
+    .body-text{font-size:12.5px;color:var(--muted);line-height:1.75}
+    .body-text strong{color:var(--text)}
+    .body-text-sm{font-size:11.5px;color:var(--muted);line-height:1.7}
+
+    /* ---- DIVIDERS ---- */
+    .divider{border:none;border-top:1px solid var(--border);margin:18px 0}
+    .divider-blue{border-top:2px solid var(--blue)}
+
+    /* ---- CALLOUT BOXES ---- */
+    .callout{background:var(--bg-box);border-radius:10px;border:1px solid var(--border);padding:16px 20px}
+    .callout-blue{background:#EBF0F3;border-left:3px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px}
+    .callout-blush{background:var(--blush-light);border-left:3px solid var(--blush);border-radius:0 10px 10px 0;padding:14px 18px}
+    .callout-sage{background:var(--sage-light);border-left:3px solid var(--sage);border-radius:0 10px 10px 0;padding:14px 18px}
+    .callout-ochre{background:var(--ochre-light);border-left:3px solid var(--ochre);border-radius:0 10px 10px 0;padding:14px 18px}
+
+    /* ---- INPUT FIELDS ---- */
+    .field-label{font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--blue);margin-bottom:5px;display:block}
+    input[type="text"],textarea{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);font-family:'Courier Prime',monospace;font-size:12.5px;color:var(--text);padding:6px 2px;resize:none;outline:none;transition:border-color .2s;line-height:1.6}
+    input[type="text"]:focus,textarea:focus{border-bottom-color:var(--blue)}
+    textarea{border:1px solid var(--border);border-radius:10px;padding:10px 12px;background:#FDFCF8}
+    textarea:focus{border-color:var(--blue)}
+    .line-field{border-bottom:1px solid var(--border);min-height:26px;margin-bottom:8px;width:100%;font-size:12.5px;font-family:'Courier Prime',monospace;color:var(--text);background:transparent;border-top:none;border-left:none;border-right:none;outline:none;padding:3px 2px}
+    .line-field:focus{border-bottom-color:var(--blue)}
+
+    /* ---- CHECKBOX / RADIO ---- */
+    .check-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:9px}
+    .check-row input[type="checkbox"]{width:14px;height:14px;margin-top:2px;flex-shrink:0;accent-color:var(--blue);cursor:pointer}
+    .check-row label{font-size:12px;color:var(--text);line-height:1.55;cursor:pointer}
+    .check-row label span{color:var(--muted);font-size:11px}
+    .radio-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;cursor:pointer}
+    .radio-row input[type="radio"]{accent-color:var(--blue);width:13px;height:13px;cursor:pointer}
+    .radio-row label{font-size:12px;color:var(--text);cursor:pointer}
+
+    /* ---- GRIDS ---- */
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+
+    /* ---- STYLE SELECTOR ---- */
+    .style-selector{display:flex;gap:12px;margin:12px 0}
+    .style-card{border:1px solid var(--border);border-radius:10px;padding:14px 10px;background:#fff;cursor:pointer;transition:all .2s;flex:1;text-align:center}
+    .style-card:hover{border-color:var(--blue);transform:translateY(-2px)}
+    .style-card.selected{border-color:var(--blue);background:#EBF0F3}
+    .style-icon{font-size:22px;margin-bottom:6px}
+    .style-title{font-family:var(--font-heading);font-size:13px;margin-bottom:3px}
+    .style-desc{font-size:9.5px;color:var(--muted);line-height:1.3}
+
+    /* ---- SCALE SLIDER ---- */
+    .scale-track{display:flex;gap:0;margin:8px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+    .scale-cell{flex:1;text-align:center;padding:7px 2px;font-size:11px;border-right:1px solid var(--border);cursor:pointer;color:var(--muted);transition:background .15s,color .15s;-webkit-user-select:none;user-select:none}
+    .scale-cell:last-child{border-right:none}
+    .scale-cell:hover{background:#EBF0F3}
+    .scale-cell.selected{background:var(--blue);color:white}
+
+    /* ---- HABIT TRACKER GRID ---- */
+    .habit-grid{display:grid;grid-template-columns:110px repeat(7,1fr);gap:3px}
+    .hg-cell{height:30px;border:1px solid var(--border);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--hint);cursor:pointer;-webkit-user-select:none;user-select:none;transition:background .1s}
+    .hg-cell.header{background:var(--bg-box);font-size:9px;letter-spacing:.8px;text-transform:uppercase;cursor:default;color:var(--muted)}
+    .hg-cell.row-label{font-size:10px;color:var(--text);padding-left:4px;cursor:default;background:transparent;border:none}
+    .hg-cell.data:hover{background:#EBF0F3}
+    .hg-cell.marked{background:var(--blue);color:white}
+    .hg-cell.marked::after{content:'✓'}
+
+    /* ---- WEEKLY METERS ---- */
+    .weekly-visual{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
+    .weekly-progress{display:flex;align-items:center;justify-content:space-between;margin:12px 0}
+    .weekly-meters{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:12px 0}
+    .meter-cell{aspect-ratio:1;border:1px solid var(--border);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;background:#f9f9f9;transition:all .2s;gap:2px}
+    .meter-cell.filled{background:var(--blue);color:white;border-color:var(--blue)}
+    .meter-cell.empty{background:#fff;color:var(--muted)}
+
+    /* ---- PROJECTION ---- */
+    .projection-visual{background:linear-gradient(135deg,var(--bg),var(--bg-box));border:2px solid var(--border);border-radius:14px;padding:24px;text-align:center;margin:20px 0}
+    .projection-icon{font-size:36px;margin-bottom:12px;opacity:.8}
+    .projection-text{font-family:var(--font-heading);font-size:20px;color:var(--text);margin-bottom:6px}
+    .projection-sub{font-size:11px;color:var(--muted);max-width:260px;margin:0 auto;line-height:1.6}
+
+    /* ---- EXERCISE AREA ---- */
+    .exercise-area{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin:16px 0}
+    .exercise-title{font-family:var(--font-heading);font-size:16px;margin-bottom:12px}
+
+    /* ---- REFLECTION PROMPT ---- */
+    .reflection-prompt{background:var(--bg-box);border-left:3px solid var(--sage);padding:14px 18px;margin:16px 0;border-radius:0 8px 8px 0}
+    .reflection-prompt .eyebrow{color:var(--sage)}
+
+    /* ---- WEEK OVERVIEW TABLE ---- */
+    .week-overview{width:100%;border-collapse:collapse;margin:16px 0;font-size:11px}
+    .week-overview th{text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);color:var(--hint);font-weight:normal}
+    .week-overview td{padding:4px 8px;border-bottom:1px solid var(--border)}
+    .week-dot{width:10px;height:10px;border-radius:50%;background:var(--sage);opacity:.3;display:inline-block;margin-right:6px;vertical-align:middle}
+    .week-dot.filled{opacity:1;background:var(--blue)}
+
+    /* ---- TABLE INPUTS ---- */
+    .table-input{
+      width:70px;
+      padding:2px 4px;
+      border:1px solid var(--border);
+      border-radius:4px;
+      background:#fff;
+      font-family:'Courier Prime',monospace;
+      font-size:11px;
+      color:var(--text);
+      outline:none;
+      transition:border-color .2s;
+    }
+    .table-input:focus{
+      border-color:var(--blue);
+      background:#fff;
+    }
+
+    /* ---- COVER PAGE ---- */
+    .cover-inner{padding:0;flex:1;display:flex;flex-direction:column}
+    .cover-top{padding:44px 52px 0;flex:1}
+    .cover-tag{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#888;margin-bottom:32px}
+    .cover-number{font-family:'Playfair Display',Georgia,serif;font-size:110px;color:#1E1E1E;line-height:1;margin-bottom:-8px;font-weight:600}
+    .cover-subtitle{font-size:12px;color:#888;line-height:1.8;max-width:380px;margin-top:20px}
+    .cover-bottom{padding:28px 52px 36px;border-top:1px solid #2A2A2A;display:flex;justify-content:space-between;align-items:flex-end}
+    .cover-brand{font-family:var(--font-heading);font-size:16px;color:#888}
+    .cover-brand span{color:var(--blue)}
+    .cover-product{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#555}
+    .cover-blush-strip{height:5px;background:linear-gradient(90deg,var(--blue) 0%,var(--blue-mid) 50%,var(--blush) 100%)}
+
+    /* ---- TAB CONTENT ---- */
+    .tab-content.hidden{display:none!important}
+
+    /* ---- SAVE / EXPORT MODAL ---- */
+    .modal-backdrop{display:none;position:fixed;inset:0;background:rgba(17,17,17,.5);align-items:center;justify-content:center;z-index:1000;padding:20px}
+    .modal-backdrop.open{display:flex}
+    .modal-card{background:var(--bg);border-radius:14px;width:100%;max-width:420px;padding:28px 28px 24px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.25);font-family:var(--font-body)}
+    .modal-close{position:absolute;top:16px;right:18px;background:none;border:none;font-size:18px;color:var(--hint);cursor:pointer;line-height:1}
+    .modal-close:hover{color:var(--text)}
+    .modal-title{font-family:var(--font-heading);font-size:22px;color:var(--text);margin-bottom:20px}
+    .modal-option{padding:16px 0}
+    .modal-option-title{font-family:var(--font-heading);font-size:16px;color:var(--text);margin-bottom:8px}
+    .modal-option-desc{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:12px}
+    .modal-checkbox-row{display:flex;align-items:center;gap:7px;font-size:10.5px;color:var(--muted);cursor:pointer;margin-bottom:14px}
+    .modal-checkbox-row input{cursor:pointer;accent-color:var(--blue)}
+    .modal-action-btn{display:inline-block;background:var(--blue);color:white;border:none;font-family:var(--font-body);font-size:11px;padding:10px 18px;border-radius:8px;cursor:pointer;transition:background .2s}
+    .modal-action-btn:hover{background:#5a7a8a}
+    .modal-divider{border-top:1px solid var(--border);margin:4px 0}
+
+    /* ---- SAVE BAR ---- */
+    .save-bar{background:var(--bg-box);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;margin:0 auto;width:794px;margin-top:0;margin-bottom:40px}
+    .save-btn{background:var(--blue);color:white;border:none;font-family:var(--font-body);font-size:10px;padding:12px 10px;border-radius:6px;cursor:pointer;letter-spacing:.3px;transition:background .2s;width:120px!important;min-height:50px}
+    .save-btn:hover{background:#5a7a8a}
+    .save-note{font-family:var(--font-body);font-size:11px;color:#888}
+
+    /* ---- WASHI DIVIDER ---- */
+    .washi-divider{display:flex;align-items:center;gap:12px;margin:24px 0}
+    .washi-strip{height:14px;flex:1;border-radius:2px;opacity:.5}
+    .washi-dot{width:8px;height:8px;border-radius:50%;background:var(--bg-cream-border);flex-shrink:0}
+
+    /* ---- PRINT ---- */
+    @media print{
+      *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
+      body{background:white}
+      .page-cover,.page-light,.page-sand{background:#ffffff!important}
+      body.keep-tint .page-cover{background:#f4eee9!important}
+      body.keep-tint .page-light{background:var(--bg)!important}
+      body.keep-tint .page-sand{background:var(--bg-box)!important}
+      .page{margin:0;box-shadow:none;page-break-after:always;break-after:page}
+      .save-bar{display:none!important}
+      .modal-backdrop{display:none!important}
+      input,textarea{border-color:#ccc!important}
+    }
+
+    @media(max-width:640px){
+      .page{width:100%;min-height:auto;height:auto;margin:16px auto}
+      .page-inner,.page-inner-wide{padding:32px 24px}
+      .style-selector{flex-direction:column}
+    }
+
+    input::placeholder,textarea::placeholder{font-size:11px;color:var(--hint);opacity:.6}
+
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .page-inner{animation:fadeIn .4s ease-out}
+  </style>
+</head>
+
+<script async data-uid="fb3f937f46" src="https://lumila.kit.com/fb3f937f46/index.js"></script>
+
+<body>
+
+<!-- ============================================================
+     PAGE 1 — COVER
+     ============================================================ -->
+<div class="page page-cover">
+  <div class="cover-blush-strip"></div>
+  <div class="cover-inner">
+    <div class="cover-top">
+      <div class="cover-tag">Future Sanctuary · Savings Journey Generator</div>
+      <div class="cover-number">12</div>
+      <div style="margin-top:2px">
+        <div class="display-title" style="font-size:32px;color:#111111">Your savings<br /><em>journey</em><br />starts here</div>
+      </div>
+      <div class="cover-subtitle">
+        A 12-week printable savings journey planner — choose your goal, visual style, and build momentum week by week. No account needed, just a calm, focused path to your target.
+      </div>
+      <br><br>
+      <img src="assets/savings-journey-cover.png" alt="Savings journey visual" style="height:320px;margin-bottom:14px;display:block" />
+    </div>
+    <div class="cover-bottom">
+      <div>
+        <div class="cover-brand">futuresanctuary<span>.</span></div>
+        <div style="font-size:10px;color:#555;margin-top:3px;letter-spacing:.5px">savings journey generator</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 2 — INPUT FORM
+     ============================================================ -->
+<div class="page page-light" id="page-input">
+  <div class="accent-strip"></div>
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="page-header-logo">futuresanctuary<span>.</span></div>
+      <div class="page-header-meta">Savings Journey Generator</div>
+    </div>
+
+    <div class="eyebrow mb4">Step 1</div>
+    <div class="section-title mb4">Build your savings journey</div>
+    <p class="body-text mb16">Fill in four short details and get a personalised 12-week visual plan you can print, save, or share.</p>
+
+    <div class="mb16">
+      <label class="field-label" for="goal-what">What are you saving for?</label>
+      <input type="text" id="goal-what" class="line-field" placeholder="e.g. Emergency fund, Vacation, New laptop…" />
+    </div>
+
+    <div class="grid-2 mb16">
+      <div>
+        <label class="field-label" for="goal-amount">Goal amount (£)</label>
+        <input type="text" id="goal-amount" class="line-field" placeholder="e.g. 1200" />
+      </div>
+      <div>
+        <label class="field-label" for="goal-weeks">Timeline (weeks)</label>
+        <input type="text" id="goal-weeks" class="line-field" placeholder="e.g. 12" />
+      </div>
+    </div>
+
+    <div class="mb16">
+      <label class="field-label">Choose a visual style</label>
+      <div class="style-selector" id="style-selector">
+        <div class="style-card selected" data-style="plant" onclick="selectStyle(this)">
+          <div class="style-icon">🌱</div>
+          <div class="style-title">Plant</div>
+          <div class="style-desc">Seed → sprout → bloom</div>
+        </div>
+        <div class="style-card" data-style="jar" onclick="selectStyle(this)">
+          <div class="style-icon">🫙</div>
+          <div class="style-title">Jar</div>
+          <div class="style-desc">Fill from empty to full</div>
+        </div>
+        <div class="style-card" data-style="build" onclick="selectStyle(this)">
+          <div class="style-icon">🏗️</div>
+          <div class="style-title">Build</div>
+          <div class="style-desc">Construct step by step</div>
+        </div>
+      </div>
+      <input type="hidden" id="selected-style" value="plant" />
+    </div>
+
+    <div class="mb16">
+      <label class="field-label" for="goal-name">Give your journey a name</label>
+      <input type="text" id="goal-name" class="line-field" placeholder="e.g. 'The Peace Fund', 'Freedom Trip'…" />
+    </div>
+
+    <div class="callout-blue">
+      <div class="eyebrow mb4">Why this works</div>
+      <p class="body-text-sm">A specific visual style + named goal + realistic timeline = a plan you can actually stick to. Generic goals dissolve; concrete ones grow.</p>
+    </div>
+
+    <div class="page-footer">
+      <div class="page-footer-text">futuresanctuary. · savings journey generator</div>
+      <div class="page-num">2</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 3 — YOUR PERSONALIZED JOURNEY
+     ============================================================ -->
+<div class="page page-sand" id="page-output">
+  <div class="accent-strip accent-strip-blush"></div>
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="page-header-logo">futuresanctuary<span>.</span></div>
+      <div class="page-header-meta">Your Journey</div>
+    </div>
+
+    <div class="eyebrow mb4">Step 2</div>
+    <div class="section-title mb4">Your 12-Week Savings Plan</div>
+    <p class="body-text mb16">Here's your personalised journey — chosen to feel motivating and natural, not like a spreadsheet.</p>
+
+    <div class="projection-visual" id="projection">
+      <div class="projection-icon" id="proj-icon">🌱</div>
+      <div class="projection-text" id="proj-title">Your Goal</div>
+      <div class="projection-sub" id="proj-sub">Target: £0 ÷ 12 weeks = £0/week</div>
+    </div>
+
+    <div class="mb16">
+      <div class="eyebrow mb4">12-Week Progress Map</div>
+      <div class="weekly-meters" id="weekly-meters"></div>
+      <div class="weekly-progress">
+        <div class="body-text-sm"><strong id="proj-total">£0</strong> total target</div>
+        <div class="body-text-sm">← Week 1 &nbsp;&nbsp; Week 12 →</div>
+      </div>
+    </div>
+
+    <div class="exercise-area">
+      <div class="exercise-title">Weekly Breakdown</div>
+      <div id="weekly-table"></div>
+    </div>
+
+    <div class="reflection-prompt">
+      <div class="eyebrow">Your Week 1 commitment</div>
+      <div class="body-text-sm">What's your realistic Week 1 savings amount? Even a small, consistent start builds the habit.</div>
+      <input type="text" class="line-field" id="week1-commit" placeholder="e.g. £20 (or £50, or £100)" style="margin-top:12px" />
+    </div>
+
+    <div class="reflection-prompt">
+      <div class="eyebrow">Why this goal matters</div>
+      <div class="body-text-sm">One sentence about what this journey will give or protect you. Keeps it personal.</div>
+      <textarea rows="2" id="goal-why" placeholder="e.g. So my family can go on our dream vacation without stress…" style="margin-top:12px"></textarea>
+    </div>
+
+    <div class="page-footer">
+      <div class="page-footer-text">futuresanctuary. · savings journey generator</div>
+      <div class="page-num">3</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 4 — WEEKLY TRACKER (Weeks 1–4)
+     ============================================================ -->
+<div class="page page-light" id="page-tracker-1">
+  <div class="accent-strip"></div>
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="page-header-logo">futuresanctuary<span>.</span></div>
+      <div class="page-header-meta">Weekly Tracker · Weeks 1–4</div>
+    </div>
+
+    <div class="eyebrow mb4">Weeks 1–4</div>
+    <div class="section-title mb4">Track your rhythm</div>
+    <p class="body-text mb16">Each cell represents one day. Mark it when you save that day. Consistency matters more than amount — you're building a habit.</p>
+
+    <div class="nav-tabs" id="tracker-tabs">
+      <div class="nav-tab active" data-grid="grid-1" onclick="switchTracker(this)">Weeks 1–4</div>
+      <div class="nav-tab" data-grid="grid-2" onclick="switchTracker(this)">Weeks 5–8</div>
+      <div class="nav-tab" data-grid="grid-3" onclick="switchTracker(this)">Weeks 9–12</div>
+    </div>
+
+    <div id="grid-1" class="tab-content">
+      <div class="habit-grid" id="grid-1-content"></div>
+    </div>
+    <div id="grid-2" class="tab-content hidden">
+      <div class="habit-grid" id="grid-2-content"></div>
+    </div>
+    <div id="grid-3" class="tab-content hidden">
+      <div class="habit-grid" id="grid-3-content"></div>
+    </div>
+
+    <div class="reflection-prompt">
+      <div class="eyebrow">Weekly reflection</div>
+      <div class="body-text-sm">At the end of each week, jot down what worked and what you'd adjust. One sentence is enough.</div>
+      <textarea rows="3" placeholder="e.g. Week 1: Transferred £20 on Sunday morning. Felt good. Will do same next week." style="margin-top:12px"></textarea>
+    </div>
+
+    <div class="page-footer">
+      <div class="page-footer-text">futuresanctuary. · savings journey generator</div>
+      <div class="page-num">4</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 5 — WEEKLY TRACKER (Weeks 5–12) + CHECK-IN
+     ============================================================ -->
+<div class="page page-sand" id="page-tracker-2">
+  <div class="accent-strip accent-strip-blush"></div>
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="page-header-logo">futuresanctuary<span>.</span></div>
+      <div class="page-header-meta">Weekly Tracker · Weeks 5–12</div>
+    </div>
+
+    <div class="eyebrow mb4">Weeks 5–12</div>
+    <div class="section-title mb4">The middle stretch</div>
+    <p class="body-text mb16">By now the habit is forming. These weeks are where most people either solidify the rhythm or lose it — whichever path you're on, you're moving forward.</p>
+
+    <div id="grid-4"></div>
+
+    <div class="exercise-area">
+      <div class="exercise-title">Check-in: How's the habit?</div>
+      <div class="body-text-sm mb12">Rate your consistency so far (1 = struggling, 5 = automatic)</div>
+      <div class="scale-track" id="consistency-scale">
+        <div class="scale-cell" onclick="selectScale(this)">1</div>
+        <div class="scale-cell" onclick="selectScale(this)">2</div>
+        <div class="scale-cell" onclick="selectScale(this)">3</div>
+        <div class="scale-cell" onclick="selectScale(this)">4</div>
+        <div class="scale-cell" onclick="selectScale(this)">5</div>
+      </div>
+    </div>
+
+    <div class="reflection-prompt">
+      <div class="eyebrow">Mid-journey checkpoint</div>
+      <div class="body-text-sm">What's one thing you'd tell yourself at the start of this journey now that you know?</div>
+      <textarea rows="3" placeholder="e.g. I didn't need to save as much as I feared — starting small was enough." style="margin-top:12px"></textarea>
+    </div>
+
+    <div class="page-footer">
+      <div class="page-footer-text">futuresanctuary. · savings journey generator</div>
+      <div class="page-num">5</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 6 — FINAL LOOKBACK + EXPORT
+     ============================================================ -->
+<div class="page page-light" id="page-final">
+  <div class="accent-strip accent-strip-gradient"></div>
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="page-header-logo">futuresanctuary<span>.</span></div>
+      <div class="page-header-meta">Week 12 — Journey Complete</div>
+    </div>
+
+    <div class="eyebrow mb4">Step 3</div>
+    <div class="section-title mb4">Your journey, completed</div>
+    <p class="body-text mb16">12 weeks is a full cycle. Whatever you've saved — or haven't — the habit of showing up is what matters most.</p>
+
+    <div class="projection-visual" id="final-projection">
+      <div class="projection-icon">🎉</div>
+      <div class="projection-text" id="final-title">Your Goal</div>
+      <div class="projection-sub" id="final-sub">Let's review what you built.</div>
+    </div>
+
+    <div class="exercise-area">
+      <div class="exercise-title">Record your results</div>
+      <div class="grid-2 mb12">
+        <div>
+          <label class="field-label">Goal completed?</label>
+          <div class="radio-row"><input type="radio" id="comp-yes" name="completed" /><label for="comp-yes">Yes</label></div>
+          <div class="radio-row"><input type="radio" id="comp-close" name="completed" /><label for="comp-close">Close (within £50)</label></div>
+          <div class="radio-row"><input type="radio" id="comp-learn" name="completed" /><label for="comp-learn">Learned — new goal next</label></div>
+        </div>
+        <div>
+          <label class="field-label">Total saved (£)</label>
+          <input type="text" class="line-field" id="total-saved" placeholder="e.g. 1240" />
+        </div>
+      </div>
+
+      <label class="field-label">Biggest insight from these 12 weeks</label>
+      <textarea rows="3" id="biggest-insight" placeholder="e.g. I actually saved more when I wasn't watching the number obsessively…"></textarea>
+
+      <label class="field-label" style="margin-top:20px">Next goal (optional)</label>
+      <input type="text" class="line-field" id="next-goal" placeholder="e.g. Invest, Emergency fund, New bike…" />
+    </div>
+
+    <div class="callout-sage">
+      <div class="eyebrow mb4">Keep this journey</div>
+      <p class="body-text-sm">Print it, screenshot it, or export a PDF. Put it somewhere you'll see it — it's proof you showed up for 12 weeks.</p>
+    </div>
+
+    <div class="page-footer">
+      <div class="page-footer-text">futuresanctuary. · savings journey generator</div>
+      <div class="page-num">6</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SAVE / PRINT BAR
+     ============================================================ -->
+<div class="save-bar">
+  <div>
+    <div style="font-family:var(--font-heading);font-size:16px;color:#111;margin-bottom:4px">futuresanctuary<span style="color:#7597a7">.</span></div>
+    <div class="save-note" id="save-note">Answers auto-save to this browser.</div>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <button class="save-btn" onclick="openSaveModal()">💾 Save / Print / Export</button>
+    <button class="save-btn" onclick="document.getElementById('import-file').click()" style="background:#a2b188">📤 Import</button>
+    <input type="file" id="import-file" accept="application/json" style="display:none" />
+    <button class="save-btn" onclick="clearAllAnswers()" style="background:#c7997a">❎ Clear</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL
+     ============================================================ -->
+<div class="modal-backdrop" id="save-modal" onclick="if(event.target===this)closeSaveModal()">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeSaveModal()" aria-label="Close">×</button>
+    <div class="modal-title">Save your savings journey</div>
+
+    <div class="modal-option">
+      <div class="modal-option-title">🖨 Print / Save as PDF</div>
+      <label class="modal-checkbox-row">
+        <input type="checkbox" id="tint-toggle" onchange="document.body.classList.toggle('keep-tint',this.checked)" />
+        keep paper tint (nicer for a digital PDF, uses more ink on paper)
+      </label>
+      <p class="modal-option-desc" style="margin-top:-6px">Tip: in the print dialog, switch off "Headers and footers" for a cleaner page.</p>
+      <button class="modal-action-btn" onclick="window.print()">Continue to print dialog →</button>
+    </div>
+
+    <div class="modal-divider"></div>
+
+    <div class="modal-option">
+      <div class="modal-option-title">📄 Export as JSON</div>
+      <p class="modal-option-desc">A backup file with all your answers — re-import it later on this device or another.</p>
+      <button class="modal-action-btn" onclick="saveAnswersJSON();closeSaveModal()">Export answers →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT — All logic inline
+     ============================================================ -->
+<script>
+(function(){
+'use strict';
+
+var STORAGE_KEY = 'futuresanctuary_savings_journey_generator_v1';
+var _autosaveTimer = null;
+
+// ---------- STYLE SELECTION ----------
+window.selectStyle = function(card){
+  var sel = document.getElementById('style-selector');
+  if(sel) sel.querySelectorAll('.style-card').forEach(function(c){c.classList.remove('selected')});
+  card.classList.add('selected');
+  document.getElementById('selected-style').value = card.getAttribute('data-style');
+  updateProjection();
+};
+
+// ---------- SCALE SELECTION ----------
+window.selectScale = function(cell){
+  var p = cell.parentElement;
+  if(p) p.querySelectorAll('.scale-cell').forEach(function(c){c.classList.remove('selected')});
+  cell.classList.add('selected');
+  scheduleAutosave();
+};
+
+// ---------- TRACKER TABS ----------
+window.switchTracker = function(tab){
+  var gridId = tab.getAttribute('data-grid');
+  // Hide all tab contents
+  document.querySelectorAll('.tab-content').forEach(function(tc){tc.classList.add('hidden')});
+  var target = document.getElementById(gridId);
+  if(target) target.classList.remove('hidden');
+  // Highlight active tab
+  tab.parentElement.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active')});
+  tab.classList.add('active');
+};
+
+// ---------- PROJECTION UPDATE ----------
+function updateProjection(){
+  var whatEl = document.getElementById('goal-what');
+  var amountEl = document.getElementById('goal-amount');
+  var weeksEl = document.getElementById('goal-weeks');
+  var nameEl = document.getElementById('goal-name');
+  var styleEl = document.getElementById('selected-style');
+
+  var what = whatEl ? whatEl.value : '';
+  var amount = amountEl ? (parseFloat(amountEl.value) || 0) : 0;
+  var weeks = weeksEl ? (parseInt(weeksEl.value) || 12) : 12;
+  var name = nameEl ? nameEl.value : 'Your Goal';
+  var style = styleEl ? styleEl.value : 'plant';
+
+  var icons = {plant:'🌱',jar:'🫙',build:'🏗️'};
+  var projIcon = document.getElementById('proj-icon');
+  if(projIcon) projIcon.textContent = icons[style] || '🌱';
+
+  var projTitle = document.getElementById('proj-title');
+  if(projTitle) projTitle.textContent = what || name || 'Your Goal';
+
+  var weekly = amount / weeks;
+  var projSub = document.getElementById('proj-sub');
+  if(projSub) projSub.innerHTML = 'Target: £' + amount.toLocaleString() + ' ÷ ' + weeks + ' weeks = £' + weekly.toFixed(2) + '/week';
+
+  var projTotal = document.getElementById('proj-total');
+  if(projTotal) projTotal.textContent = '£' + amount.toLocaleString();
+
+  // Build weekly meters
+  var meterContainer = document.getElementById('weekly-meters');
+  if(meterContainer) meterContainer.innerHTML = '';
+  for(var i=1;i<=12;i++){
+    var cell = document.createElement('div');
+    cell.className = 'meter-cell empty';
+    cell.innerHTML = '<div>Wk '+i+'</div>';
+    (function(c){c.style.cursor='pointer';c.onclick=function(){this.classList.toggle('filled');scheduleAutosave()}})(cell);
+    meterContainer.appendChild(cell);
+  }
+
+  // Build weekly breakdown table
+  buildWeeklyTable(amount, weeks);
+
+  // Build tracker grids
+  buildTrackerGrids(amount);
+
+  scheduleAutosave();
+}
+
+function buildWeeklyTable(amount, weeks){
+  var container = document.getElementById('weekly-table');
+  if(!container) return;
+  var w = weeks || 12;
+  var weeklyAmt = Math.round(amount / w);
+  var html = '<table class="week-overview"><thead><tr><th>Week</th><th>Target</th><th>Saved</th><th>Diff.</th><th>Status</th></tr></thead><tbody>';
+  for(var i=1;i<=w;i++){
+    var target = weeklyAmt * i;
+    html += '<tr><td>Week '+i+'</td><td>£'+target.toLocaleString()+'</td><td><input type="text" class="table-input" placeholder="£0" data-week="'+i+'" /></td><td>—</td><td>—</td></tr>';
+  }
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+function buildTrackerGrids(amount){
+  var grids = [
+    {id:'grid-1-content',start:1,end:4},
+    {id:'grid-2-content',start:5,end:8},
+    {id:'grid-3-content',start:9,end:12},
+    {id:'grid-4',start:5,end:12}
+  ];
+  var maxWeeks = Math.min(12, Math.max(1,Math.round(amount || 0) > 0 ? 12 : 4));
+  var dayLabels = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+  grids.forEach(function(grid){
+    var el = document.getElementById(grid.id);
+    if(!el) return;
+    el.innerHTML = '';
+
+    // Header row
+    var headerCell = document.createElement('div');
+    headerCell.className = 'hg-cell header';
+    headerCell.textContent = 'Week';
+    el.appendChild(headerCell);
+    dayLabels.forEach(function(d){
+      var c = document.createElement('div');
+      c.className = 'hg-cell header';
+      c.textContent = d;
+      el.appendChild(c);
+    });
+
+    for(var w=grid.start;w<=grid.end;w++){
+      if(w > maxWeeks) break;
+      // Week row label
+      var rowLabel = document.createElement('div');
+      rowLabel.className = 'hg-cell row-label';
+      rowLabel.textContent = 'Wk '+w;
+      el.appendChild(rowLabel);
+      // 7 day cells
+      for(var d=0;d<7;d++){
+        var dayCell = document.createElement('div');
+        dayCell.className = 'hg-cell data';
+        (function(dc){dc.onclick=function(){this.classList.toggle('marked');scheduleAutosave()}})(dayCell);
+        el.appendChild(dayCell);
+      }
+    }
+  });
+}
+
+// ---------- AUTOSAVE ----------
+function scheduleAutosave(){
+  clearTimeout(_autosaveTimer);
+  _autosaveTimer = setTimeout(function(){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(collectAnswers()));
+      flashSaveNote('Saved to this browser.');
+    }catch(e){
+      flashSaveNote('Could not autosave — export JSON backup.');
+    }
+  }, 600);
+}
+
+function collectAnswers(){
+  var data = {};
+  var fields = [
+    {id:'goal-what',key:'goal_what'},
+    {id:'goal-amount',key:'goal_amount'},
+    {id:'goal-weeks',key:'goal_weeks'},
+    {id:'goal-name',key:'goal_name'},
+    {id:'week1-commit',key:'week1_commit'},
+    {id:'goal-why',key:'goal_why'},
+    {id:'total-saved',key:'total_saved'},
+    {id:'biggest-insight',key:'biggest_insight'},
+    {id:'next-goal',key:'next_goal'}
+  ];
+  fields.forEach(function(f){
+    var el = document.getElementById(f.id);
+    if(el && el.value.trim()) data[f.key] = el.value.trim();
+  });
+  // Style
+  var styleEl = document.getElementById('selected-style');
+  if(styleEl) data.style = styleEl.value;
+  // Consistency scale
+  var selScale = document.querySelector('.scale-cell.selected');
+  if(selScale) data.consistency = selScale.textContent.trim();
+  // Marked habit tracker cells
+  var allCells = document.querySelectorAll('.hg-cell');
+  allCells.forEach(function(cell, idx){
+    if(cell.classList.contains('marked')) data['marked_'+idx] = true;
+  });
+  // Filled meters
+  var filledMeters = document.querySelectorAll('.meter-cell.filled');
+  filledMeters.forEach(function(cell){
+    var idx = Array.from(document.querySelectorAll('.meter-cell')).indexOf(cell);
+    data['filled_'+idx] = true;
+  });
+  // Weekly breakdown table inputs
+  var weeklyInputs = document.querySelectorAll('#weekly-table input[type="text"]');
+  weeklyInputs.forEach(function(input, idx){
+    var weekNum = input.getAttribute('data-week');
+    if(weekNum && input.value.trim()){
+      data['weekly_saved_'+weekNum] = input.value.trim();
+    }
+  });
+  return data;
+}
+
+function restoreFromLocalStorage(){
+  try{
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return;
+    var data = JSON.parse(raw);
+    // Restore text inputs
+    var map = {
+      goal_what:'goal-what', goal_amount:'goal-amount', goal_weeks:'goal-weeks',
+      goal_name:'goal-name', week1_commit:'week1-commit', goal_why:'goal-why',
+      total_saved:'total-saved', biggest_insight:'biggest-insight', next_goal:'next-goal'
+    };
+    Object.keys(map).forEach(function(key){
+      var el = document.getElementById(map[key]);
+      if(el && data[key]) el.value = data[key];
+    });
+    // Restore style
+    if(data.style){
+      document.getElementById('selected-style').value = data.style;
+      document.querySelectorAll('.style-card').forEach(function(c){
+        c.classList.toggle('selected', c.getAttribute('data-style') === data.style);
+      });
+    }
+    // Restore consistency scale
+    if(typeof data.consistency !== 'undefined'){
+      var cells = document.querySelectorAll('.scale-cell');
+      var val = parseInt(data.consistency, 10);
+      if(!isNaN(val) && val >= 1 && val <= 5 && cells[val-1]) cells[val-1].classList.add('selected');
+    }
+    // Restore weekly table inputs
+    Object.keys(data).forEach(function(key){
+      if(key.indexOf('weekly_saved_')===0){
+        var weekNum = key.replace('weekly_saved_','');
+        var inputs = document.querySelectorAll('#weekly-table input[data-week="'+weekNum+'"]');
+        if(inputs[0]) inputs[0].value = data[key];
+      }
+    });
+    // Re-render grids to get correct indices
+    buildTrackerGrids(document.getElementById('goal-amount') ? (parseFloat(document.getElementById('goal-amount').value)||0) : 0);
+    // Restore marked habit cells — after grids exist
+    Object.keys(data).forEach(function(key){
+      if(key.indexOf('marked_')===0){
+        var idx = parseInt(key.replace('marked_',''), 10);
+        var allCells = document.querySelectorAll('.hg-cell');
+        if(allCells[idx]) allCells[idx].classList.add('marked');
+      }
+      if(key.indexOf('filled_')===0){
+        var idx2 = parseInt(key.replace('filled_',''), 10);
+        var allMeters = document.querySelectorAll('.meter-cell');
+        if(allMeters[idx2]) allMeters[idx2].classList.add('filled');
+      }
+    });
+    flashSaveNote('Restored your answers from this browser.');
+  }catch(e){/* ignore corrupted storage */}
+}
+
+function clearAllAnswers(){
+  if(!confirm('Clear all saved answers from this browser? This cannot be undone.')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  document.querySelectorAll('input[type="text"],textarea').forEach(function(el){el.value=''});
+  document.querySelectorAll('.hg-cell.marked').forEach(function(c){c.classList.remove('marked')});
+  document.querySelectorAll('.meter-cell.filled').forEach(function(c){c.classList.remove('filled')});
+  document.querySelectorAll('.scale-cell.selected').forEach(function(c){c.classList.remove('selected')});
+  flashSaveNote('Cleared. This browser no longer has any saved answers.');
+}
+
+function flashSaveNote(msg){
+  var el = document.getElementById('save-note');
+  if(el) el.textContent = msg;
+}
+
+window.saveAnswersJSON = function(){
+  var data = collectAnswers();
+  var blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'savings-journey-generator-answers.json'; a.click();
+  URL.revokeObjectURL(url);
+  flashSaveNote('Exported. Keep this file somewhere safe.');
+};
+
+window.openSaveModal = function(){document.getElementById('save-modal').classList.add('open')};
+window.closeSaveModal = function(){document.getElementById('save-modal').classList.remove('open')};
+
+window.handleImportFile = function(event){
+  var file = event.target.files && event.target.files[0];
+  if(!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e){
+    try{
+      var data = JSON.parse(e.target.result);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      flashSaveNote('Imported successfully — loading…');
+      location.reload();
+    }catch(err){
+      flashSaveNote('That file could not be read.');
+    }
+    event.target.value = '';
+  };
+  reader.readAsText(file);
+};
+
+// ---------- INIT ----------
+document.addEventListener('input', function(){ scheduleAutosave(); updateProjection() });
+document.addEventListener('change', function(){ scheduleAutosave() });
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeSaveModal() });
+
+// Run on DOM-ready
+if(document.readyState !== 'loading'){
+  restoreFromLocalStorage();
+  updateProjection();
+  buildTrackerGrids(0);
+} else {
+  document.addEventListener('DOMContentLoaded', function(){
+    restoreFromLocalStorage();
+    updateProjection();
+    buildTrackerGrids(0);
+  });
+}
+
+})();
+</script>
+
+</body>
+</html>

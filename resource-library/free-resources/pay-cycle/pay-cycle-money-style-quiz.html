@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What's Your Pay-Cycle Money Style? — PayCycle</title>
+    <meta name="description"
+        content="A 5-question quiz that shows the specific pattern behind how your pay and bills miss each other, and what would actually fix it, whatever your pay schedule looks like." />
+    <meta property="og:title" content="What's Your Pay-Cycle Money Style?" />
+    <meta property="og:description"
+        content="Not spender vs. saver: the specific timing pattern behind why money feels tight, based on how you're actually paid." />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --ink: #474642;
+            --cream: #FBFAF5;
+            --teal: #9EB5C0;
+            --sage: #A8AF82;
+            --deep-moss: #2A3638;
+            --terracotta: #E2BBAA;
+            --olive: #CFCBA9;
+            --sand: #F9E5C6;
+            --steel: #5E747F;
+            --bg: #2C2B28;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --border: rgba(158, 181, 192, 0.15);
+
+            --font-mono: 'Space Mono', 'Courier New', monospace;
+            --font-serif: 'DM Serif Display', Georgia, serif;
+
+            --transition: 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html, body { height: 100%; }
+
+        body {
+            font-family: var(--font-mono);
+            background: var(--bg);
+            color: var(--cream);
+            line-height: 1.65;
+            font-size: 15px;
+            overflow: hidden;
+        }
+
+        .stage { position: fixed; inset: 0; }
+
+        .progress-track {
+            position: fixed; top: 0; left: 0; right: 0; height: 3px;
+            background: rgba(255, 255, 255, 0.08); z-index: 20;
+        }
+        .progress-fill {
+            height: 100%; width: 0%; background: var(--terracotta);
+            transition: width var(--transition);
+        }
+
+        .screen-wrap { position: absolute; inset: 0; }
+
+        .screen {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 32px 24px 28px;
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity var(--transition), transform var(--transition);
+            pointer-events: none;
+            overflow-y: auto;
+            text-align: center;
+        }
+        .screen.active { opacity: 1; transform: translateX(0); pointer-events: all; }
+        .screen.exit { opacity: 0; transform: translateX(-40px); }
+
+        .screen-inner { width: 100%; max-width: 560px; margin: auto auto 0; }
+
+        @media (min-height: 700px) {
+            .screen { padding: 48px 32px 36px; }
+        }
+
+        .icon-wrap { width: 84px; height: 84px; margin: 0 auto 22px; }
+        .icon-wrap svg { width: 100%; height: 100%; }
+
+        .eyebrow {
+            font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+            color: var(--teal); margin-bottom: 14px; font-weight: 700;
+        }
+
+        .trust-chips {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 14px;
+            font-size: 10.5px; letter-spacing: 1px; text-transform: uppercase;
+            color: rgba(251, 250, 245, 0.5); margin-bottom: 26px;
+        }
+
+        h1.q-title {
+            font-family: var(--font-serif); font-size: clamp(26px, 5.5vw, 36px);
+            line-height: 1.2; margin-bottom: 14px; color: var(--cream);
+        }
+        h1.q-title em { color: var(--terracotta); font-style: italic; }
+
+        p.q-subhead {
+            font-size: 14px; color: rgba(251, 250, 245, 0.65); max-width: 440px;
+            margin: 0 auto 30px;
+        }
+
+        .step-label {
+            font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--sage); margin-bottom: 12px; font-weight: 700;
+        }
+
+        h2.question-text {
+            font-family: var(--font-serif); font-size: clamp(21px, 4.5vw, 27px);
+            line-height: 1.3; margin-bottom: 26px; color: var(--cream);
+        }
+
+        .options { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+
+        .option-btn {
+            display: block; width: 100%; background: var(--bg-card);
+            border: 1px solid var(--border); border-radius: 12px;
+            padding: 16px 18px; color: var(--cream); font-family: var(--font-mono);
+            font-size: 14px; line-height: 1.5; text-align: left; cursor: pointer;
+            transition: border-color 0.2s, background 0.2s, transform 0.15s;
+        }
+        .option-btn:hover { border-color: var(--teal); background: rgba(158, 181, 192, 0.1); }
+        .option-btn:active { transform: scale(0.99); }
+
+        .btn-primary {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            background: var(--terracotta); color: var(--deep-moss); border: none;
+            border-radius: 30px; padding: 15px 30px; font-family: var(--font-mono);
+            font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+            cursor: pointer; transition: transform 0.2s, opacity 0.2s;
+        }
+        .btn-primary:hover { transform: translateY(-1px); }
+        .btn-primary.loading { opacity: 0.6; cursor: not-allowed; }
+
+        .btn-secondary {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            background: transparent; color: var(--teal); border: 1px solid var(--border);
+            border-radius: 30px; padding: 13px 26px; font-family: var(--font-mono);
+            font-size: 12.5px; letter-spacing: 0.5px; cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .btn-secondary:hover { border-color: var(--teal); }
+
+        .email-form { width: 100%; max-width: 380px; margin: 0 auto; }
+        .email-input-row { display: flex; gap: 8px; margin-bottom: 10px; }
+        #emailInput {
+            flex: 1; background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 10px; padding: 14px 16px; color: var(--cream);
+            font-family: var(--font-mono); font-size: 14px; outline: none;
+        }
+        #emailInput:focus { border-color: var(--teal); }
+        .email-note {
+            font-size: 11px; color: rgba(251, 250, 245, 0.45); margin-top: 12px;
+        }
+        .email-error {
+            font-size: 12px; color: var(--terracotta); margin-top: 8px; text-align: left;
+        }
+        .hidden { display: none !important; }
+
+        .result-badge {
+            display: inline-block; font-size: 11px; letter-spacing: 2px;
+            text-transform: uppercase; font-weight: 700; color: var(--deep-moss);
+            background: var(--sand); border-radius: 20px; padding: 7px 16px;
+            margin-bottom: 18px;
+        }
+
+        h2.result-headline {
+            font-family: var(--font-serif); font-style: italic; font-size: clamp(24px, 5.5vw, 32px);
+            line-height: 1.3; margin-bottom: 16px; color: var(--cream);
+        }
+
+        p.result-body {
+            font-size: 14.5px; color: rgba(251, 250, 245, 0.8); max-width: 460px;
+            margin: 0 auto 22px; text-align: center;
+        }
+
+        .result-actions-box {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+            padding: 18px 22px; margin: 0 0 16px; text-align: left;
+        }
+        .result-actions-label {
+            font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase;
+            color: var(--sage); font-weight: 700; margin-bottom: 10px;
+        }
+        .result-action-list {
+            list-style: none; counter-reset: actionsteps; display: flex; flex-direction: column; gap: 10px;
+        }
+        .result-action-list li {
+            counter-increment: actionsteps; display: flex; gap: 10px; align-items: flex-start;
+            font-size: 13.5px; color: rgba(251, 250, 245, 0.8);
+        }
+        .result-action-list li::before {
+            content: counter(actionsteps); flex-shrink: 0; width: 20px; height: 20px;
+            border-radius: 50%; background: var(--sage); color: var(--deep-moss);
+            font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center; margin-top: 1px;
+        }
+
+        .result-cta-box {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+            padding: 20px 22px; margin: 6px 0 26px; text-align: left;
+        }
+        .result-cta-label {
+            font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase;
+            color: var(--steel); font-weight: 700; margin-bottom: 8px;
+        }
+        .result-cta-text { font-size: 13.5px; color: rgba(251, 250, 245, 0.75); margin-bottom: 16px; }
+
+        .result-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 8px; }
+
+        .share-confirm { font-size: 12px; color: var(--sage); margin-top: 10px; }
+
+        .screen-footer {
+            width: 100%; max-width: 560px;
+            margin: auto auto 0;
+            padding-top: 12px;
+            text-align: center;
+            font-size: 9px; color: rgba(251, 250, 245, 0.35); letter-spacing: 0.12em;
+            font-weight: 700; text-transform: uppercase;
+        }
+        .paycycle-wordmark {
+            font-family: 'Gochi Hand', cursive; font-size: 24px; text-transform: none;
+            letter-spacing: normal; font-weight: 400; vertical-align: middle; color: var(--cream);
+        }
+        .paycycle-dot { color: var(--steel); font-size: 20px; vertical-align: middle; }
+        .screen-footer a { color: inherit; text-decoration: none; }
+        .screen-footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+
+<body>
+
+    <div class="stage">
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+        <div class="screen-wrap">
+
+            <!-- WELCOME -->
+            <section class="screen active" id="screen-welcome">
+                <div class="screen-inner">
+                    <div class="icon-wrap">
+                        <svg viewBox="0 0 100 100" fill="none">
+                            <circle cx="50" cy="50" r="34" stroke="var(--teal)" stroke-width="5" stroke-dasharray="4 10" stroke-linecap="round" />
+                            <path d="M50 20 A30 30 0 0 1 78 42" stroke="var(--terracotta)" stroke-width="6" stroke-linecap="round" fill="none" />
+                            <path d="M78 42 L70 40 M78 42 L74 50" stroke="var(--terracotta)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                            <circle cx="50" cy="52" r="13" fill="var(--sand)" />
+                            <text x="50" y="57" text-anchor="middle" font-family="Space Mono, monospace" font-size="14" font-weight="700" fill="var(--deep-moss)">$</text>
+                        </svg>
+                    </div>
+                    <div class="eyebrow">PayCycle Quiz</div>
+                    <h1 class="q-title">What's Your <em>Pay-Cycle Money Style</em>?</h1>
+                    <p class="q-subhead">Not spender vs. saver: the specific pattern behind why money feels tight, based on how your pay actually meets your bills.</p>
+                    <div class="trust-chips">
+                        <span>5 QUESTIONS</span><span>·</span><span>INSTANT RESULT</span><span>·</span><span>ANY PAY SCHEDULE</span>
+                    </div>
+                    <button class="btn-primary" onclick="goToScreen('screen-q1')">Begin the quiz →</button>
+                </div>
+            </section>
+
+            <!-- Q1 -->
+            <section class="screen" id="screen-q1">
+                <div class="screen-inner">
+                    <div class="step-label">Question 1 of 5</div>
+                    <h2 class="question-text">How does your income actually arrive?</h2>
+                    <div class="options">
+                        <button class="option-btn" onclick="selectAnswer(1,'freq','weekly')">Weekly, every week</button>
+                        <button class="option-btn" onclick="selectAnswer(1,'freq','biweekly')">Every two weeks (biweekly)</button>
+                        <button class="option-btn" onclick="selectAnswer(1,'freq','monthly')">Once or twice a month (semi-monthly or monthly)</button>
+                        <button class="option-btn" onclick="selectAnswer(1,'freq','irregular')">It varies — freelance, gig, tips, or no fixed schedule</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Q2 -->
+            <section class="screen" id="screen-q2">
+                <div class="screen-inner">
+                    <div class="step-label">Question 2 of 5</div>
+                    <h2 class="question-text">When a payment lands, what's usually the first thing that happens to it?</h2>
+                    <div class="options">
+                        <button class="option-btn" onclick="selectAnswer(2,'type','tbs')">It covers whatever bill is due soonest, whether or not I've checked what's coming after it</button>
+                        <button class="option-btn" onclick="selectAnswer(2,'type','rc')">It gets spent on ordinary stuff before I've thought about what's due next</button>
+                        <button class="option-btn" onclick="selectAnswer(2,'type','np')">I mentally split it up — bills, spending, maybe savings — but never write any of it down</button>
+                        <button class="option-btn" onclick="selectAnswer(2,'type','ag')">I try to guess a rough amount to set aside, since I don't actually know what the next payment will be</button>
+                        <button class="option-btn" onclick="selectAnswer(2,'type','cs')">It's already accounted for, I know before it arrives where each part of it is going</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Q3 -->
+            <section class="screen" id="screen-q3">
+                <div class="screen-inner">
+                    <div class="step-label">Question 3 of 5</div>
+                    <h2 class="question-text">How do you currently know a bill is covered before it's due?</h2>
+                    <div class="options">
+                        <button class="option-btn" onclick="selectAnswer(3,'type','tbs')">I know the bill amounts, but I've never actually checked them against my specific pay dates</button>
+                        <button class="option-btn" onclick="selectAnswer(3,'type','rc')">I don't check in advance — I find out when a payment fails or my balance goes negative</button>
+                        <button class="option-btn" onclick="selectAnswer(3,'type','np')">I keep a rough mental list and it's usually right, but it's never written down anywhere</button>
+                        <button class="option-btn" onclick="selectAnswer(3,'type','ag')">It depends which payments have actually come in that month, so I can't plan that far ahead</button>
+                        <button class="option-btn" onclick="selectAnswer(3,'type','cs')">Yes, I've matched specific bills to specific pay dates, and I check it whenever anything changes</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Q4 -->
+            <section class="screen" id="screen-q4">
+                <div class="screen-inner">
+                    <div class="step-label">Question 4 of 5</div>
+                    <h2 class="question-text">What usually causes the actual "uh oh" moment?</h2>
+                    <div class="options">
+                        <button class="option-btn" onclick="selectAnswer(4,'type','tbs')">A bill comes due in the days right before my next payday, when there's the least in the account</button>
+                        <button class="option-btn" onclick="selectAnswer(4,'type','rc')">I only notice a shortfall after it's already happened</button>
+                        <button class="option-btn" onclick="selectAnswer(4,'type','np')">Something breaks my usual routine — a rescheduled bill, a smaller payment, a forgotten one-off</button>
+                        <button class="option-btn" onclick="selectAnswer(4,'type','ag')">A payment comes in lower than I expected, and I'd already planned around the usual amount</button>
+                        <button class="option-btn" onclick="selectAnswer(4,'type','cs')">Nothing really catches me off guard anymore, I've built in buffer for exactly this</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Q5 -->
+            <section class="screen" id="screen-q5">
+                <div class="screen-inner">
+                    <div class="step-label">Question 5 of 5</div>
+                    <h2 class="question-text">What would actually help most right now?</h2>
+                    <div class="options">
+                        <button class="option-btn" onclick="selectAnswer(5,'type','tbs')">Seeing exactly which bills are at risk in each pay cycle, before they're due</button>
+                        <button class="option-btn" onclick="selectAnswer(5,'type','rc')">Any kind of forward check at all — right now I have none</button>
+                        <button class="option-btn" onclick="selectAnswer(5,'type','np')">Turning what's already in my head into something I can actually see and rely on</button>
+                        <button class="option-btn" onclick="selectAnswer(5,'type','ag')">Knowing the real, safe-to-spend number from any payment, even an unpredictable one</button>
+                        <button class="option-btn" onclick="selectAnswer(5,'type','cs')">Nothing major, mostly just removing the manual checking, not the checking itself</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EMAIL / RESULT READY (merged) -->
+            <section class="screen" id="screen-email">
+                <div class="screen-inner">
+                    <div class="icon-wrap">
+                        <svg viewBox="0 0 100 100" fill="none">
+                            <path d="M50 22 L58 42 L80 44 L63 58 L69 80 L50 68 L31 80 L37 58 L20 44 L42 42 Z"
+                                stroke="var(--sand)" stroke-width="5" stroke-linejoin="round" fill="rgba(249,229,198,0.12)" />
+                        </svg>
+                    </div>
+                    <h2 class="q-title" style="font-size: clamp(22px, 5vw, 28px);">Your result is ready.</h2>
+                    <p class="q-subhead">Enter your email below to reveal your pay-cycle money style instantly.</p>
+                    <form class="email-form" id="emailForm" novalidate onsubmit="handleEmailSubmit(event)">
+                        <div class="email-input-row">
+                            <input type="email" id="emailInput" placeholder="you@email.com" />
+                        </div>
+                        <button type="submit" class="btn-primary" id="emailSubmitBtn" style="width:100%;">Reveal my result →</button>
+                        <p class="email-error hidden" id="emailError"></p>
+                        <p class="email-note">Occasional updates from PayCycle, nothing else. Unsubscribe anytime.</p>
+                    </form>
+                </div>
+            </section>
+
+            <!-- RESULT -->
+            <section class="screen" id="screen-result">
+                <div class="screen-inner">
+                    <div class="icon-wrap" id="resultIconWrap"></div>
+                    <div class="result-badge" id="resultBadge"></div>
+                    <h2 class="result-headline" id="resultHeadline"></h2>
+                    <p class="result-body" id="resultBody"></p>
+
+                    <div class="result-actions-box">
+                        <div class="result-actions-label" id="resultActionsLabel">This week</div>
+                        <ol class="result-action-list" id="resultActionList"></ol>
+                    </div>
+
+                    <div class="result-cta-box">
+                        <div class="result-cta-label">How PayCycle helps with this</div>
+                        <div class="result-cta-text" id="resultCtaText"></div>
+                        <a class="btn-primary" href="../paycycle-waitlist.html" style="text-decoration:none;">Explore PayCycle →</a>
+                    </div>
+
+                    <div class="result-actions">
+                        <button class="btn-secondary" id="shareBtn" onclick="shareResult()">Share my result</button>
+                        <button class="btn-secondary" onclick="restartQuiz()">Retake the quiz</button>
+                    </div>
+                    <p class="share-confirm hidden" id="shareConfirm">Copied to your clipboard.</p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        // Footer brand link: appended as its own flex item directly inside
+        // each .screen, right after that screen's .screen-inner — not
+        // position:fixed (overlapped scrolled content), and not
+        // position:sticky either (sticky still resolved against the full
+        // .screen scrollport rather than where the shorter, centered content
+        // actually sat, so it got pulled up to the bottom edge of the
+        // screen and landed on top of the CTA/share buttons). It was also
+        // briefly nested as the last child *inside* .screen-inner, which
+        // avoided any overlap but dragged the footer into that element's own
+        // margin:auto centering group — on short screens the whole
+        // content+footer block centered together, so the footer visually
+        // sat in the middle of the screen instead of near the bottom.
+        //
+        // The fix: .screen-inner uses `margin: auto auto 0` (top auto,
+        // bottom 0 — see its CSS) instead of `margin: auto` on all sides,
+        // and .screen-footer (as a sibling, not a child of .screen-inner)
+        // uses the same `margin: auto auto 0`. Flexbox splits the screen's
+        // free vertical space evenly between the two auto top-margins, so
+        // when content is short there's a gap above the content and an
+        // equal gap between the content and the footer, and the footer
+        // lands right against the screen's own bottom padding — near the
+        // true bottom, not the middle. When content is tall enough to
+        // scroll, both auto margins collapse to 0 automatically (the same
+        // mechanism the centering-scroll fix already relies on), so the
+        // footer simply follows right after the content with no gap and no
+        // overlap, exactly as before.
+        document.addEventListener('DOMContentLoaded', function () {
+            var footerMarkup = '<a href="../paycycle-waitlist.html">' +
+                '<span class="paycycle-wordmark">PayCycle</span><span class="paycycle-dot">.</span> — pay-cycle budgeting' +
+                '</a>';
+            document.querySelectorAll('.screen').forEach(function (screen) {
+                var footer = document.createElement('div');
+                footer.className = 'screen-footer';
+                footer.innerHTML = footerMarkup;
+                screen.appendChild(footer);
+            });
+        });
+
+        var SCREEN_ORDER = ['screen-welcome', 'screen-q1', 'screen-q2', 'screen-q3', 'screen-q4', 'screen-q5', 'screen-email', 'screen-result'];
+        var currentScreen = 'screen-welcome';
+
+        var answers = { freq: null, trigger: null, scores: { tbs: 0, rc: 0, np: 0, ag: 0, cs: 0 } };
+
+        function updateProgress() {
+            var idx = SCREEN_ORDER.indexOf(currentScreen);
+            var qScreens = ['screen-q1', 'screen-q2', 'screen-q3', 'screen-q4', 'screen-q5'];
+            var qIdx = qScreens.indexOf(currentScreen);
+            var pct = 0;
+            if (currentScreen === 'screen-welcome') pct = 0;
+            else if (qIdx > -1) pct = ((qIdx + 1) / (qScreens.length + 2)) * 100;
+            else if (currentScreen === 'screen-email') pct = (6 / 7) * 100;
+            else if (currentScreen === 'screen-result') pct = 100;
+            document.getElementById('progressFill').style.width = pct + '%';
+        }
+
+        function goToScreen(nextId) {
+            var current = document.getElementById(currentScreen);
+            var next = document.getElementById(nextId);
+            if (!next) return;
+
+            current.classList.remove('active');
+            current.classList.add('exit');
+
+            setTimeout(function () { current.classList.remove('exit'); }, 450);
+
+            next.classList.add('active');
+            currentScreen = nextId;
+            next.scrollTop = 0;
+
+            updateProgress();
+        }
+
+        function selectAnswer(qNum, field, value) {
+            if (field === 'freq') {
+                answers.freq = value;
+            } else {
+                answers.scores[value] += 1;
+                if (qNum === 4) answers.trigger = value; // axis 2: the specific "uh oh" trigger, kept regardless of final bucket
+            }
+            var nextIdx = SCREEN_ORDER.indexOf('screen-q' + qNum) + 1;
+            goToScreen(SCREEN_ORDER[nextIdx]);
+        }
+
+        function getResultKey() {
+            var order = ['tbs', 'rc', 'np', 'ag', 'cs']; // deterministic tie-break order; cs last so a genuine
+            // tie between a "problem" bucket and "already handled" favors surfacing the useful pattern
+            var best = order[0];
+            var bestScore = -1;
+            order.forEach(function (key) {
+                if (answers.scores[key] > bestScore) {
+                    bestScore = answers.scores[key];
+                    best = key;
+                }
+            });
+            return best;
+        }
+
+        // Axis 1 of personalization: pay-frequency flavor. Two variants per frequency,
+        // since the "problem" framing (tbs/rc/np/ag) and the "already synced" framing (cs)
+        // need to say something different about the same schedule.
+        var FREQ_FLAVOR = {
+            weekly: "Weekly pay usually covers the basics without a problem. It's the less frequent bills, rent, subscriptions, anything monthly, that slip past whichever payday happens to fall closest to them, without you noticing until it's due.",
+            biweekly: "Paid every two weeks, the same bill can fall in a different part of your cycle almost every time, since a 14-day cycle and a calendar month never quite stay in step.",
+            monthly: "Paid once or twice a month, most bills line up fine. It's specifically the ones due right after a payday, or right before the next one, that are worth checking.",
+            irregular: "Without a fixed next payday to check bills against, there's no obvious fallback assumption to lean on, which is exactly where this shows up hardest."
+        };
+        var FREQ_FLAVOR_CS = {
+            weekly: "Weekly pay leaves little room to drift, so most of what trips other people up is already covered just by how often money moves through your account.",
+            biweekly: "Staying matched to a 14-day cycle that drifts against the calendar takes real ongoing attention, so keeping this synced is genuinely harder than it looks.",
+            monthly: "With pay landing once or twice a month, most of the risk sits in a couple of specific days each cycle, and it sounds like you've already found them.",
+            irregular: "Doing this with no fixed schedule to anchor to is the hardest version of this problem, and you're managing it without one."
+        };
+
+        // Axis 2 of personalization: whichever "uh oh" trigger was picked at Q4,
+        // independent of which bucket the overall answers land on.
+        var TRIGGER_LINES = {
+            tbs: "the moment that actually catches you out is a bill coming due in the days right before your next payday, when there's the least in the account.",
+            rc: "the moment that actually catches you out is noticing a shortfall only after it's already happened.",
+            np: "the moment that actually catches you out is anything that breaks your usual routine, a rescheduled bill, a smaller payment, a forgotten one-off.",
+            ag: "the moment that actually catches you out is a payment landing lower than you'd planned around.",
+            cs: "nothing really catches you out anymore, since you've already built in buffer for exactly this."
+        };
+
+        var RESULTS = {
+            tbs: {
+                badge: 'Timing Blind Spot',
+                headline: "The bills are known. The timing isn't checked.",
+                bodyTemplate: "{{flavor}} For you specifically, {{trigger}} Once each bill is matched to the pay period it actually falls into, most of what currently feels like bad luck turns into a pattern you can see coming.",
+                actions: [
+                    "List your 3 biggest fixed bills and the date each is due.",
+                    "Mark which pay date falls right before each one.",
+                    "Flag any bill sitting in the back half of a pay cycle. That's your risk zone."
+                ],
+                cta: "PayCycle matches every bill to your real pay dates automatically, cycle after cycle, so this check happens without you running it yourself.",
+                icon: 'tbs'
+            },
+            rc: {
+                badge: 'Reactive Catch-Up',
+                headline: "The gap shows up after it's already happened.",
+                bodyTemplate: "{{flavor}} For you specifically, {{trigger}} A five-second look ahead before a payment arrives is enough to turn this from a surprise into something you saw coming.",
+                actions: [
+                    "List every bill due between your next payment and the one after it.",
+                    "Add up what's owed and compare it to what's coming in.",
+                    "If it's close, set the difference aside today, before it gets spent on something else."
+                ],
+                cta: "PayCycle flags a lean week before it happens, not once it's already showing up in your balance.",
+                icon: 'rc'
+            },
+            np: {
+                badge: 'Nearly-There Planner',
+                headline: "The system already exists, just not on paper.",
+                bodyTemplate: "{{flavor}} For you specifically, {{trigger}} Writing down what's already in your head is a small step, and it's the one that stops the whole thing depending on you remembering it.",
+                actions: [
+                    "Write down the mental list you already keep, exactly as it is in your head.",
+                    "Check it against your last two pay cycles to see where it held up and where it didn't.",
+                    "Keep it somewhere you'll actually see it next payday, not just this once."
+                ],
+                cta: "PayCycle keeps what you're already tracking mentally somewhere it can't slip.",
+                icon: 'np'
+            },
+            ag: {
+                badge: 'Amount Guesser',
+                headline: "Every payment starts from a guess.",
+                bodyTemplate: "{{flavor}} For you specifically, {{trigger}} A stricter budget won't fix this on its own. What actually helps is a real number, worked out from what's landed this time rather than what usually does.",
+                actions: [
+                    "Next time a payment comes in, write down the exact amount, not the usual amount.",
+                    "Set aside a fixed percentage for tax or savings before anything else touches it.",
+                    "Whatever's left after that is what's safe to spend, no matter what the total came to."
+                ],
+                cta: "PayCycle works out what's safe to spend from any payment, fixed or not, the moment it lands.",
+                icon: 'ag'
+            },
+            cs: {
+                badge: 'Cycle-Synced',
+                headline: "You've already built the system. This just runs it without you.",
+                bodyTemplate: "{{flavor}} For you specifically, {{trigger}} What you're doing by hand already works, so the only real gap left is the manual effort of keeping it up every single cycle.",
+                actions: [
+                    "Write down the exact rule you already follow, so it survives a busy week.",
+                    "Note the one thing that would actually break it, an irregular bill or a smaller payment, and plan for that case specifically.",
+                    "Decide what you'd automate first if you no longer had to do the checking yourself."
+                ],
+                cta: "PayCycle takes the matching you're already doing by hand and keeps doing it automatically, so you don't drop the ball in a busy week.",
+                icon: 'cs'
+            }
+        };
+
+        var RESULT_ICONS = {
+            tbs: '<svg viewBox="0 0 100 100" fill="none"><rect x="24" y="30" width="42" height="46" rx="6" stroke="var(--terracotta)" stroke-width="5" fill="rgba(226,187,170,0.1)" /><line x1="32" y1="44" x2="58" y2="44" stroke="var(--terracotta)" stroke-width="4" stroke-linecap="round"/><line x1="32" y1="54" x2="52" y2="54" stroke="var(--terracotta)" stroke-width="4" stroke-linecap="round"/><circle cx="70" cy="66" r="18" fill="var(--bg)" stroke="var(--teal)" stroke-width="5" /><line x1="70" y1="66" x2="70" y2="56" stroke="var(--teal)" stroke-width="4" stroke-linecap="round"/><line x1="70" y1="66" x2="78" y2="70" stroke="var(--teal)" stroke-width="4" stroke-linecap="round"/></svg>',
+            rc: '<svg viewBox="0 0 100 100" fill="none"><path d="M28 32 h44 a4 4 0 0 1 4 4 v36 a4 4 0 0 1 -4 4 h-44 a4 4 0 0 1 -4 -4 v-36 a4 4 0 0 1 4 -4 Z" stroke="var(--sage)" stroke-width="5" fill="rgba(168,175,130,0.1)"/><path d="M36 32 v-6 a4 4 0 0 1 4 -4 h20 a4 4 0 0 1 4 4 v6" stroke="var(--sage)" stroke-width="5" stroke-linecap="round"/><line x1="50" y1="46" x2="50" y2="64" stroke="var(--terracotta)" stroke-width="6" stroke-linecap="round"/><circle cx="50" cy="72" r="3.5" fill="var(--terracotta)"/></svg>',
+            np: '<svg viewBox="0 0 100 100" fill="none"><rect x="26" y="24" width="48" height="58" rx="6" stroke="var(--olive)" stroke-width="5" fill="rgba(207,203,169,0.12)"/><rect x="40" y="18" width="20" height="12" rx="3" fill="var(--sand)" stroke="var(--olive)" stroke-width="3"/><path d="M35 44 l5 5 l10 -10" stroke="var(--sage)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><line x1="55" y1="46" x2="66" y2="46" stroke="var(--sage)" stroke-width="4" stroke-linecap="round"/><rect x="34" y="58" width="10" height="10" rx="2" stroke="var(--teal)" stroke-width="4" fill="none"/><line x1="55" y1="63" x2="66" y2="63" stroke="rgba(251,250,245,0.3)" stroke-width="4" stroke-linecap="round"/></svg>',
+            ag: '<svg viewBox="0 0 100 100" fill="none"><ellipse cx="50" cy="58" rx="34" ry="20" stroke="var(--sand)" stroke-width="5" fill="rgba(249,229,198,0.1)"/><ellipse cx="50" cy="52" rx="34" ry="20" stroke="var(--sand)" stroke-width="5" fill="var(--bg)"/><text x="50" y="60" text-anchor="middle" font-family="DM Serif Display, Georgia, serif" font-style="italic" font-size="30" fill="var(--terracotta)">?</text></svg>',
+            cs: '<svg viewBox="0 0 100 100" fill="none"><circle cx="46" cy="50" r="30" stroke="var(--sage)" stroke-width="5" fill="rgba(168,175,130,0.1)"/><path d="M34 50 l9 9 l19 -20" stroke="var(--sage)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="78" cy="28" r="8" fill="var(--bg)" stroke="var(--teal)" stroke-width="4"/><path d="M78 24 v4 l3 2" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" fill="none"/></svg>'
+        };
+
+        function showResult() {
+            var key = getResultKey();
+            var r = RESULTS[key];
+            var flavor = (key === 'cs' ? FREQ_FLAVOR_CS[answers.freq] : FREQ_FLAVOR[answers.freq]) || FREQ_FLAVOR.irregular;
+            var trigger = TRIGGER_LINES[answers.trigger] || TRIGGER_LINES.rc;
+            var body = r.bodyTemplate.replace('{{flavor}}', flavor).replace('{{trigger}}', trigger);
+
+            document.getElementById('resultIconWrap').innerHTML = RESULT_ICONS[r.icon];
+            document.getElementById('resultBadge').textContent = r.badge;
+            document.getElementById('resultHeadline').innerHTML = r.headline;
+            document.getElementById('resultBody').innerHTML = body;
+            document.getElementById('resultCtaText').innerHTML = r.cta;
+
+            var listEl = document.getElementById('resultActionList');
+            listEl.innerHTML = '';
+            r.actions.forEach(function (step) {
+                var li = document.createElement('li');
+                li.textContent = step;
+                listEl.appendChild(li);
+            });
+
+            goToScreen('screen-result');
+        }
+
+        function restartQuiz() {
+            answers = { freq: null, trigger: null, scores: { tbs: 0, rc: 0, np: 0, ag: 0, cs: 0 } };
+            document.getElementById('emailForm').reset();
+            document.getElementById('emailError').classList.add('hidden');
+            goToScreen('screen-welcome');
+        }
+
+        // ---- Kit email capture ----
+        var KIT_FORM_ID = '9934586';
+        var KIT_TAG_ID = '23850711';
+
+        var activeSubmission = null;
+
+        async function handleEmailSubmit(e) {
+            e.preventDefault();
+            var email = document.getElementById('emailInput').value.trim();
+            var btn = document.getElementById('emailSubmitBtn');
+            var errorEl = document.getElementById('emailError');
+
+            if (!email) return;
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                errorEl.textContent = 'Please enter a valid email address.';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+            errorEl.classList.add('hidden');
+
+            if (activeSubmission) activeSubmission.abort();
+            var thisSubmission = new AbortController();
+            activeSubmission = thisSubmission;
+
+            btn.classList.add('loading');
+            btn.textContent = 'Submitting';
+
+            var timeoutId = setTimeout(function () { thisSubmission.abort(); }, 4000);
+
+            try {
+                var kitFormData = new FormData();
+                kitFormData.append('email_address', email);
+                kitFormData.append('tags[]', KIT_TAG_ID);
+
+                await fetch('https://app.kit.com/forms/' + KIT_FORM_ID + '/subscriptions', {
+                    method: 'POST',
+                    body: kitFormData,
+                    headers: { 'Accept': 'application/json' },
+                    signal: thisSubmission.signal
+                });
+                showResult();
+            } catch (err) {
+                if (activeSubmission !== thisSubmission) return;
+                console.warn('Kit submission error (result shown regardless):', err);
+                showResult();
+            } finally {
+                clearTimeout(timeoutId);
+                if (activeSubmission === thisSubmission) {
+                    activeSubmission = null;
+                    btn.classList.remove('loading');
+                    btn.textContent = 'Reveal my result →';
+                }
+            }
+        }
+
+        // ---- Share ----
+        async function shareResult() {
+            var key = getResultKey();
+            var r = RESULTS[key];
+            var text = 'I just took the PayCycle quiz, I\'m the "' + r.badge + '". Find out yours \u{1F447}';
+            var url = window.location.href;
+            var shareText = text + '\n' + url;
+            var btn = document.getElementById('shareBtn');
+
+            var isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+
+            if (isTouchDevice && navigator.share) {
+                try {
+                    await navigator.share({ title: 'PayCycle Quiz', text: text, url: url });
+                    return;
+                } catch (err) {
+                    if (err && err.name === 'AbortError') return;
+                }
+            }
+
+            try {
+                if (!navigator.clipboard || !navigator.clipboard.writeText) {
+                    throw new Error('Clipboard API unavailable');
+                }
+                await navigator.clipboard.writeText(shareText);
+                confirmCopied(btn);
+            } catch (err) {
+                window.prompt('Copy your result to share:', shareText);
+            }
+        }
+
+        function confirmCopied(btn) {
+            var note = document.getElementById('shareConfirm');
+            if (note) {
+                note.classList.remove('hidden');
+                setTimeout(function () { note.classList.add('hidden'); }, 6000);
+            }
+            if (!btn) return;
+            var original = btn.textContent;
+            btn.textContent = 'Copied!';
+            btn.disabled = true;
+            setTimeout(function () {
+                btn.textContent = original;
+                btn.disabled = false;
+            }, 6000);
+        }
+
+        updateProgress();
+    </script>
+
+</body>
+</html>

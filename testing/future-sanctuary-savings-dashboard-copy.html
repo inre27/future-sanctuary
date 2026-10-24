@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Savings Journey — Future Sanctuary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --blue: #7597a7;
+      --blue-mid: #8AADA7;
+      --blue-pale: #EBF0F3;
+      --blush: #E2BBAA;
+      --blush-light: #F5EAE4;
+      --sage: #8A9E8C;
+      --sage-light: #EAF0EA;
+      --ochre: #C9A96E;
+      --ochre-light: #FAF3E0;
+      --warm: #F0C767;
+      --text: #111111;
+      --muted: #7A6E65;
+      --hint: #A89D95;
+      --bg: #FBFAF5;
+      --bg-box: #F5F3EB;
+      --border: #E8E0D2;
+    }
+
+    body {
+      background: #D8D2C6;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text);
+      min-height: 100vh;
+      padding: 20px 10px 50px;
+    }
+
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      padding: 26px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 22px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .modal-title span {
+      color: var(--blue);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--hint);
+    }
+
+    .modal-close:hover {
+      color: var(--blue);
+    }
+
+    .modal-field {
+      margin-bottom: 16px;
+    }
+
+    .modal-label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 9.5px;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    .modal-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      color: var(--text);
+      padding: 6px 2px;
+      outline: none;
+    }
+
+    .modal-input:focus {
+      border-bottom-color: var(--blue);
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .app-shell {
+      max-width: 1360px;
+      margin: 0 auto;
+    }
+
+    .app-title {
+      text-align: center;
+      font-family: 'Gochi Hand', cursive;
+      font-size: 22px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .app-title span {
+      color: var(--blue);
+    }
+
+    /* ---- centered tab nav ---- */
+    .tab-nav {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .tab-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      letter-spacing: 0.3px;
+      padding: 10px 26px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .tab-btn.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+
+    /* ---- app card ---- */
+    .app-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+      padding: 26px;
+      min-height: 640px;
+    }
+
+    .app-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+
+    .app-topbar-brand {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 19px;
+      color: var(--text);
+    }
+
+    .app-topbar-brand span {
+      color: var(--blue);
+    }
+
+    #topbar-goal {
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    #topbar-goal strong {
+      color: var(--text);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* ---- tooltip ---- */
+    .field-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 5px;
+    }
+
+    .tip {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid var(--hint);
+      color: var(--hint);
+      font-size: 9.5px;
+      cursor: help;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .tip:hover::after,
+    .tip:focus::after {
+      content: attr(data-tip);
+      position: absolute;
+      left: 50%;
+      top: 150%;
+      transform: translateX(-50%);
+      background: #111;
+      color: #fff;
+      font-size: 10.5px;
+      line-height: 1.5;
+      padding: 9px 11px;
+      border-radius: 8px;
+      width: 210px;
+      z-index: 80;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      text-align: left;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ---- panels ---- */
+    .panel {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .panel-title {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    /* ---- home grid ---- */
+    .home-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .panel-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .home-right {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .panel-visual {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 230px;
+    }
+
+    .panel-progress {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .field-label {
+      font-size: 9.5px;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    input[type="text"],
+    input[type="date"],
+    textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      color: var(--text);
+      padding: 6px 2px;
+      outline: none;
+      resize: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    textarea:focus {
+      border-bottom-color: var(--blue);
+    }
+
+    .goal-name-input {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 19px;
+      color: var(--blue);
+      border-bottom: 2px solid var(--blue);
+    }
+
+    textarea.small {
+      height: 52px;
+    }
+
+    .tag-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      padding: 5px 11px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--bg-box);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.12s;
+      user-select: none;
+    }
+
+    .tag-btn:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .tag-btn.selected {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+
+    .quick-log {
+      background: var(--blue-pale);
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .quick-log-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .quick-log-row input {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 8px;
+      background: #fff;
+    }
+
+    .quick-log-note {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px;
+      background: #fff;
+      margin-top: 4px;
+    }
+
+    .btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: #5f8494;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--blue);
+      color: var(--blue);
+    }
+
+    .btn-outline:hover {
+      background: var(--blue-pale);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--hint);
+      color: var(--hint);
+    }
+
+    /* ---- visual picker svg ---- */
+    .visual-picker {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .visual-box {
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .visual-box.active {
+      display: flex;
+    }
+
+    .visual-caption {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    .visual-caption strong {
+      color: var(--blue);
+      font-family: 'Gochi Hand', cursive;
+      font-size: 15px;
+    }
+
+    /* ---- progress bar ---- */
+    .progress-amounts {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .progress-saved {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 24px;
+      color: var(--blue);
+    }
+
+    .progress-of {
+      font-size: 11px;
+      color: var(--hint);
+    }
+
+    .progress-target {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 17px;
+      color: var(--text);
+    }
+
+    .progress-bar-outer {
+      height: 16px;
+      background: var(--bg-box);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 8px 0 4px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--sage), var(--blue));
+      transition: width 0.4s ease;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--hint);
+    }
+
+    .path-message {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 13.5px;
+      color: var(--text);
+      font-style: italic;
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    /* ---- momentum (3-row habit grid, matches the printable workbook) ---- */
+    .momentum-grid {
+      display: grid;
+      grid-template-columns: 130px repeat(12, 1fr);
+      gap: 2px;
+    }
+
+    .momentum-row {
+      display: flex;
+      gap: 2px;
+      flex-wrap: wrap;
+    }
+
+    .momentum-dot {
+      width: 23px;
+      height: 23px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8.5px;
+      color: var(--hint);
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.1s;
+    }
+
+    .momentum-dot.marked {
+      color: #fff;
+    }
+
+    .momentum-dot:hover {
+      background: #EBF0F3;
+    }
+
+    .momentum-foot {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10.5px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .momentum-foot strong {
+      color: var(--blue);
+    }
+
+    /* ---- log tab ---- */
+    .log-summary {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .log-stat {
+      background: var(--bg-box);
+      border-radius: 12px;
+      padding: 12px 18px;
+      flex: 1;
+      min-width: 140px;
+    }
+
+    .log-stat-val {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 22px;
+      color: var(--blue);
+    }
+
+    .log-stat-label {
+      font-size: 9.5px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--hint);
+      margin-top: 2px;
+    }
+
+    .log-add-form {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      background: var(--bg-box);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+    }
+
+    .log-add-field {
+      flex: 1;
+      min-width: 110px;
+    }
+
+    .log-add-field input {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      background: #fff;
+    }
+
+    table.log-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table.log-table th {
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--hint);
+      text-align: left;
+      padding: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    table.log-table td {
+      font-size: 12px;
+      padding: 9px 8px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    table.log-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .log-empty {
+      text-align: center;
+      color: var(--hint);
+      font-size: 12px;
+      padding: 30px 0;
+    }
+
+    .del-btn {
+      background: none;
+      border: none;
+      color: var(--hint);
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .del-btn:hover {
+      color: #B5896E;
+    }
+
+    .edit-btn {
+      background: none;
+      border: none;
+      color: var(--hint);
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .edit-btn:hover {
+      color: #7597a7;
+    }
+
+    /* ---- journal tab ---- */
+    .journal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .prompt-q {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 13px;
+      color: var(--text);
+      margin-bottom: 6px;
+      font-style: italic;
+    }
+
+    .milestone-reward-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .milestone-reward-pct {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 16px;
+      color: var(--blue);
+      width: 44px;
+      flex-shrink: 0;
+    }
+
+    .check-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .check-row input {
+      margin-top: 2px;
+      accent-color: var(--blue);
+      cursor: pointer;
+    }
+
+    .check-row label {
+      font-size: 11.5px;
+      color: var(--text);
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 10.5px;
+      color: var(--hint);
+      margin-top: 18px;
+    }
+
+
+
+
+    /* habit-style momentum grid */
+    .habit-grid {
+      display: grid;
+      grid-template-columns: 150px repeat(12, 1fr);
+      gap: 3px;
+    }
+
+    .hg-cell {
+      height: 26px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: var(--hint);
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.1s;
+    }
+
+    .hg-cell.header {
+      background: var(--bg-box);
+      font-size: 8.5px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      cursor: default;
+      color: var(--muted);
+    }
+
+    .hg-cell.row-label {
+      font-size: 10px;
+      color: var(--text);
+      justify-content: flex-start;
+      padding-left: 4px;
+      cursor: default;
+      background: transparent;
+      border: none;
+    }
+
+    .hg-cell.data:hover {
+      background: #EBF0F3;
+    }
+
+    .hg-cell.marked {
+      background: var(--blue);
+      color: white;
+    }
+
+    .hg-cell.marked::after {
+      content: '✓';
+      font-size: 12px;
+    }
+
+
+
+
+    @media(max-width:860px) {
+
+      .home-grid,
+      .journal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <div class="app-title">savings journey <span>·</span> future sanctuary</div>
+
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="home" onclick="switchTab('home')">home</button>
+      <button class="tab-btn" data-tab="log" onclick="switchTab('log')">log</button>
+      <button class="tab-btn" data-tab="journal" onclick="switchTab('journal')">journal</button>
+    </div>
+
+    <div class="app-card">
+
+      <div class="app-topbar">
+        <div class="app-topbar-brand">futuresanctuary<span>.</span></div>
+        <div id="topbar-goal">Untitled goal · <strong id="topbar-target">£0</strong> by <span id="topbar-date">—</span>
+        </div>
+      </div>
+
+      <!-- ============================================================
+         HOME TAB
+         ============================================================ -->
+      <div class="tab-panel active" id="tab-home">
+        <div class="home-grid">
+
+          <!-- LEFT: inputs -->
+          <div class="panel panel-inputs">
+            <div>
+              <div class="field-label" style="margin-bottom:5px;">Goal name</div>
+              <input type="text" class="goal-name-input" id="inp-goal-name" placeholder="e.g. Our Portugal trip"
+                oninput="onGoalName(this.value)" />
+            </div>
+            <!-- 
+            <div>
+              <div class="field-label" style="margin-bottom:6px;">What are you saving for?</div>
+              <div class="tag-grid" id="goal-type-tags">
+                <div class="tag-btn" data-val="house" onclick="toggleGoalType(this)">🏠 house</div>
+                <div class="tag-btn" data-val="travel" onclick="toggleGoalType(this)">✈️ travel</div>
+                <div class="tag-btn" data-val="emergency" onclick="toggleGoalType(this)">🛡️ emergency</div>
+                <div class="tag-btn" data-val="wedding" onclick="toggleGoalType(this)">💍 wedding</div>
+                <div class="tag-btn" data-val="car" onclick="toggleGoalType(this)">🚗 car</div>
+                <div class="tag-btn" data-val="other" onclick="toggleGoalType(this)">🎁 other</div>
+              </div>
+            </div>-->
+
+            <div>
+              <div class="field-row">
+                <div class="field-label">Visual theme</div>
+                <span class="tip" tabindex="0"
+                  data-tip="Pick how you'd like to see progress on the right. You can switch any time — your data stays the same.">i</span>
+              </div>
+              <div class="tag-grid" id="visual-tags">
+                <div class="tag-btn selected" data-val="jar" onclick="selectVisual(this)">🫙 jar</div>
+                <div class="tag-btn" data-val="gauge" onclick="selectVisual(this)">⛽ gauge</div>
+                <div class="tag-btn" data-val="house" onclick="selectVisual(this)">🏠 house</div>
+              </div>
+            </div>
+
+            <div class="grid-2" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div>
+                <div class="field-label" style="margin-bottom:5px;">Currency</div>
+                <div class="tag-grid" id="currency-tags">
+                  <div class="tag-btn selected" data-val="£" onclick="selectCurrency(this)">£</div>
+                  <div class="tag-btn" data-val="$" onclick="selectCurrency(this)">$</div>
+                  <div class="tag-btn" data-val="€" onclick="selectCurrency(this)">€</div>
+                </div>
+              </div>
+              <div>
+                <div class="field-label" style="margin-bottom:5px;">Target amount</div>
+                <input type="text" id="inp-target" placeholder="e.g. 2000" oninput="onTarget(this.value)" />
+              </div>
+            </div>
+
+            <div>
+              <div class="field-row">
+                <div class="field-label">Target date</div>
+                <span class="tip" tabindex="0"
+                  data-tip="A rough month is fine — this doesn't need to be exact. It's just something to work towards.">i</span>
+              </div>
+              <input type="date" id="inp-date" oninput="onDate(this.value)" />
+            </div>
+
+            <div>
+              <div class="field-row">
+                <div class="field-label">Why this matters</div>
+                <span class="tip" tabindex="0"
+                  data-tip="One or two sentences is enough. This is what you'll come back to on the harder weeks — be specific about what actually changes once you get there.">i</span>
+              </div>
+              <textarea class="small" id="inp-motivation" placeholder="What will be different once you reach this?"
+                oninput="onMotivation(this.value)"></textarea>
+            </div>
+            <div>
+              <div class="field-row">
+                <div class="field-label">If I feel like giving up, I'll...</div>
+                <span class="tip" tabindex="0"
+                  data-tip="Write what you'll remind yourself when you're feeling like giving up">i</span>
+              </div>
+              <textarea class="small" id="inp-giving-up"
+                placeholder="Write this now, while you feel motivated - it's for the week you don't."
+                oninput="onGivingUp(this.value)"></textarea>
+            </div>
+
+            <div>
+              <div class="field-row">
+                <div class="field-label">Starting balance</div>
+                <span class="tip" tabindex="0"
+                  data-tip="Anything you'd already put aside before you started using this tracker. Leave at 0 if you're starting fresh.">i</span>
+              </div>
+              <input type="text" id="inp-starting" placeholder="e.g. 0" oninput="onStarting(this.value)" />
+            </div>
+
+            <div class="quick-log">
+              <div class="field-row" style="margin-bottom:0;">
+                <div class="field-label">Log a saving</div>
+                <span class="tip" tabindex="0"
+                  data-tip="Add whatever you put aside today or this week, however small. It updates your total and progress straight away.">i</span>
+              </div>
+              <div class="quick-log-row">
+                <input type="text" id="quick-amount" placeholder="amount" style="max-width:110px;" />
+                <input type="date" id="quick-date" />
+                <button class="btn" onclick="quickAdd()">add</button>
+              </div>
+              <div class="quick-log-row">
+                <input type="text" id="quick-note" placeholder="note (optional)" />
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT -->
+          <div class="home-right">
+
+            <!-- visual metaphor -->
+            <div class="panel panel-visual">
+              <!-- Jar SVG images for progression (0%, 25%, 50%, 75%, 100%) -->
+              <img id="jar-image" class="visual-box active" src="assets/Jar-1.svg" width="150" height="190" />
+              <div class="visual-caption"><strong id="visual-pct">0%</strong> of the way there</div>
+            </div>
+
+            <!-- progress + path + momentum -->
+            <div class="panel panel-progress">
+
+              <div>
+                <div class="panel-title" style="margin-bottom:8px;">Progress so far</div>
+                <div class="progress-amounts">
+                  <span class="progress-saved" id="pd-saved">£0</span>
+                  <span class="progress-of">saved of</span>
+                  <span class="progress-target" id="pd-target">£0</span>
+                </div>
+                <div class="progress-bar-outer">
+                  <div class="progress-bar-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-meta">
+                  <span id="progress-pct-label">0%</span>
+                  <span id="progress-remaining-label">£0 to go</span>
+                </div>
+              </div>
+
+              <div>
+                <svg viewBox="0 0 600 100" width="100%" height="80" preserveAspectRatio="xMidYMid meet">
+                  <path d="M20,50 C120,10 180,90 280,50 C380,10 440,90 540,50" stroke="#E8E0D2" stroke-width="2"
+                    fill="none" />
+                  <circle id="cp-25" cx="155" cy="30" r="9" fill="#fff" stroke="#A89D95" stroke-width="2" />
+                  <circle id="cp-50" cx="300" cy="70" r="9" fill="#fff" stroke="#A89D95" stroke-width="2" />
+                  <circle id="cp-75" cx="445" cy="30" r="9" fill="#fff" stroke="#A89D95" stroke-width="2" />
+                  <circle id="cp-100" cx="570" cy="70" r="10" fill="#fff" stroke="#A89D95" stroke-width="2" />
+                  <text x="155" y="16" font-size="10" text-anchor="middle" fill="#A89D95"
+                    font-family="JetBrains Mono, monospace">25%</text>
+                  <text x="300" y="90" font-size="10" text-anchor="middle" fill="#A89D95"
+                    font-family="JetBrains Mono, monospace">50%</text>
+                  <text x="445" y="16" font-size="10" text-anchor="middle" fill="#A89D95"
+                    font-family="JetBrains Mono, monospace">75%</text>
+                  <text x="570" y="90" font-size="10" text-anchor="middle" fill="#A89D95"
+                    font-family="JetBrains Mono, monospace">100%</text>
+                  <circle id="path-marker" cx="20" cy="50" r="7" fill="#7597a7" />
+                </svg>
+                <div class="path-message" id="path-message">Set a target to bring this to life.</div>
+              </div>
+              <div>
+                <div class="field-row">
+                  <div class="panel-title" style="margin-bottom:8px;">12-Week Momentum Tracker</div>
+                  <span class="tip" tabindex="0"
+                    data-tip="A weekly view builds the habit faster than a monthly one. Tick each week you put something aside, however small — and be honest about the weeks that felt hard, since those are the ones worth understanding.">i</span>
+                </div>
+              </div>
+              <div class="habit-grid mb14" id="momentum-grid">
+                <div class="hg-cell header">Habit</div>
+                <div class="hg-cell header">W1</div>
+                <div class="hg-cell header">W2</div>
+                <div class="hg-cell header">W3</div>
+                <div class="hg-cell header">W4</div>
+                <div class="hg-cell header">W5</div>
+                <div class="hg-cell header">W6</div>
+                <div class="hg-cell header">W7</div>
+                <div class="hg-cell header">W8</div>
+                <div class="hg-cell header">W9</div>
+                <div class="hg-cell header">W10</div>
+                <div class="hg-cell header">W11</div>
+                <div class="hg-cell header">W12</div>
+
+                <div class="hg-cell row-label">Put something aside</div>
+                <div class="hg-cell data" onclick="toggleMomentum(0)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(1)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(2)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(3)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(4)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(5)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(6)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(7)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(8)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(9)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(10)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(11)"></div>
+
+                <div class="hg-cell row-label">Felt tempted to dip in</div>
+                <div class="hg-cell data" onclick="toggleMomentum(12)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(13)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(14)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(15)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(16)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(17)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(18)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(19)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(20)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(21)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(22)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(23)"></div>
+
+                <div class="hg-cell row-label">Stayed on track</div>
+                <div class="hg-cell data" onclick="toggleMomentum(24)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(25)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(26)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(27)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(28)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(29)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(30)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(31)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(32)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(33)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(34)"></div>
+                <div class="hg-cell data" onclick="toggleMomentum(35)"></div>
+              </div>
+            </div>
+
+
+            <div>
+            </div>
+            <div class="momentum-foot">
+              <span>current streak: <strong id="streak-current">0</strong> wks</span>
+              <span>longest: <strong id="streak-longest">0</strong> wks</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+         LOG TAB
+         ============================================================ -->
+  <div class="tab-panel" id="tab-log">
+    <div class="log-summary">
+      <div class="log-stat">
+        <div class="log-stat-val" id="log-total">£0</div>
+        <div class="log-stat-label">total saved</div>
+      </div>
+      <div class="log-stat">
+        <div class="log-stat-val" id="log-count">0</div>
+        <div class="log-stat-label">entries logged</div>
+      </div>
+      <div class="log-stat">
+        <div class="log-stat-val" id="log-avg">£0</div>
+        <div class="log-stat-label">average per entry</div>
+      </div>
+    </div>
+
+    <div class="log-add-form">
+      <div class="log-add-field">
+        <div class="field-label" style="margin-bottom:4px;">Date</div>
+        <input type="text" id="log-date" placeholder="e.g. 12 Mar" />
+      </div>
+      <div class="log-add-field">
+        <div class="field-label" style="margin-bottom:4px;">Amount</div>
+        <input type="text" id="log-amount" placeholder="e.g. 50" />
+      </div>
+      <div class="log-add-field" style="flex:2;">
+        <div class="field-label" style="margin-bottom:4px;">Note (optional)</div>
+        <input type="text" id="log-note" placeholder="e.g. birthday money, sold something..." />
+      </div>
+      <button class="btn" onclick="logAdd()">add entry</button>
+    </div>
+
+    <table class="log-table" id="log-table">
+      <thead>
+        <tr>
+          <th style="width:20%;">Date</th>
+          <th style="width:18%;">Amount</th>
+          <th style="width:18%;">Running total</th>
+          <th>Note</th>
+          <th style="width:30px;"></th>
+        </tr>
+      </thead>
+      <tbody id="log-tbody"></tbody>
+    </table>
+    <div class="log-empty" id="log-empty">No entries yet — add your first saving above.</div>
+  </div>
+
+  <!-- ============================================================
+         JOURNAL TAB
+         ============================================================ -->
+  <div class="tab-panel" id="tab-journal">
+    <div class="journal-grid">
+
+      <div class="panel">
+        <div class="panel-title">Milestone rewards</div>
+        <p class="body-text" style="font-size:11.5px;color:var(--muted);margin-bottom:14px;line-height:1.7;">A
+          small, low-cost reward for each checkpoint makes reaching it feel like something — not just a number on a
+          bar.</p>
+
+        <div class="milestone-reward-row">
+          <div class="milestone-reward-pct">25%</div><input type="text" id="reward25"
+            placeholder="e.g. a nice coffee out" oninput="onReward('reward25', this.value)" />
+        </div>
+        <div class="milestone-reward-row">
+          <div class="milestone-reward-pct">50%</div><input type="text" id="reward50"
+            placeholder="e.g. an evening off cooking" oninput="onReward('reward50', this.value)" />
+        </div>
+        <div class="milestone-reward-row">
+          <div class="milestone-reward-pct">75%</div><input type="text" id="reward75"
+            placeholder="e.g. something small I've been wanting" oninput="onReward('reward75', this.value)" />
+        </div>
+        <div class="milestone-reward-row">
+          <div class="milestone-reward-pct">100%</div><input type="text" id="reward100"
+            placeholder="how I'll properly celebrate" oninput="onReward('reward100', this.value)" />
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">What helps me stay consistent</div>
+        <div class="check-row"><input type="checkbox" id="help-auto"
+            onchange="onHelp('helpAuto', this.checked)" /><label for="help-auto">An automatic transfer I don't have
+            to think about</label></div>
+        <div class="check-row"><input type="checkbox" id="help-visual"
+            onchange="onHelp('helpVisual', this.checked)" /><label for="help-visual">Seeing the visual progress on
+            the home tab</label></div>
+        <div class="check-row"><input type="checkbox" id="help-tell"
+            onchange="onHelp('helpTell', this.checked)" /><label for="help-tell">Telling someone else about the
+            goal</label></div>
+        <div class="check-row"><input type="checkbox" id="help-remind"
+            onchange="onHelp('helpRemind', this.checked)" /><label for="help-remind">Reminding myself why the goal
+            matters</label></div>
+        <div class="check-row"><input type="checkbox" id="help-small"
+            onchange="onHelp('helpSmall', this.checked)" /><label for="help-small">Keeping the amount small enough
+            to feel easy</label></div>
+
+        <div style="margin-top:14px;">
+          <div class="prompt-q">If I feel like giving up, I will remind myself that...</div>
+          <textarea rows="3" id="give-up"
+            placeholder="Write this now, while you feel motivated — it's for the week you don't."
+            oninput="onJournal('journalGiveUp', this.value)"></textarea>
+        </div>
+      </div>
+
+      <div class="panel" style="grid-column:1 / -1;">
+        <div class="panel-title">Quarterly reflection</div>
+        <div class="journal-grid" style="gap:14px;">
+          <div class="prompt-box">
+            <div class="prompt-q">1. Am I roughly on track for my target date?</div>
+            <textarea rows="3" id="jq1" oninput="onJournal('journalQ1', this.value)"></textarea>
+          </div>
+          <div class="prompt-box">
+            <div class="prompt-q">2. What made saving easiest this quarter?</div>
+            <textarea rows="3" id="jq2" oninput="onJournal('journalQ2', this.value)"></textarea>
+          </div>
+          <div class="prompt-box">
+            <div class="prompt-q">3. What made it hardest?</div>
+            <textarea rows="3" id="jq3" oninput="onJournal('journalQ3', this.value)"></textarea>
+          </div>
+          <div class="prompt-box">
+            <div class="prompt-q">4. Does my target or timeframe need adjusting?</div>
+            <textarea rows="3" id="jq4" oninput="onJournal('journalQ4', this.value)"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-note">futuresanctuary. · savings journey · your answers save automatically to this browser
+    </div>
+  </div>
+
+  </div>
+
+  <!-- Edit Entry Modal -->
+  <div id="edit-modal-overlay" class="modal-overlay" style="display:none;">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Edit Entry <span>·</span> future sanctuary</h2>
+        <button class="modal-close" onclick="closeEditModal()">×</button>
+      </div>
+      <form id="edit-entry-form">
+        <div class="modal-field">
+          <label class="modal-label" for="edit-date">Date</label>
+          <input type="date" class="modal-input" id="edit-date" />
+        </div>
+        <div class="modal-field">
+          <label class="modal-label" for="edit-amount">Amount</label>
+          <input type="text" class="modal-input" id="edit-amount" placeholder="e.g. 50" />
+        </div>
+        <div class="modal-field">
+          <label class="modal-label" for="edit-note">Note (optional)</label>
+          <input type="text" class="modal-input" id="edit-note" placeholder="e.g. birthday money, sold something..." />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" onclick="closeEditModal()">cancel</button>
+          <button type="submit" class="btn">save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div style="display:flex; justify-content:center; gap:10px; margin-top:20px;">
+    <button class="btn-ghost btn" onclick="exportData()">export backup (JSON)</button>
+    <button class="btn-ghost btn" onclick="document.getElementById('import-input').click()">import backup</button>
+    <input type="file" id="import-input" accept="application/json" style="display:none;" onchange="importData(event)" />
+    <button class="btn-ghost btn" onclick="resetAll()">reset tracker</button>
+  </div>
+
+  </div>
+
+  <script>
+    /* ============================================================
+       STATE
+       ============================================================ */
+    const STORAGE_KEY = 'fs_savings_dashboard_v1';
+    const HOUSE_WINDOWS = 8;
+
+    let state = {
+      goalName: '', goalTypes: [], visual: 'jar', currency: '£',
+      target: '', targetDate: '', motivation: '', startingBalance: '',
+      entries: [], // {id, date, amount, note}
+      momentum: new Array(36).fill(false), // 12 weeks × 3 habits
+      reward25: '', reward50: '', reward75: '', reward100: '',
+      journalQ1: '', journalQ2: '', journalQ3: '', journalQ4: '', journalGiveUp: '',
+      helpAuto: false, helpVisual: false, helpTell: false, helpRemind: false, helpSmall: false
+    };
+
+    function load() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          state = Object.assign({}, state, parsed);
+          if (!Array.isArray(state.momentum) || state.momentum.length !== 12) state.momentum = new Array(12).fill(false);
+          if (!Array.isArray(state.entries)) state.entries = [];
+          if (!Array.isArray(state.goalTypes)) state.goalTypes = [];
+        }
+      } catch (e) { /* ignore corrupted storage */ }
+    }
+    function save() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) { }
+    }
+
+    /* ============================================================
+       TABS
+       ============================================================ */
+    function switchTab(name) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+    }
+
+    /* ============================================================
+       FIELD HANDLERS (plain fields — save only, no full render
+       needed since the field already shows what was typed)
+       ============================================================ */
+    function onGoalName(v) {
+      state.goalName = v; save();
+      document.getElementById('topbar-goal').firstChild.textContent = (v || 'Untitled goal') + ' · ';
+    }
+    function onDate(v) {
+      state.targetDate = v; save();
+      document.getElementById('topbar-date').textContent = v || '—';
+    }
+    function onMotivation(v) { state.motivation = v; save(); }
+    function onReward(key, v) { state[key] = v; save(); }
+    function onJournal(key, v) { state[key] = v; save(); }
+    function onHelp(key, v) { state[key] = v; save(); }
+
+    function toggleMomentum(i) {
+      if (i >= 0 && i < state.momentum.length) {
+        state.momentum[i] = !state.momentum[i];
+        save(); render();
+      }
+    }
+
+    function onTarget(v) { state.target = v; save(); render(); }
+    function onStarting(v) { state.startingBalance = v; save(); render(); }
+
+    function toggleGoalType(el) {
+      const val = el.dataset.val;
+      el.classList.toggle('selected');
+      if (el.classList.contains('selected')) {
+        if (!state.goalTypes.includes(val)) state.goalTypes.push(val);
+      } else {
+        state.goalTypes = state.goalTypes.filter(v => v !== val);
+      }
+      save();
+    }
+
+    function selectVisual(el) {
+      document.querySelectorAll('#visual-tags .tag-btn').forEach(t => t.classList.remove('selected'));
+      el.classList.add('selected');
+      state.visual = el.dataset.val;
+      save(); render();
+    }
+
+    function selectCurrency(el) {
+      document.querySelectorAll('#currency-tags .tag-btn').forEach(t => t.classList.remove('selected'));
+      el.classList.add('selected');
+      state.currency = el.dataset.val;
+      save(); render();
+    }
+
+    /* ============================================================
+       HELPERS
+       ============================================================ */
+    function parseAmount(v) {
+      if (!v) return 0;
+      const n = parseFloat(String(v).replace(/[^0-9.]/g, ''));
+      return isNaN(n) ? 0 : n;
+    }
+    function fmt(n) { return state.currency + Math.round(n).toLocaleString(); }
+    function computeSaved() {
+      const start = parseAmount(state.startingBalance);
+      const entriesTotal = state.entries.reduce((s, e) => s + parseAmount(e.amount), 0);
+      return start + entriesTotal;
+    }
+
+    /* ============================================================
+       ENTRIES (Home quick-add + Log tab)
+       ============================================================ */
+    function quickAdd() {
+      const amt = document.getElementById('quick-amount').value;
+      const date = document.getElementById('quick-date').value;
+      const note = document.getElementById('quick-note').value;
+      if (parseAmount(amt) <= 0) { alert('Please enter a valid amount'); return; }
+      if (!date) { alert('Please enter a date'); return; }
+
+      state.entries.push({
+        id: Date.now(),
+        date: date,
+        amount: amt,
+        note: note
+      });
+      document.getElementById('quick-amount').value = '';
+      document.getElementById('quick-date').value = '';
+      document.getElementById('quick-note').value = '';
+      save(); render();
+    }
+
+    function logAdd() {
+      const date = document.getElementById('log-date').value;
+      const amt = document.getElementById('log-amount').value;
+      const note = document.getElementById('log-note').value;
+
+      if (!date) { alert('Please enter a date'); return; }
+      if (parseAmount(amt) <= 0) { alert('Please enter a valid amount'); return; }
+
+      state.entries.push({
+        id: Date.now(),
+        date: date,
+        amount: amt,
+        note: note
+      });
+
+      document.getElementById('log-date').value = '';
+      document.getElementById('log-amount').value = '';
+      document.getElementById('log-note').value = '';
+      save(); render();
+    }
+
+    function editEntry(id) {
+      openEditModal(id);
+    }
+
+    function deleteEntry(id) {
+      state.entries = state.entries.filter(e => e.id !== id);
+      save(); render();
+    }
+
+    /* ============================================================
+       MOMENTUM
+       ============================================================ */
+    function toggleMomentum(i) {
+      state.momentum[i] = !state.momentum[i];
+      save(); render();
+    }
+
+    /* ============================================================
+       RENDER
+       ============================================================ */
+    function render() {
+      // ---- goal type tags ----
+      document.querySelectorAll('#goal-type-tags .tag-btn').forEach(t => {
+        t.classList.toggle('selected', state.goalTypes.includes(t.dataset.val));
+      });
+      // ---- visual / currency tags ----
+      document.querySelectorAll('#visual-tags .tag-btn').forEach(t => t.classList.toggle('selected', t.dataset.val === state.visual));
+      document.querySelectorAll('#currency-tags .tag-btn').forEach(t => t.classList.toggle('selected', t.dataset.val === state.currency));
+      document.querySelectorAll('.visual-box').forEach(v => v.classList.toggle('active', v.id === state.visual + '-svg'));
+
+      const target = parseAmount(state.target);
+      const saved = computeSaved();
+      let pct = target > 0 ? Math.max(0, Math.min(100, (saved / target) * 100)) : 0;
+
+      // ---- topbar ----
+      document.getElementById('topbar-target').textContent = fmt(target);
+
+      // ---- progress bar ----
+      document.getElementById('pd-saved').textContent = fmt(saved);
+      document.getElementById('pd-target').textContent = fmt(target);
+      document.getElementById('progress-fill').style.width = pct + '%';
+      document.getElementById('progress-pct-label').textContent = Math.round(pct) + '%';
+      document.getElementById('progress-remaining-label').textContent = fmt(Math.max(0, target - saved)) + ' to go';
+      document.getElementById('visual-pct').textContent = Math.round(pct) + '%';
+
+      // ---- motivational message ----
+      const msgEl = document.getElementById('path-message');
+      if (target <= 0) { msgEl.textContent = 'Set a target on the left to bring this to life.'; }
+      else if (pct <= 0) { msgEl.textContent = "Every journey starts with the first amount in."; }
+      else if (pct < 30) { msgEl.textContent = "You're just getting started — momentum builds quicker than it feels."; }
+      else if (pct < 70) { msgEl.textContent = "You're making steady progress. Keep going."; }
+      else if (pct < 100) { msgEl.textContent = "You're close now — final stretch."; }
+      else { msgEl.textContent = "Goal reached! Time to celebrate properly."; }
+
+      // ---- milestone checkpoints + marker ----
+      [25, 50, 75, 100].forEach(m => {
+        const cp = document.getElementById('cp-' + m);
+        if (cp) {
+          const reached = pct >= m;
+          cp.setAttribute('fill', reached ? '#7597a7' : '#fff');
+          cp.setAttribute('stroke', reached ? '#7597a7' : '#A89D95');
+        }
+      });
+      const marker = document.getElementById('path-marker');
+      if (marker) {
+        const mx = 20 + (pct / 100) * 550;
+        const my = 50 + 20 * Math.sin((pct / 100) * Math.PI * 2);
+        marker.setAttribute('cx', mx);
+        marker.setAttribute('cy', my);
+      }
+
+      // ---- jar fill ----
+      const jarFill = document.getElementById('jar-fill');
+      if (jarFill) {
+        const interiorH = 142;
+        const h = (pct / 100) * interiorH;
+        jarFill.setAttribute('height', h);
+        jarFill.setAttribute('y', 34 + (interiorH - h));
+      }
+
+      // ---- gauge ----
+      const arc = document.getElementById('gauge-arc');
+      const needle = document.getElementById('gauge-needle');
+      if (arc) {
+        const len = 251.2;
+        arc.setAttribute('stroke-dashoffset', len - (pct / 100) * len);
+      }
+      if (needle) {
+        const angleDeg = 180 - (pct / 100) * 180; // 180=empty(left), 0=full(right)
+        const rad = angleDeg * Math.PI / 180;
+        const cx = 100, cy = 110, r = 78;
+        const nx = cx - r * Math.cos(rad);
+        const ny = cy - r * Math.sin(rad);
+        needle.setAttribute('x2', nx);
+        needle.setAttribute('y2', ny);
+      }
+
+      // ---- house windows ----
+      const lit = Math.round((pct / 100) * HOUSE_WINDOWS);
+      for (let i = 0; i < HOUSE_WINDOWS; i++) {
+        const w = document.getElementById('win' + i);
+        if (w) {
+          if (i < lit) { w.setAttribute('fill', '#F0C767'); }
+          else { w.setAttribute('fill', '#EAF0EA'); }
+        }
+      }
+
+      // ---- jar visual update ----
+      updateJarVisual(pct);
+
+      // ---- jar visual update ----
+      updateJarVisual(pct);
+
+      // ---- momentum grid ----
+      const momentumCells = document.querySelectorAll('#momentum-grid .hg-cell.data');
+      momentumCells.forEach((cell, i) => {
+        if (i < state.momentum.length) {
+          cell.classList.toggle('marked', state.momentum[i]);
+          cell.textContent = state.momentum[i] ? '✓' : '';
+        }
+      });
+
+      // Streak: count consecutive marked cells in the "Put something aside" row (indices 0-11)
+      let current = 0;
+      for (let i = 11; i >= 0; i--) { if (state.momentum[i]) current++; else break; }
+      let longest = 0, run = 0;
+      for (let i = 0; i < 12; i++) { if (state.momentum[i]) { run++; longest = Math.max(longest, run); } else { run = 0; } }
+      document.getElementById('streak-current').textContent = current;
+      document.getElementById('streak-longest').textContent = longest;
+
+      // ---- log tab ----
+      const tbody = document.getElementById('log-tbody');
+      tbody.innerHTML = '';
+      let running = parseAmount(state.startingBalance);
+      const sortedEntries = state.entries;
+      sortedEntries.forEach(entry => {
+        running += parseAmount(entry.amount);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+      <td>${escapeHtml(entry.date)}</td>
+      <td>${fmt(parseAmount(entry.amount))}</td>
+      <td>${fmt(running)}</td>
+      <td>${escapeHtml(entry.note || '')}</td>
+      <td>
+        <button class="edit-btn" onclick="editEntry(${entry.id})" title="edit">✎</button>
+        <button class="del-btn" onclick="deleteEntry(${entry.id})" title="delete">×</button>
+      </td>
+    `;
+        tbody.appendChild(tr);
+      });
+      document.getElementById('log-empty').style.display = state.entries.length ? 'none' : 'block';
+      document.getElementById('log-total').textContent = fmt(saved);
+      document.getElementById('log-count').textContent = state.entries.length;
+      document.getElementById('log-avg').textContent = state.entries.length ? fmt(saved / state.entries.length) : fmt(0);
+
+      save();
+    }
+
+    function escapeHtml(str) {
+      const d = document.createElement('div');
+      d.textContent = str;
+      return d.innerHTML;
+    }
+
+    /* ============================================================
+       INITIAL FIELD POPULATION (once, on load — safe since these
+       fields aren't re-touched by render())
+       ============================================================ */
+    function populateFieldsFromState() {
+      document.getElementById('inp-goal-name').value = state.goalName;
+      document.getElementById('inp-target').value = state.target;
+      document.getElementById('inp-date').value = state.targetDate;
+      document.getElementById('inp-motivation').value = state.motivation;
+      document.getElementById('inp-starting').value = state.startingBalance;
+      document.getElementById('reward25').value = state.reward25;
+      document.getElementById('reward50').value = state.reward50;
+      document.getElementById('reward75').value = state.reward75;
+      document.getElementById('reward100').value = state.reward100;
+      document.getElementById('jq1').value = state.journalQ1;
+      document.getElementById('jq2').value = state.journalQ2;
+      document.getElementById('jq3').value = state.journalQ3;
+      document.getElementById('jq4').value = state.journalQ4;
+      document.getElementById('give-up').value = state.journalGiveUp;
+      document.getElementById('help-auto').checked = !!state.helpAuto;
+      document.getElementById('help-visual').checked = !!state.helpVisual;
+      document.getElementById('help-tell').checked = !!state.helpTell;
+      document.getElementById('help-remind').checked = !!state.helpRemind;
+      document.getElementById('help-small').checked = !!state.helpSmall;
+
+      const goalEl = document.getElementById('topbar-goal');
+      if (goalEl && goalEl.firstChild) {
+        goalEl.childNodes[0].textContent = (state.goalName || 'Untitled goal') + ' · ';
+      }
+      document.getElementById('topbar-date').textContent = state.targetDate || '—';
+    }
+
+    /* ============================================================
+       EXPORT / IMPORT / RESET
+       ============================================================ */
+    function exportData() {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'savings-journey-backup.json'; a.click();
+      URL.revokeObjectURL(url);
+    }
+    function importData(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (!parsed.entries || !parsed.goalName) {
+            alert('Invalid backup file - missing required fields');
+            event.target.value = '';
+            return;
+          }
+          state = Object.assign({}, state, parsed);
+          if (!Array.isArray(state.momentum) || state.momentum.length !== 12) state.momentum = new Array(12).fill(false);
+          if (!Array.isArray(state.entries)) state.entries = [];
+          if (!Array.isArray(state.goalTypes)) state.goalTypes = [];
+          populateFieldsFromState();
+          save(); render();
+        } catch (err) { alert('That file could not be read — make sure it\'s a JSON export from this tracker.'); }
+        event.target.value = '';
+      };
+      reader.readAsText(file);
+    }
+    function resetAll() {
+      if (!confirm('Reset the whole tracker? This clears everything saved in this browser and cannot be undone. Export a backup first if you want to keep it.')) return;
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+    }
+
+    /* Store edit mode state */
+    let editingEntryId = null;
+    let editingMomentumCell = null;
+
+    /* Open edit modal for a specific entry */
+    function openEditModal(id) {
+      const entry = state.entries.find(e => e.id === id);
+      if (!entry) return;
+
+      editingEntryId = id;
+
+      // Pre-fill the modal with existing values (dates are stored as text)
+      document.getElementById('edit-date').value = entry.date;
+      document.getElementById('edit-amount').value = entry.amount;
+      document.getElementById('edit-note').value = entry.note || '';
+
+      document.getElementById('edit-modal-overlay').style.display = 'flex';
+      document.getElementById('edit-amount').focus();
+    }
+
+    /* Close edit modal */
+    function closeEditModal() {
+      editingEntryId = null;
+      editingMomentumCell = null;
+      document.getElementById('edit-modal-overlay').style.display = 'none';
+    }
+
+    // Close modal when clicking outside
+    document.addEventListener('click', function (e) {
+      if (e.target.id === 'edit-modal-overlay') {
+        closeEditModal();
+      }
+    });
+
+    function saveEdit(e) {
+      if (e) e.preventDefault();
+
+      if (!editingEntryId) return;
+
+      const date = document.getElementById('edit-date').value;
+      const amt = document.getElementById('edit-amount').value;
+      const note = document.getElementById('edit-note').value;
+
+      if (!date) { alert('Please enter a date'); return; }
+      if (parseAmount(amt) <= 0) { alert('Please enter a valid amount'); return; }
+
+      // Update the entry (remove old and add the edited one)
+      state.entries = state.entries.filter(e => e.id !== editingEntryId);
+      state.entries.push({
+        id: Date.now(),
+        date: date,
+        amount: amt,
+        note: note
+      });
+
+      editingEntryId = null;
+      document.getElementById('edit-modal-overlay').style.display = 'none';
+      save(); render();
+    }
+
+    /* ============================================================
+       INIT
+       ============================================================ */
+    document.addEventListener('DOMContentLoaded', function () {
+      load();
+      populateFieldsFromState();
+
+      // Form submit handler
+      const editForm = document.getElementById('edit-entry-form');
+      if (editForm) {
+        editForm.addEventListener('submit', saveEdit);
+      }
+    });
+
+    load();
+    populateFieldsFromState();
+    render();
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,323 @@
+
+Savings Journey Generator
+Great — this is exactly the right next step. You now have something visual, so let’s turn it into a **tight, buildable plan you can execute in a weekend**.
+ 
+The goal is not perfection. The goal is:
+ 
+> “User answers a few questions → gets a personalised visual they like.”
+ 
+---
+ 
+# 🧭 MVP BUILD PLAN (2–3 days)
+ 
+## 🎯 What you're building
+ 
+A **Savings Journey Generator** that outputs:
+ 
+* Goal title
+* Progress visual (plant / jar / build)
+* Amount saved vs target
+* Milestones
+* Simple motivation message
+ 
+---
+ 
+# 🧱 Step 1 — Define the absolute scope (1–2 hours)
+ 
+Lock this in to avoid scope creep:
+ 
+### Inputs (4 only)
+ 
+* Goal type (4 options)
+* Visual style (3 options)
+* Goal amount (£)
+* Name / title
+ 
+### Outputs (single page)
+ 
+* Title
+* Icon
+* Progress bar (or visual state)
+* £ progress
+* 3–4 milestones
+* One message
+ 
+❌ No accounts
+❌ No real budgeting
+❌ No login
+❌ No saving data
+ 
+---
+ 
+# 🎨 Step 2 — Prepare visual assets (half day max)
+ 
+You already have your **fuel gauge style direction**, so stay consistent.
+ 
+## Create ONLY these:
+ 
+### 1. Progress systems (5 states each)
+ 
+#### 🌱 Plant
+ 
+* seed
+* sprout
+* small plant
+* growing
+* full plant
+ 
+#### 🫙 Jar
+ 
+* empty
+* 25%
+* 50%
+* 75%
+* full
+ 
+#### 🏗️ Build
+ 
+* foundation
+* walls
+* roof
+* near complete
+* complete
+ 
+👉 Export as:
+ 
+* SVG (ideal)
+* or transparent PNG
+ 
+---
+ 
+### 2. Goal icons (4)
+ 
+Keep them minimal, same stroke/colour style:
+ 
+* ✈️ Travel
+* 🏠 Home
+* 🛡️ Emergency
+* 🎁 General
+ 
+---
+ 
+### 3. Colour system (from your gauge)
+ 
+Define 5 tokens:
+ 
+```css
+--bg: #F6F3EF;
+--primary: #6B705C;
+--secondary: #A5A58D;
+--accent: #CB997E;
+--text: #3A3A3A;
+```
+ 
+---
+ 
+# 🧩 Step 3 — Build the generator logic (core magic)
+ 
+This is VERY simple rule-based mapping.
+ 
+## 1. Calculate progress state
+ 
+```javascript
+progress = saved / goal
+ 
+if (progress <= 0.2) stage = 1
+else if (progress <= 0.4) stage = 2
+else if (progress <= 0.6) stage = 3
+else if (progress <= 0.8) stage = 4
+else stage = 5
+```
+ 
+For MVP:
+👉 fake “saved” amount (e.g. 35%) OR let user input it
+ 
+---
+ 
+## 2. Map visual
+ 
+```javascript
+if (style === "plant") show plant_stage_3.svg
+if (style === "jar") show jar_stage_3.svg
+if (style === "build") show build_stage_3.svg
+```
+ 
+---
+ 
+## 3. Map icon
+ 
+```javascript
+if (goal === "travel") icon = plane.svg
+```
+ 
+---
+ 
+## 4. Generate milestones
+ 
+Simple rule:
+ 
+```javascript
+milestones = [
+  goal * 0.25,
+  goal * 0.5,
+  goal * 0.75,
+  goal
+]
+```
+ 
+---
+ 
+## 5. Generate message
+ 
+```javascript
+if (progress < 0.3)
+  msg = "You're just getting started — momentum builds quickly."
+else if (progress < 0.7)
+  msg = "You're making steady progress. Keep going."
+else
+  msg = "You're close — final stretch!"
+```
+ 
+---
+ 
+# 🖥️ Step 4 — Build the UI (1 day)
+ 
+## Page 1: Input form
+ 
+Keep it dead simple:
+ 
+```
+What are you saving for?
+[ Travel ] [ Home ] [ Emergency ] [ Something ]
+ 
+How do you want to track it?
+[ 🌱 ] [ 🫙 ] [ 🏗️ ]
+ 
+Goal amount:
+[ £_______ ]
+ 
+Name your goal:
+[___________]
+ 
+[ Generate my plan ]
+```
+ 
+---
+ 
+## Page 2: Output
+ 
+Structure:
+ 
+```
+--------------------------------
+ 
+[ICON] Sarah’s Italy Trip
+ 
+        [VISUAL]
+ 
+£750 / £2000
+ 
+██████░░░░
+ 
+Next milestone:
+£1000
+ 
+Milestones:
+• £500
+• £1000
+• £1500
+• £2000
+ 
+"You're making steady progress..."
+ 
+--------------------------------
+```
+ 
+---
+ 
+# 🛠️ Step 5 — Tech stack (keep it ultra light)
+ 
+You can build this with:
+ 
+### Option A (fastest)
+ 
+* HTML
+* CSS
+* Vanilla JS
+ 
+### Option B (nicer dev experience)
+ 
+* React (Vite)
+* Tailwind (optional)
+ 
+---
+ 
+# 🧪 Step 6 — Test the *feeling* (most important)
+ 
+Ask 5 people:
+ 
+### Observe:
+ 
+* Do they smile?
+* Do they personalise the name?
+* Do they want to screenshot it?
+* Do they say “this feels like mine”?
+ 
+### Ask:
+ 
+* “Would you actually use this?”
+* “What would make it better?”
+ 
+---
+ 
+# 🚀 Step 7 — Optional quick win
+ 
+Add ONE delight feature:
+ 
+## Download as image
+ 
+```javascript
+html2canvas(element).then(canvas => {
+  download(canvas)
+})
+```
+ 
+Now users can:
+👉 save it
+👉 share it
+👉 print it
+ 
+---
+ 
+# ⏱️ Realistic timeline
+ 
+### Day 1
+ 
+* Assets
+* Basic layout
+ 
+### Day 2
+ 
+* Logic
+* Wiring inputs → output
+ 
+### Day 3 (optional polish)
+ 
+* Styling
+* Download button
+ 
+---
+ 
+# 🧠 Key mindset
+ 
+Do NOT try to impress with features.
+ 
+You are testing:
+ 
+> “Does personalised financial visualisation feel engaging?”
+ 
+If YES → expand
+If NO → rethink before scaling
+ 
+ 
+ 
